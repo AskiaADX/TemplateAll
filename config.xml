@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<control  xmlns="http://www.askia.com/2.1.0/ADCSchema"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.askia.com/2.1.0/ADCSchema https://raw.githubusercontent.com/AskiaADX/ADXSchema/2.1.0/ADCSchema.xsd"
+          version="2.1.0"
+          askiaCompat="5.4.2">
+  <info>
+    <name>Default</name>
+    <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
+    <version>1.0.0</version>
+    <date>2016-04-15</date>
+    <description><![CDATA[Default ADC with all kind of questions]]></description>
+    <company>Askia SAS</company>
+    <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
+    <site>http://www.askia.com</site>
+    <helpURL></helpURL>
+    <categories>
+      <category>General</category>
+    </categories>
+    <constraints>
+      <constraint on="questions" single="true" multiple="true" numeric="true" date="true" open="true" chapter="false" requireParentLoop="false" />
+      <constraint on="controls" responseblock="true" checkbox="false" label="false" listbox="false" radiobutton="false" textbox="true" />
+      <constraint on="responses" max="*" min="*" />
+    </constraints>
+  </info>
+  <outputs defaultOutput="default">
+    <output id="default">
+      <description><![CDATA[Default output]]></description>
+      <content fileName="adc_default.css" type="css" mode="static" position="head" />
+      <content fileName="default.css" type="css" mode="dynamic" position="head" />
+      <content fileName="moment.min.js" type="javascript" mode="static" position="head" />
+      <content fileName="pikaday.js" type="javascript" mode="static" position="head" />
+      <content fileName="single.html" type="html" mode="dynamic" position="none" />
+      <content fileName="multiple.html" type="html" mode="dynamic" position="none" />
+      <content fileName="open.html" type="html" mode="dynamic" position="none" />
+      <content fileName="numeric.html" type="html" mode="dynamic" position="none" />
+      <content fileName="datetime.html" type="html" mode="dynamic" position="none" />
+      <content fileName="default.html" type="html" mode="dynamic" position="placeholder" />
+      <content fileName="date_picker.js" type="javascript" mode="static" position="foot" />
+      <content fileName="time_picker.js" type="javascript" mode="static" position="foot" />
+      <content fileName="adc_default.js" type="javascript" mode="static" position="foot" />
+      <content fileName="Initializer.js" type="javascript" mode="dynamic" position="foot" />
+    </output>
+  </outputs>
+  <properties>
+    <category id="general" name="General">
+      <property xsi:type="standardProperty" id="controlAlign" name="Control Alignment" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[The alignment of the control]]]></description>
+        <value><![CDATA[center]]></value>
+        <options>
+          <option value="left" text="Left" />
+          <option value="center" text="Center" />
+          <option value="right" text="Right" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="placeholder" name="Placeholder" type="string" mode="dynamic">
+        <description><![CDATA[
+          
+          Using HTML 5, in modern browser.
+          Helper text shows in the input when it's empty.
+        
+        ]]></description>
+        <value></value>
+      </property>
+      <property xsi:type="standardProperty" id="useList" name="Use a selection list" type="boolean" mode="static">
+        <description><![CDATA[
+          
+          Use a select list to enumerate all available responses.
+          This option works with closed and numeric questions.
+          For numeric question, the range between bounds should be inferior than 20. It take in account the step option.
+        
+        ]]></description>
+        <value><![CDATA[false]]></value>
+      </property>
+    </category>
+    <category id="closedQuestion" name="Closed question">
+      <property xsi:type="standardProperty" id="maxWidth" name="Max Width" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Max width]]></description>
+        <value><![CDATA[100%]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="columnsCount" name="Columns count" type="number" mode="dynamic" require="true" visible="true" min="1">
+        <description><![CDATA[The number of columns to show]]></description>
+        <value><![CDATA[1]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="columnsWidth" name="Columns min width" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[The minimum width of the columns]]></description>
+        <value><![CDATA[200px]]></value>
+      </property>
+    </category>
+    <category id="numericQuestion" name="Numeric question">
+      <property xsi:type="standardProperty" id="unitStep" name="Step for numeric" type="number" mode="static">
+        <description><![CDATA[
+          
+          Using HTML 5, in modern browser.
+          Indicates the unit to increment or decrement the number using the stepper.
+        
+        ]]></description>
+        <value><![CDATA[1]]></value>
+      </property>
+    </category>
+    <category id="openQuestion" name="Open-ended question">
+      <property xsi:type="standardProperty" id="multiline" name="Multi-line text" type="boolean" mode="static">
+        <description><![CDATA[
+          
+          Allow multi-line text for open-ended question.
+          Only when sub-type is text.
+        
+        ]]></description>
+        <value><![CDATA[false]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="opensubtype" name="Open-ended sub-type" type="string" mode="static">
+        <description><![CDATA[
+          
+          Using HTML 5, in modern browser.
+          Define a sub-type for open-ended question.
+        
+        ]]></description>
+        <value><![CDATA[text]]></value>
+        <options>
+          <option value="text" text="Text" />
+          <option value="email" text="Email" />
+          <option value="url" text="URL" />
+          <option value="color" text="Color" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="datalist" name="Data list" type="string" mode="dynamic">
+        <description><![CDATA[
+          
+          Using HTML 5, in modern browser.
+          Add an auto-completion with the terms in the specified list.
+          Only available on single line.
+          Use a pipe `|` separators between each terms
+        
+        ]]></description>
+        <value></value>
+      </property>
+    </category>
+    <category id="Date" name="Date question">
+      <property xsi:type="standardProperty" id="theme" name="Theme" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Select the theme of the calendar]]></description>
+        <value><![CDATA[light-theme]]></value>
+        <options>
+          <option value="light-theme" text="Light theme" />
+          <option value="dark-theme" text="Dark theme" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="defaultDate" name="Default date" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[The initial date to view when first opened
+Format: MM/DD/YYYY]]></description>
+        <value></value>
+      </property>
+      <property xsi:type="standardProperty" id="bound" name="Show datepicker" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Hide datepicker by default. Hide datepicker until it is in focus.]]></description>
+        <value><![CDATA[1]]></value>
+        <options>
+          <option value="1" text="Hide" />
+          <option value="0" text="Show" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="position" name="Position" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[preferred position of the datepicker relative to the form field, e.g.: top right, bottom right Note: automatic adjustment may occur to avoid datepicker from being displayed outside the viewport.]]></description>
+        <value><![CDATA[bottom left]]></value>
+        <options>
+          <option value="bottom left" text="bottom left" />
+          <option value="top left" text="top left" />
+          <option value="top right" text="top right" />
+          <option value="bottom right" text="bottom right" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="setDefaultDate" name="Set default date" type="boolean" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Make the "Default Date" the initial selected value]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="0" text="No" />
+          <option value="1" text="Yes" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="firstDay" name="First Day of the month" type="number" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Select the first day of the month:
+0 = Sunday, 1 = Monday etc.]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="0" text="Sunday" />
+          <option value="1" text="Monday" />
+          <option value="2" text="Tuesday" />
+          <option value="3" text="Wednesday" />
+          <option value="4" text="Thursday" />
+          <option value="5" text="Friday" />
+          <option value="6" text="Saturday" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="disableWeekends" name="Disable Weekends" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Option to disable the selection of weekends]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Disallow Weekends" />
+          <option value="0" text="Allow Weekends" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="showWeekNumber" name="Show Week Number" type="string" require="false" visible="true">
+        <description><![CDATA[Show the ISO week number at the head of the row (default false)]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Show" />
+          <option value="0" text="Hide" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="showMonthAfterYear" name="Month After Year" type="string" require="false" visible="true">
+        <description><![CDATA[Render the month after year in the title (default false)]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Month last (yyyy mm)" />
+          <option value="0" text="Month first (mm yyyy)" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="numberOfMonths" name="Number of Months" type="number" mode="dynamic" require="false" visible="true" min="1" max="3">
+        <description><![CDATA[Number of months visible at a time]]></description>
+        <value><![CDATA[1]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="mainCalendar" name="Main Calendar" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[When "Number of Months" is used, this will help you to choose where the main calendar will be (default left, can be set to right). Only used for the first display or when a selected date is not already visible]]></description>
+        <value><![CDATA[left]]></value>
+        <options>
+          <option value="left" text="Left" />
+          <option value="right" text="Right" />
+        </options>
+      </property>
+    </category>
+    <category id="timePicker" name="Time question">
+      <property xsi:type="standardProperty" id="imperial" name="Time format" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Option to choose 24 hour clock or 12 hour clock]]></description>
+        <value><![CDATA[false]]></value>
+        <options>
+          <option value="false" text="24 Hour clock" />
+          <option value="true" text="12 Hour clock" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="showSeconds" name="Show Seconds" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Option to show/hide seconds counter]]></description>
+        <value><![CDATA[false]]></value>
+        <options>
+          <option value="true" text="Show" />
+          <option value="false" text="Hide" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="stepMinutes" name="Minutes Intervals" type="number" mode="dynamic" require="false" visible="true" min="1" max="59">
+        <description><![CDATA[Step intervals for minute counter]]></description>
+        <value><![CDATA[1]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="stepSeconds" name="Seconds Intervals" type="number" mode="dynamic" require="false" visible="true" min="1" max="59">
+        <description><![CDATA[Step intervals for seconds counter]]></description>
+        <value><![CDATA[1]]></value>
+      </property>
+    </category>
+  </properties>
+</control>

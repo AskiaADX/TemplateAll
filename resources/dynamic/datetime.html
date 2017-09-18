@@ -1,0 +1,31 @@
+{%
+Dim column = CurrentQuestion
+Dim inputName = column.InputName()
+Dim inputNameDate = column.InputName("date")
+Dim inputNameTime = column.InputName("time")
+Dim inputId     = (inputName + "_" + 1).Replace("D", "askia-input-date")
+Dim inputIdDate = (inputName + "_" + 1).Replace("D", "askia-input-dateO")
+Dim inputCode	 = column.InputCode 
+Dim attrMin = On(column.MinDate.ToNumber() <> DK, "min=\"" + column.MinDate.Format("dd/MM/yyyy") + "\"", "")
+Dim attrMax = On(column.MaxDate.ToNumber() <> DK, "max=\"" + column.MaxDate.Format("dd/MM/yyyy") + "\"", "")
+%}
+
+{% If Not(CurrentQuestion.IsTimeOnly) Then %}
+<div class="RLDatePicker">
+	<input type="text" id="{%= inputIdDate %}" class="askia-question-{%= inputCode %}" name="{%= inputNameDate %}" value="{%= column.InputValue("date") %}" {%:= attrMin %} {%:= attrMax %} readonly="true"/>
+</div>
+{% EndIf %}
+{% If Not(CurrentQuestion.IsDateOnly) Then %}
+<div class="RLTimePicker">
+	<select id="hour_{%= CurrentADC.InstanceId %}" name="hour"></select>
+	<span class="timeSeparator_{%= CurrentADC.InstanceId %}"></span>
+	<select id="minutes_{%= CurrentADC.InstanceId %}" name="minutes"></select>
+	<span id="secsContainer_{%= CurrentADC.InstanceId %}">
+		<span class="timeSeparator_{%= CurrentADC.InstanceId %}"></span>
+		<select id="seconds_{%= CurrentADC.InstanceId %}" name="seconds"></select>
+	</span>
+	<!--<input type="text" id="time" name="time" readonly="readonly" hidden=true/> -->
+	<input id="{%=inputId%}" class="askia-question-{%= inputCode %} time_{%= CurrentADC.InstanceId %}" hidden type="text" name="{%= inputNameTime %}" value="{%= column.InputValue("date") %}" />
+	<span class="imperial" {%If CurrentADC.PropValue("imperial") = "false" Then %} hidden {% EndIf %} id="ampm_{%= CurrentADC.InstanceId %}"></span>
+</div>
+{% EndIf %}

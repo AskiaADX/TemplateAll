@@ -1,0 +1,60 @@
+{%
+Dim controlAlign
+If (CurrentADC.PropValue("controlAlign") = "center" ) Then
+    controlAlign = "0 auto 10px auto"
+ElseIf (CurrentADC.PropValue("controlAlign") = "right" ) Then
+    controlAlign = "0 0 10px auto"
+Else
+    controlAlign = "0 auto 10px 0"
+EndIf
+%}
+{% If (CurrentQuestion.Type = "numeric" or CurrentQuestion.Type = "open" ) Then %}
+#adc_{%= CurrentADC.InstanceId %} {
+    text-align: {%= CurrentADC.PropValue("controlAlign") %};
+}
+{% EndIf %}
+{% If (CurrentQuestion.Type = "single" or CurrentQuestion.Type = "multiple" ) Then %}
+#adc_{%= CurrentADC.InstanceId %} {
+    width: 100%;
+    max-width: {%= CurrentADC.PropValue("maxWidth") %};
+    margin: {%= controlAlign %};
+}
+{% EndIf %}
+{% If (CurrentQuestion.Type = "datetime" ) Then %}
+#adc_{%= CurrentADC.InstanceId %} .RLDatePicker, #adc_{%= CurrentADC.InstanceId %} .RLTimePicker {
+    margin: {%= controlAlign %};
+}
+#adc_{%= CurrentADC.InstanceId %} .RLTimePicker select {
+    color: rgba({%= Theme.BlackColor %}) !important;
+}
+#adc_{%= CurrentADC.InstanceId %} .RLTimePicker option {
+    color: rgba({%= Theme.BlackColor %}) !important;
+    background-color: rgba({%= Theme.WhiteColor %}) !important;
+}
+{% EndIf %}
+#adc_{%= CurrentADC.InstanceId%} .askia-response img {
+	max-width:100%;
+}
+
+{% If (CurrentADC.PropValue("columnsCount").ToNumber() > 1 ) Then %}
+#adc_{%= CurrentADC.InstanceId%} ul {
+    -webkit-columns: {%= CurrentADC.PropValue("columnsWidth") %} {%= CurrentADC.PropValue("columnsCount") %};
+    -moz-columns: {%= CurrentADC.PropValue("columnsWidth") %} {%= CurrentADC.PropValue("columnsCount") %};
+    columns: {%= CurrentADC.PropValue("columnsWidth") %} {%= CurrentADC.PropValue("columnsCount") %};
+}
+{% EndIf %}
+
+#picker{%= CurrentADC.InstanceId %} .is-today .pika-button {
+    color: rgba({%= Theme.SecondaryColor %}) !important;
+}
+#picker{%= CurrentADC.InstanceId %} .is-selected .pika-button,
+#picker{%= CurrentADC.InstanceId %} .is-inrange .pika-button,
+#picker{%= CurrentADC.InstanceId %} .is-startrange .pika-button,
+#picker{%= CurrentADC.InstanceId %} .is-endrange .pika-button {
+    background-color: rgba({%= Theme.SecondaryColor %}) !important;
+    color: rgba(255,255,255,1) !important;
+}
+#picker{%= CurrentADC.InstanceId %} .pika-button:hover {
+    background-color: rgba({%= Theme.PrimaryColor %}) !important;
+    color: rgba(255,255,255,1) !important;
+}
