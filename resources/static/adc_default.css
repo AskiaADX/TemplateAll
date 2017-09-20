@@ -14,6 +14,9 @@
     max-width: 90%;
     height : 50px;
 }
+.adc-default .askia-response-label {
+    margin-left: 0 !important;
+}
 /* TIME PICKER */
 .RLTimePicker {
     -webkit-box-sizing: border-box;
