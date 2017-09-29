@@ -62,15 +62,15 @@
         ]]></description>
         <value></value>
       </property>
-      <property xsi:type="standardProperty" id="useList" name="Use a selection list" type="boolean" mode="static">
-        <description><![CDATA[
-          
-          Use a select list to enumerate all available responses.
+      <property xsi:type="standardProperty" id="useList" name="Use a selection list" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Use a select list to enumerate all available responses.
           This option works with closed and numeric questions.
-          For numeric question, the range between bounds should be inferior than 20. It take in account the step option.
-        
-        ]]></description>
-        <value><![CDATA[false]]></value>
+          For numeric question, the range between bounds should be inferior than 20. It take in account the step option.]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
     </category>
     <category id="closedQuestion" name="Closed question">
@@ -99,14 +99,14 @@
       </property>
     </category>
     <category id="openQuestion" name="Open-ended question">
-      <property xsi:type="standardProperty" id="multiline" name="Multi-line text" type="boolean" mode="static">
-        <description><![CDATA[
-          
-          Allow multi-line text for open-ended question.
-          Only when sub-type is text.
-        
-        ]]></description>
-        <value><![CDATA[false]]></value>
+      <property xsi:type="standardProperty" id="multiline" name="Multi-line text" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Allow multi-line text for open-ended question.
+          Only when sub-type is text.]]></description>
+        <value><![CDATA[1]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
       <property xsi:type="standardProperty" id="opensubtype" name="Open-ended sub-type" type="string" mode="static">
         <description><![CDATA[
@@ -167,12 +167,12 @@ Format: MM/DD/YYYY]]></description>
           <option value="bottom right" text="bottom right" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="setDefaultDate" name="Set default date" type="boolean" mode="dynamic" require="false" visible="true">
+      <property xsi:type="standardProperty" id="setDefaultDate" name="Set default date" type="string" mode="dynamic" require="false" visible="true">
         <description><![CDATA[Make the "Default Date" the initial selected value]]></description>
         <value><![CDATA[0]]></value>
         <options>
-          <option value="0" text="No" />
           <option value="1" text="Yes" />
+          <option value="0" text="No" />
         </options>
       </property>
       <property xsi:type="standardProperty" id="firstDay" name="First Day of the month" type="number" mode="dynamic" require="false" visible="true">
