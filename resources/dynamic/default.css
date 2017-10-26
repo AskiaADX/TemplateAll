@@ -18,6 +18,9 @@ EndIf
     width: 100%;
     max-width: {%= CurrentADC.PropValue("maxWidth") %};
     margin: {%= controlAlign %};
+    {% If (CurrentQuestion.Type = "single" and CurrentADC.PropValue("useList") = "1") Then %}
+    text-align: {%= CurrentADC.PropValue("controlAlign") %};
+    {% EndIf %}
 }
 {% EndIf %}
 {% If (CurrentQuestion.Type = "datetime" ) Then %}
