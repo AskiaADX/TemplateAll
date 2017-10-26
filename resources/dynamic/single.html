@@ -8,7 +8,7 @@ Dim i
 
 If useList Then %}
     <select name="{%= inputName %}">
-        <option value=""></option>
+        <option value="">{%:= CurrentADC.PropValue("firstOptionText") %}</option>
     {% 
     Dim attrSelected
     For i = 1 To CurrentQuestion.AvailableResponses.Count 
