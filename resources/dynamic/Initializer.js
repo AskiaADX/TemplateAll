@@ -37,9 +37,9 @@ dim maxBound
            hideInput: true,
            minHour: {%= Hour(column.MinDate) %},
            maxHour: {%= Hour(column.MaxDate) %},
-           selected_hour: "{%= Hour(CurrentQuestion) %}",
-           selected_min: "{%= Minute(CurrentQuestion) %}",
-           selected_sec: "{%= Second(CurrentQuestion) %}",
+           selected_hour: "{%= Hour(column.Value.ToDate() ) %}",
+           selected_min: "{%= Minute(column.Value.ToDate()) %}",
+           selected_sec: "{%= Second(column.Value.ToDate()) %}",
            question: "{%= column.Shortcut %}",
            adcId: {%= CurrentADC.InstanceId %}
 		});
