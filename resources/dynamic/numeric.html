@@ -1,5 +1,7 @@
 {% 
-Dim useList    =  (CurrentADC.PropValue("useList") = "true") ' Convert to boolean
+Dim useList    =  (CurrentADC.PropValue("useList") = "1") ' Convert to boolean
+
+Dim useInput = CurrentADC.PropValue("numUseInput")
 
 Dim inputName  = CurrentQuestion.InputName()
 Dim inputValue = CurrentQuestion.InputValue()
@@ -27,12 +29,17 @@ If rangeLength > 0 And rangeLength <= 20 Then
     Dim x = minValue
 %}
     <select name="{%= inputName %}">
-        <option value=""></option>    
+        <option value="">{%:= CurrentADC.PropValue("firstOptionText") %}</option>    
     {% For i = 0 To rangeLength %}
-        <option value="{%:= x %}">{%:= x %}</option>
+        <option value="{%:= x %}">{%= CurrentADC.PropValue("numBoxPrefix") %}{%:= x %}{%= CurrentADC.PropValue("numBoxSuffix") %}</option>
         {% x = x + unitStep %}
     {% Next %}
     </select>
 {% Else %}
-    <input type="number" name="{%= inputName %}" value="{%:= inputValue %}" {%:= attrMin %} {%:= attrMax %} {%:= attrStep %} {%:= attrPlaceholder %} {%:= attrRequired %}/>
+	<span class="prefix">{%= CurrentADC.PropValue("numBoxPrefix") %}</span>
+    <input type="number" id="{%= inputName %}" name="{%= inputName %}" value="{%:= inputValue %}" {%:= attrMin %} {%:= attrMax %} {%:= attrStep %} {%:= attrPlaceholder %} {%:= attrRequired %}/>
+	{% If (useInput = "2") Then %}
+	<input type="text" name="currency_{%= inputName %}" value="{%:= inputValue %}" class="thousand" />
+	{% EndIf %}
+	<span class="suffix">{%= CurrentADC.PropValue("numBoxSuffix") %}</span>
 {% EndIf %}

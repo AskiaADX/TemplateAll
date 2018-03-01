@@ -13,6 +13,11 @@ EndIf
     text-align: {%= CurrentADC.PropValue("controlAlign") %};
 }
 {% EndIf %}
+{% If (CurrentQuestion.Type = "numeric" and CurrentADC.PropValue("numUseInput") = "2") Then %}
+#adc_{%= CurrentADC.InstanceId %} input[type=number] {
+    display: none;
+}
+{% EndIf %}
 {% If (CurrentQuestion.Type = "single" or CurrentQuestion.Type = "multiple" ) Then %}
 #adc_{%= CurrentADC.InstanceId %} {
     width: 100%;

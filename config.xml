@@ -7,7 +7,7 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>2.0.5</version>
+    <version>2.0.6</version>
     <date>2016-04-15</date>
     <description><![CDATA[Default ADC with all kind of questions]]></description>
     <company>Askia SAS</company>
@@ -92,14 +92,27 @@
       </property>
     </category>
     <category id="numericQuestion" name="Numeric question">
-      <property xsi:type="standardProperty" id="unitStep" name="Step for numeric" type="number" mode="static">
-        <description><![CDATA[
-          
-          Using HTML 5, in modern browser.
-          Indicates the unit to increment or decrement the number using the stepper.
-        
-        ]]></description>
+      <property xsi:type="standardProperty" id="numUseInput" name="Use" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Use input number or currency.
+			For currency, an input text is generated and the thousand separator are shown with a space.]]></description>
         <value><![CDATA[1]]></value>
+        <options>
+          <option value="1" text="Input number" />
+          <option value="2" text="Currency" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="unitStep" name="Step for input number" type="number" mode="static" require="false" visible="true">
+        <description><![CDATA[Using HTML 5, in modern browser.
+          Indicates the unit to increment or decrement the number using the stepper for input number.]]></description>
+        <value><![CDATA[1]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="numBoxPrefix" name="Prefix" type="string" require="false" visible="true">
+        <description><![CDATA[Prefix for numerical box in this column only]]></description>
+        <value></value>
+      </property>
+      <property xsi:type="standardProperty" id="numBoxSuffix" name="Suffix" type="string" require="false" visible="true">
+        <description><![CDATA[]]></description>
+        <value></value>
       </property>
     </category>
     <category id="openQuestion" name="Open-ended question">

@@ -26,7 +26,8 @@ dim maxBound
     var adcdefault = new AdcDefault({
         instanceId: {%= CurrentADC.InstanceId %},
         currentQuestion: '{%:= CurrentQuestion.Shortcut %}',
-        type: '{%:= CurrentQuestion.Type %}'
+        type: '{%:= CurrentQuestion.Type %}',
+        numUseInput: {%= CurrentADC.PropValue("numUseInput") %}
     });
 {% If (column.Type = "datetime") and Not(column.IsDateOnly) Then %}
        var timePickerR1C1 = new TimePicker({
