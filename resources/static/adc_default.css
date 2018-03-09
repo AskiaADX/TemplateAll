@@ -1,25 +1,81 @@
+html {
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+}
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+*:focus {
+  outline: none;
+}
+.adc-default {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.adc-default input {
+  margin: 0;
+}
 .adc-default ul,
-.adc-default li
-{
+.adc-default li {
     margin  : 0;
     padding : 2px;
 }
-.adc-default ul
-{
+.adc-default ul {
     list-style-type: none;
+}
+.adc-default .askia-response {
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+}
+@media screen and (min-width:0\0) {
+    /* IE9 and IE10 rule sets go here */
+    .adc-default .askia-response {
+        display: block;
+    }
+}
+.adc-default input[type=radio] + label.askia-radio, 
+.adc-default input[type=checkbox] + label.askia-checkbox {
+    min-width: 1.5rem;
+    align-self: baseline;
+}
+
+.adc-default input[type="radio"],
+.adc-default input[type="checkbox"],
+.adc-default .DK,
+.adc-default .askia-response-label {
+  cursor: pointer;
+}
+.adc-default input[type=text][name^="S"] {
+    width: 100%;
+    min-width: 80%;
+    max-width: 90%;
 }
 .adc-default textarea {
     width: 100%;
     min-width: 80%;
     max-width: 90%;
     height : 50px;
+    resize: vertical; 
+}
+.adc-default label.openDK {
+    display: inline-block;
+    width: 100%;
+    min-width: 80%;
+    max-width: 90%;
+    text-align: left;
+    padding: 10px 5px 5px 5px;
 }
 .adc-default input[type=number],
 .adc-default .thousand {
     text-align: right;
 }
 .adc-default .askia-response-label {
-    margin-left: 0 !important;
+    margin-left: 5px !important;
+    flex: 1 1 0%;
 }
 /* TIME PICKER */
 .RLTimePicker {

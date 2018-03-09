@@ -43,6 +43,10 @@ EndIf
 #adc_{%= CurrentADC.InstanceId%} .askia-response img {
 	max-width:100%;
 }
+#adc_{%= CurrentADC.InstanceId %} input[readonly=readonly],
+#adc_{%= CurrentADC.InstanceId %} textarea[readonly=readonly] {
+    background-color: rgba({%= Theme.BlackColor.ToRGB() %},0.05);
+}
 
 {% If (CurrentADC.PropValue("columnsCount").ToNumber() > 1 ) Then %}
 #adc_{%= CurrentADC.InstanceId%} ul {

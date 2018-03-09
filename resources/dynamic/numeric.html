@@ -37,7 +37,7 @@ If rangeLength > 0 And rangeLength <= 20 Then
     </select>
 {% Else %}
 	<span class="prefix">{%= CurrentADC.PropValue("numBoxPrefix") %}</span>
-    <input type="number" id="{%= inputName %}" name="{%= inputName %}" value="{%:= inputValue %}" {%:= attrMin %} {%:= attrMax %} {%:= attrStep %} {%:= attrPlaceholder %} {%:= attrRequired %}/>
+    <input type="number" id="{%= inputName %}" class="inputnumber" name="{%= inputName %}" value="{%:= inputValue %}" {%:= attrMin %} {%:= attrMax %} {%:= attrStep %} {%:= attrPlaceholder %} {%:= attrRequired %}/>
 	{% If (useInput = "2") Then %}
 	<input type="text" name="currency_{%= inputName %}" value="{%:= inputValue %}" class="thousand" />
 	{% EndIf %}

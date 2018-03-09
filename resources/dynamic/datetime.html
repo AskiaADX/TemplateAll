@@ -12,7 +12,7 @@ Dim attrMax = On(column.MaxDate.ToNumber() <> DK, "max=\"" + column.MaxDate.Form
 
 {% If Not(CurrentQuestion.IsTimeOnly) Then %}
 <div class="RLDatePicker">
-	<input type="text" id="{%= inputIdDate %}" class="askia-question-{%= inputCode %}" name="{%= inputNameDate %}" value="{%= column.InputValue("date") %}" {%:= attrMin %} {%:= attrMax %} readonly="true"/>
+	<input type="text" id="{%= inputIdDate %}" class="inputdate askia-question-{%= inputCode %}" name="{%= inputNameDate %}" value="{%= column.InputValue("date") %}" {%:= attrMin %} {%:= attrMax %} readonly="true"/>
 </div>
 {% EndIf %}
 {% If Not(CurrentQuestion.IsDateOnly) Then %}
@@ -25,7 +25,7 @@ Dim attrMax = On(column.MaxDate.ToNumber() <> DK, "max=\"" + column.MaxDate.Form
 		<select id="seconds_{%= CurrentADC.InstanceId %}" name="seconds"></select>
 	</span>
 	<!--<input type="text" id="time" name="time" readonly="readonly" hidden=true/> -->
-	<input id="{%=inputId%}" class="askia-question-{%= inputCode %} time_{%= CurrentADC.InstanceId %}" hidden type="text" name="{%= inputNameTime %}" value="{%= column.InputValue("date") %}" />
+	<input id="{%=inputId%}" class="inputdate askia-question-{%= inputCode %} time_{%= CurrentADC.InstanceId %}" hidden type="text" name="{%= inputNameTime %}" value="{%= column.InputValue("date") %}" />
 	<span class="imperial" {%If CurrentADC.PropValue("imperial") = "false" Then %} hidden {% EndIf %} id="ampm_{%= CurrentADC.InstanceId %}"></span>
 </div>
 {% EndIf %}

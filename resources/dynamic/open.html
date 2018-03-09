@@ -1,33 +1,32 @@
 {% 
 Dim inputName  =  CurrentQuestion.InputName()
 Dim inputValue =  CurrentQuestion.InputValue()
-
-Dim datalist    = CurrentADC.PropValue("datalist").Split("|")     
-Dim attrList    = On(datalist.Count > 0, "list=\"" + inputName + "\"", "")
 Dim i
 
 Dim inputType  = CurrentADC.PropValue("opensubtype")
-Dim multiline  = (CurrentADC.PropValue("multiline") = "1") ' Convert to boolean
 
 Dim maxValue = CurrentQuestion.MaxValue
-Dim attrMax  = On(maxValue <> DK AND maxValue > 0, "maxLength=\"" + maxValue + "\"", "")
+Dim attrMax  = On(maxValue <> DK AND maxValue > 0, " maxLength=\"" + maxValue + "\"", "")
 
 Dim placeholder = CurrentADC.PropValue("placeholder")
-Dim attrPlaceholder = On(placeholder <> "", "placeholder=\"" + placeholder + "\"", "")
+Dim attrPlaceholder = On(placeholder <> "", " placeholder=\"" + placeholder + "\"", "")
 
-Dim attrRequired = On(CurrentQuestion.IsAllowDK, "required=\"required\"", "")
+Dim attrChecked = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered, " checked=\"checked\"", "") 
+Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and CurrentADC.PropValue("openDkButton") = "1", " readonly=\"readonly\"", "") 
 
-If inputType = "text" And multiline Then
+If (inputType = "textarea") Then
 %}
-<textarea name="{%= inputName %}" {%:= attrMax %} {%:= attrPlaceholder %} {%:= attrRequired %}>{%:= inputValue %}</textarea>
-{% Else %}
-    {% If datalist.Count > 0 Then %}
-        <datalist id="{%= inputName %}">
-        {% For i = 1 To datalist.count %}
-            <option value="{%= datalist[i] %}" />
-        {% Next %}
-        </datalist>
-    {% EndIf %}    
-<input type="{%= inputType %}" name="{%= inputName %}" value="{%:= inputValue %}" {%:= attrMax %} {%:= attrPlaceholder %} {%:= attrRequired %} {%:= attrList %}/>
+<textarea id="askia-input-open{%= CurrentQuestion.InputCode %}" class="inputopen" name="{%= inputName %}"{%:= attrReadOnly %}{%:= attrMax %}{%:= attrPlaceholder %}>{%:= inputValue %}</textarea>
+{% Else %}  
+<input type="{%= inputType %}" id="askia-input-open{%= CurrentQuestion.InputCode %}" class="inputopen" name="{%= inputName %}" value="{%:= inputValue %}"{%:= attrReadOnly %}{%:= attrMax %}{%:= attrPlaceholder %} />
+{% EndIf %}
+{% If (CurrentADC.PropValue("openDkButton") = "1" and CurrentQuestion.IsAllowDK) Then %}
+<label class="DK openDK">
+    <input type="checkbox" id="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="dkbutton" name="M{%= CurrentQuestion.InputCode %} -1" {%:= attrChecked %}>
+    <label for="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="askia-checkbox"></label>
+    <label for="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="askia-response-label">
+        <span class="caption">{%:= CurrentADC.PropValue("openDkCaption") %}</span>
+    </label>
+</label>
 {% EndIf %}
 
