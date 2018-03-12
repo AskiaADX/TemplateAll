@@ -22,7 +22,7 @@ If (inputType = "textarea") Then
 {% EndIf %}
 {% If (CurrentADC.PropValue("openDkButton") = "1" and CurrentQuestion.IsAllowDK) Then %}
 <label class="DK openDK">
-    <input type="checkbox" id="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="dkbutton" name="M{%= CurrentQuestion.InputCode %} -1" {%:= attrChecked %}>
+    <input type="checkbox" id="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="dkbutton" name="B{%= CurrentQuestion.InputCode %}" {%:= attrChecked %}>
     <label for="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="askia-checkbox"></label>
     <label for="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="askia-response-label">
         <span class="caption">{%:= CurrentADC.PropValue("openDkCaption") %}</span>
