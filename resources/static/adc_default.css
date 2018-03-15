@@ -49,6 +49,82 @@ body {
 .adc-default .askia-response-label {
   cursor: pointer;
 }
+
+.adc-default input[type=range]::-moz-focus-outer {
+    border: 0;
+}
+.adc-default input[type=range] {
+  -webkit-appearance: none;
+  width: 99%;
+  min-width: 200px;
+  max-width: 400px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0px solid white;
+}
+.adc-default input[type=range][disabled=disabled]::-webkit-slider-thumb {
+    display: none;
+}
+.adc-default input[type=range][disabled=disabled]::-ms-thumb {
+    display: none;
+}
+.adc-default input[type=range][disabled=disabled]::-moz-range-thumb {
+    display: none;
+    opacity: 0;
+}
+.adc-default input[type=range]:not([disabled=disabled])::-webkit-slider-thumb {
+    display: block;
+}
+.adc-default input[type=range]:not([disabled=disabled])::-ms-thumb {
+    display: block;
+}
+.adc-default input[type=range]:not([disabled=disabled])::-moz-range-thumb {
+    display: block;
+    opacity: 1;
+}
+
+.adc-default input[type=range]:focus {
+  outline: none;
+}
+
+.adc-default .range {
+    display: inline-block;
+    position: relative;
+    margin-left: 5px;
+    width: 100%;
+    max-width: 400px;
+}
+@media screen and (max-width:600px) {
+  /* IE9 and IE10 rule sets go here */
+  .adc-default .range {
+    width: 250px;
+  }
+}
+
+.adc-default .range:after,
+.adc-default .range:before {
+    position: absolute;
+    top: 2.0em;
+}
+.adc-default .range:before {
+    left: 0em;
+    content: attr(min);
+}
+.adc-default .range:after {
+    right: 0em;
+    content: attr(max);
+}
+.adc-default .preBar {
+    position: absolute;
+    z-index: 1;
+    padding: 0px;
+    margin: 0px;
+    pointer-events: none;
+    top: 12px;
+}
+
 .adc-default input[type=text][name^="S"] {
     width: 100%;
     min-width: 80%;
@@ -71,7 +147,7 @@ body {
 }
 .adc-default label.numericDK {
     display: inline-block;
-    padding: 5px;
+    padding: 10px 5px 5px 5px;
 }
 .adc-default input[type=number],
 .adc-default .thousand {

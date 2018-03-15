@@ -11,6 +11,13 @@ Dim rangeLength = 0
 Dim attrMin = On(minValue <> DK, " min=\"" + minValue + "\"", "")
 Dim attrMax = On(maxValue <> DK, " max=\"" + maxValue + "\"", "")
 
+Dim minVal = On(CurrentQuestion.MinValue <> DK, " min=\"" + CurrentQuestion.MinValue + "\"", "") 
+Dim maxVal = On(CurrentQuestion.MaxValue <> DK, " max=\"" + CurrentQuestion.MaxValue + "\"", "") 
+Dim step = On(CurrentADC.PropValue("unitStep") <> "", " step=\"" + CurrentADC.PropValue("unitStep").Replace(",",".") + "\"", "")
+
+Dim attrDisabled = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and CurrentADC.PropValue("numDkButton") = "1", " disabled=\"disabled\"", "")
+Dim clsSelected = On((CurrentQuestion.HasDK = false) and (CurrentQuestion.HasAnswered), " selected", "")
+
 Dim placeholder = CurrentADC.PropValue("placeholder")
 Dim attrPlaceholder = On(placeholder <> "", " placeholder=\"" + placeholder + "\"", "")
 
@@ -25,7 +32,13 @@ Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and 
 	{% If (useInput = "2") Then %}
 	<input type="text" id="askia-input-currency{%= inputCode %}" name="currency_{%= inputName %}" value="{%:= inputValue %}" class="thousand"{%:= attrReadOnly %} />
 	{% EndIf %}
-	<span class="suffix">{%= CurrentADC.PropValue("numBoxSuffix") %}</span>
+    {% If (useInput = "1") Then %}
+    <div class="range"{%:= minVal %}{%:= maxVal %}> 
+        <input type="range" id="askia-input-range_{%= CurrentQuestion.InputCode %}" class="inputRange_{%= CurrentADC.InstanceId %}_1{%:= clsSelected %}" name="range{%= CurrentQuestion.InputName() %}" value="{%= CurrentQuestion.InputValue() %}"{%:= minVal %}{%:= maxVal %}{%:= step %}{%:= attrDisabled %}>
+        <p class="preBar"></p>
+    </div>
+    {% EndIf %}
+	<span class="suffix">{% If (useInput = "1") Then %}{%= CurrentQuestion.InputValue() %}{% EndIf %}{%= CurrentADC.PropValue("numBoxSuffix") %}</span>
     {% If (CurrentADC.PropValue("numDkButton") = "1" and CurrentQuestion.IsAllowDK ) Then %}
     <label class="DK numericDK">
         <input type="hidden" name="B{%= inputCode %}">

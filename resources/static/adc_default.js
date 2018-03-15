@@ -18,6 +18,34 @@
             obj.attachEvent('on' + type, obj[type + fn]);
         }
     }
+    
+    /**
+   * Add class in DOMElement
+   *
+   * @param {HTMLElement} obj HTMLElement where the class should be added
+   * @param {String} clsName Name of the class to add
+   */
+    function addClass (obj, clsName) {
+        if (obj.classList)      {
+            obj.classList.add(clsName); 
+        }    else            {
+            obj.className += ' ' + clsName; 
+        }
+    }
+
+    /**
+   * Remove class in DOMElement
+   *
+   * @param {HTMLElement} obj HTMLElement where the class should be removed
+   * @param {String} clsName Name of the class to remove
+   */
+    function removeClass (obj, clsName) {
+        if (obj.classList)      {
+            obj.classList.remove(clsName);
+        }    else            {
+            obj.className = obj.className.replace(new RegExp('(^|\\b)' + clsName.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
+    }
 
     /**
    * Manage the exclusive responses for multiple
@@ -95,17 +123,26 @@
    * Manage the change event on input DK for numeric
    *
    * @param {Object} event Change event of the input DK for numeric
-   * @param {Object} that SideBySide object, same as options
+   * @param {Object} that AdcDefault object, same as options
    */
     function onNumericInputDK (event, that) {
         var el = event.target || event.srcElement;
         var inputValue = el.id.split('_')[1];
         var inputNumber = document.getElementById('askia-input-number' + inputValue);
+        var inputRange = document.getElementById('askia-input-range_' + inputValue);
         var inputCurrency = document.getElementById('askia-input-currency' + inputValue);
         if (el.nodeName === 'INPUT' && (el.type === 'checkbox')) {
             if (el.checked) {
                 inputNumber.value = '';
                 inputNumber.setAttribute('readonly', 'readonly');
+                // If use slider
+                if (that.numUseInput === 1) {
+                    var suffix = that.suffixes[parseInt(inputRange.className.split('_')[2], 10) - 1];
+                    inputRange.value = '';
+                    inputRange.setAttribute('disabled', 'disabled');
+                    removeClass(inputRange,'selected');
+                    inputRange.parentElement.nextElementSibling.innerHTML = suffix;
+                }
                 // If use currency
                 if (that.numUseInput === 2) {
                     inputCurrency.value = '';
@@ -114,6 +151,10 @@
             } else if (!el.checked) {
                 inputNumber.removeAttribute('readonly');
                 inputNumber.style.backgroundColor = "transparent";
+                // If use slider
+                if (that.numUseInput === 1) {
+                    inputRange.removeAttribute('disabled');
+                }
                 // If use currency
                 if (that.numUseInput === 2) {
                     inputCurrency.removeAttribute('readonly');
@@ -162,7 +203,7 @@
    * Manage the input event on date time
    *
    * @param {Object} event Input event of the date time
-   * @param {Object} that SideBySide object, same as options
+   * @param {Object} that AdcDefault object, same as options
    */
     function onInputDates (event, that) {
         triggerRouting(that.currentQuestion);
@@ -262,6 +303,46 @@
         }
         return true;
     }
+    
+    /**
+   * Manage the input event on input ranges
+   *
+   * @param {Object} event Input event of the input ranges
+   * @param {Object} that AdcDefault object, same as options
+   */
+    function onInputRanges (event, that) {
+        var el = event.target || event.srcElement;
+        var split = el.className.split('_')
+        var suffix = that.suffixes[parseInt(split[2], 10) - 1];
+        var decimals = that.decimals[parseInt(split[2], 10) - 1] || 0;
+        var inputNumber = document.querySelector('#adc_' + that.instanceId + ' #askia-input-number' + el.id.split('_')[1]);
+        inputNumber.value = el.value;
+        el.parentElement.nextElementSibling.innerHTML = parseFloat(el.value).toLocaleString(undefined, {minimumFractionDigits: decimals,maximumFractionDigits: decimals}) + suffix;
+        addClass(el,'selected');
+        document.querySelector('#adc_' + that.instanceId + ' #' + el.id + ' + .preBar').style.width = widthRange(el) + 'px';
+        if ('createEvent' in document) {
+            var evt = document.createEvent('HTMLEvents');
+            evt.initEvent('input', false, true);
+            inputNumber.dispatchEvent(evt);
+        } else {
+            inputNumber.fireEvent('oninput');
+        }
+    }
+
+    /**
+   * Return width of the left side of the input range
+   *
+   * @param {Object} inputRange input range
+   */
+    function widthRange (inputRange) {
+        var min = (inputRange.min) ? parseInt(inputRange.min, 10) : 0;
+        var max = (inputRange.max) ? parseInt(inputRange.max, 10) : 100;
+        var range = max - min;
+        var w = parseInt(inputRange.clientWidth, 10);
+        var t = ~~(w * (parseInt(inputRange.value, 10) - min) / range);
+
+        return (((t / w) * 100) < 16 && ((t / w) * 100) > 0) ? t + 4 : t;
+    }
 
     /**
    * Creates a new instance of the AdcDefault
@@ -274,12 +355,15 @@
         this.instanceId = options.instanceId || 1;
         this.currentQuestion = options.currentQuestion || "";
         this.type = options.type || "";
-        this.numUseInput = options.numUseInput || 1;
+        this.numUseInput = options.numUseInput || 0;
+        this.suffixes = options.suffixes || [];
+        this.decimals = options.decimals || [];
         
         var radios = document.querySelectorAll('#adc_' + this.instanceId + ' input[type="radio"]');
         var checkboxes = document.querySelectorAll('#adc_' + this.instanceId + ' input[type="checkbox"]');
         var inputNumbers = document.querySelector('#adc_' + this.instanceId + ' .inputnumber');
         var numInputDK = document.querySelector('#adc_' + this.instanceId + ' .numericDK input[type="checkbox"]');
+        var inputRanges = document.querySelector('#adc_' + this.instanceId + ' input[type="range"]');
         var inputOpens = document.querySelector('#adc_' + this.instanceId + ' .inputopen');
         var openInputDK = document.querySelector('#adc_' + this.instanceId + ' .openDK input[type="checkbox"]');
         var inputDates = document.querySelectorAll('#adc_' + this.instanceId + ' .inputdate');
@@ -379,6 +463,29 @@
                 }
             },false);
         }
+        
+        if (this.type === "numeric" && this.numUseInput === 1) {
+            addEvent(inputRanges, 'change', 
+                     (function (passedInElement) {
+                return function (e) {
+                    onInputRanges(e, passedInElement); 
+                };
+            }(this)));
+            addEvent(inputRanges, 'input', 
+                     (function (passedInElement) {
+                return function (e) {
+                    onInputRanges(e, passedInElement); 
+                };
+            }(this)));
+            document.querySelector('#adc_' + this.instanceId + ' #' + inputRanges.id + ' + .preBar').style.width = widthRange(inputRanges) + 'px';
+            
+            // Resize event on input range
+            window.addEventListener("resize", function() {
+            	document.querySelector('#adc_' + options.instanceId + ' #' + inputRanges.id + ' + .preBar').style.width = widthRange(inputRanges) + 'px';
+            });
+            
+        }
+        
     }
 
     /**

@@ -93,17 +93,18 @@
     </category>
     <category id="numericQuestion" name="Numeric question">
       <property xsi:type="standardProperty" id="numUseInput" name="Use" type="string" mode="dynamic" require="true" visible="true">
-        <description><![CDATA[Use input number or currency.
+        <description><![CDATA[Use an input number or slider or currency.
 			For currency, an input text is generated and the thousand separator are shown with a space.]]></description>
         <value><![CDATA[1]]></value>
         <options>
-          <option value="1" text="Input number" />
+          <option value="0" text="Input number" />
+          <option value="1" text="Slider" />
           <option value="2" text="Currency" />
         </options>
       </property>
       <property xsi:type="standardProperty" id="unitStep" name="Step for input number" type="number" mode="static" require="false" visible="true">
-        <description><![CDATA[Using HTML 5, in modern browser.
-          Indicates the unit to increment or decrement the number using the stepper for input number.]]></description>
+        <description><![CDATA[The step used
+			For instance 1 or 0.1 or 5 etc.]]></description>
         <value><![CDATA[1]]></value>
       </property>
       <property xsi:type="standardProperty" id="numBoxPrefix" name="Prefix" type="string" require="false" visible="true">

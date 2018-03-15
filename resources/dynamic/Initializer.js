@@ -27,7 +27,9 @@ dim maxBound
         instanceId: {%= CurrentADC.InstanceId %},
         currentQuestion: '{%:= CurrentQuestion.Shortcut %}',
         type: '{%:= CurrentQuestion.Type %}',
-        numUseInput: {%= CurrentADC.PropValue("numUseInput") %}
+        numUseInput: {%= CurrentADC.PropValue("numUseInput") %},
+        suffixes: [{%:= On((CurrentQuestion.Type = "numeric"), "'" + CurrentADC.PropValue("numBoxSuffix") + "'", "''")%}],
+    	decimals: [{%:= On((CurrentQuestion.Type = "numeric"), CurrentQuestion.Decimals + "", "")%}]
     });
 {% If (column.Type = "datetime") and Not(column.IsDateOnly) Then %}
        var timePickerR1C1 = new TimePicker({

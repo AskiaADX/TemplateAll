@@ -61,6 +61,152 @@ EndIf
 }
 {% EndIf %}
 
+{% If (CurrentADC.PropValue("useInput") = "1") Then %}
+#adc_{%= CurrentADC.InstanceId %} .numeric .suffix {
+  min-width: 50px;
+}
+{% EndIf %}
+
+#adc_{%= CurrentADC.InstanceId %} input[type=range] {
+  border-radius: {%= Theme.BorderRadius %};
+}
+#adc_{%= CurrentADC.InstanceId %} .range:after,
+#adc_{%= CurrentADC.InstanceId %} .range:before {
+    font-size: {%= Theme.SmallFS %};
+    color: rgb({%= Theme.NeutralDarkColor.ToRGB() %});
+}
+#adc_{%= CurrentADC.InstanceId %} input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  border-radius: {%= Theme.BorderRadius %};
+  border: 0px solid #010101;
+}
+#adc_{%= CurrentADC.InstanceId %} input[type=range]::-webkit-slider-thumb {
+  position: relative;
+  border: 1px solid rgb({%= Theme.NeutralDarkColor.ToRGB() %});
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  background-color: rgb({%= Theme.NeutralLightColor.ToRGB() %});
+  top: -9px;
+  cursor: ew-resize;
+  -webkit-appearance: none;
+}
+#adc_{%= CurrentADC.InstanceId %} input[type=range].selected::-webkit-slider-thumb {
+    border: 1px solid rgb({%= Theme.SecondaryColor.ToRGB() %});
+    background-color: rgb({%= Theme.SecondaryColor.ToRGB() %});
+}
+@supports (-ms-ime-align: auto) {
+ #adc_{%= CurrentADC.InstanceId %} input[type=range]::-ms-thumb {
+        margin-top: 0px;
+  }
+}
+#adc_{%= CurrentADC.InstanceId %} input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  border-radius: {%= Theme.BorderRadius %};
+  border: 0px solid rgb({%= Theme.NeutralDarkColor.ToRGB() %});
+}
+#adc_{%= CurrentADC.InstanceId %} input[type=range]::-moz-range-thumb {
+  border: 1px solid rgb({%= Theme.NeutralDarkColor.ToRGB() %});
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  background: rgb({%= Theme.NeutralLightColor.ToRGB() %});
+  cursor: ew-resize;
+}
+#adc_{%= CurrentADC.InstanceId %} input[type=range].selected::-moz-range-thumb {
+    border: 1px solid rgb({%= Theme.SecondaryColor.ToRGB() %});
+    background: rgb({%= Theme.SecondaryColor.ToRGB() %});
+}
+#adc_{%= CurrentADC.InstanceId %} input[type=range]::-ms-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+  border-radius: {%= Theme.BorderRadius %};
+}
+#adc_{%= CurrentADC.InstanceId %} input[type=range]::-ms-fill-lower {
+  height: 8px; 
+  border: 0px solid rgb({%= Theme.NeutralDarkColor.ToRGB() %});
+  border-radius: {%= Theme.BorderRadius %};
+}
+#adc_{%= CurrentADC.InstanceId %} input[type=range]::-ms-fill-upper {
+  height: 8px;
+  border: 0px solid rgb({%= Theme.NeutralDarkColor.ToRGB() %});
+  border-radius: {%= Theme.BorderRadius %};
+}
+#adc_{%= CurrentADC.InstanceId %} input[type=range]::-ms-thumb {
+  border: 1px solid rgb({%= Theme.NeutralDarkColor.ToRGB() %});
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  background: rgb({%= Theme.NeutralLightColor.ToRGB() %});
+  cursor: ew-resize;
+}
+#adc_{%= CurrentADC.InstanceId %} input[type=range].selected::-ms-thumb {
+    border: 1px solid rgb({%= Theme.SecondaryColor.ToRGB() %});
+    background: rgb({%= Theme.SecondaryColor.ToRGB() %});
+}
+{% If (CurrentADC.PropValue("numUseInput") = "1") Then %}
+#adc_{%= CurrentADC.InstanceId %} [id^=askia-input-number] {
+    display: none;
+}
+#adc_{%= CurrentADC.InstanceId %} label.numericDK {
+    display: block;
+}
+#adc_{%= CurrentADC.InstanceId %} .range + .suffix {
+  	min-width: 50px;
+    display: inline-block;
+    text-align: right;
+}
+{% EndIf %}
+#adc_{%= CurrentADC.InstanceId %} .preBar {
+    height: 8px;
+    line-height: 8px;
+    border-radius: {%= Theme.BorderRadius %};
+}
+
+#adc_{%= CurrentADC.InstanceId %} .selected + .preBar {
+    background-color: rgb({%= Theme.SecondaryColor.ToRGB() %});
+}
+
+/** Chrome*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    #adc_{%= CurrentADC.InstanceId %} input[type='range']::-webkit-slider-runnable-track {
+      background-color: rgb({%= Theme.NeutralLightColor.ToRGB() %});
+    }
+}
+/** FF*/
+#adc_{%= CurrentADC.InstanceId %} input[type="range"]::-moz-range-progress {
+  /** Selected color */
+  height: 8px;
+  border-radius: {%= Theme.BorderRadius %};
+}
+#adc_{%= CurrentADC.InstanceId %} input[type="range"].selected::-moz-range-progress {
+  /** Selected color */
+  background-color: rgb({%= Theme.SecondaryColor.ToRGB() %}); 
+}
+#adc_{%= CurrentADC.InstanceId %} input[type="range"]::-moz-range-track {  
+  background-color: rgb({%= Theme.NeutralLightColor.ToRGB() %});
+}
+/* IE*/
+#adc_{%= CurrentADC.InstanceId %} input[type="range"]::-ms-fill-lower {
+  /** Selected color */
+  background-color: rgb({%= Theme.NeutralLightColor.ToRGB() %}); 
+}
+#adc_{%= CurrentADC.InstanceId %} input[type="range"].selected::-ms-fill-lower {
+  /** Selected color */
+  background-color: rgb({%= Theme.SecondaryColor.ToRGB() %}); 
+}
+#adc_{%= CurrentADC.InstanceId %} input[type="range"]::-ms-fill-upper {  
+  background-color: rgb({%= Theme.NeutralLightColor.ToRGB() %});
+}
+
 #picker{%= CurrentADC.InstanceId %} .is-today .pika-button {
     color: rgba({%= Theme.SecondaryColor %}) !important;
 }
