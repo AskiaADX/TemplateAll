@@ -114,6 +114,18 @@
         <description><![CDATA[]]></description>
         <value></value>
       </property>
+      <property xsi:type="standardProperty" id="numDkButton" name="Add DK button" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Add a don't know button]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="numDkCaption" name="DK caption" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[The caption of the don't know button]]></description>
+        <value><![CDATA[Don't know]]></value>
+      </property>
     </category>
     <category id="openQuestion" name="Open-ended question">
       <property xsi:type="standardProperty" id="opensubtype" name="Use" type="string" mode="dynamic" require="true" visible="true">

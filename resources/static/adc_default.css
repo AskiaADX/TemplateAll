@@ -69,6 +69,10 @@ body {
     text-align: left;
     padding: 10px 5px 5px 5px;
 }
+.adc-default label.numericDK {
+    display: inline-block;
+    padding: 5px;
+}
 .adc-default input[type=number],
 .adc-default .thousand {
     text-align: right;

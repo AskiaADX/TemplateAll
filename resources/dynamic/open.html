@@ -12,7 +12,7 @@ Dim placeholder = CurrentADC.PropValue("placeholder")
 Dim attrPlaceholder = On(placeholder <> "", " placeholder=\"" + placeholder + "\"", "")
 
 Dim attrChecked = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered, " checked=\"checked\"", "") 
-Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and CurrentADC.PropValue("openDkButton") = "1", " readonly=\"readonly\"", "") 
+Dim attrReadOnly = On(CurrentQuestion.Value = "" and CurrentQuestion.HasAnswered and CurrentADC.PropValue("openDkButton") = "1", " readonly=\"readonly\"", "") 
 
 If (inputType = "textarea") Then
 %}

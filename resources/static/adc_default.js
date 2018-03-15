@@ -92,6 +92,45 @@
     }
     
     /**
+   * Manage the change event on input DK for numeric
+   *
+   * @param {Object} event Change event of the input DK for numeric
+   * @param {Object} that SideBySide object, same as options
+   */
+    function onNumericInputDK (event, that) {
+        var el = event.target || event.srcElement;
+        var inputValue = el.id.split('_')[1];
+        var inputNumber = document.getElementById('askia-input-number' + inputValue);
+        var inputCurrency = document.getElementById('askia-input-currency' + inputValue);
+        if (el.nodeName === 'INPUT' && (el.type === 'checkbox')) {
+            if (el.checked) {
+                inputNumber.value = '';
+                inputNumber.setAttribute('readonly', 'readonly');
+                // If use currency
+                if (that.numUseInput === 2) {
+                    inputCurrency.value = '';
+                    inputCurrency.setAttribute('readonly', 'readonly');
+                }
+            } else if (!el.checked) {
+                inputNumber.removeAttribute('readonly');
+                inputNumber.style.backgroundColor = "transparent";
+                // If use currency
+                if (that.numUseInput === 2) {
+                    inputCurrency.removeAttribute('readonly');
+                    inputCurrency.backgroundColor = "transparent";
+                }
+            }
+            if ('createEvent' in document) {
+                var evt = document.createEvent('HTMLEvents');
+                evt.initEvent('input', false, true);
+                inputNumber.dispatchEvent(evt);
+            } else {
+                inputNumber.fireEvent('oninput');
+            }
+        }
+    }
+    
+    /**
    * Manage the change event on input DK for open
    *
    * @param {Object} event Change event of the input DK for open
@@ -107,6 +146,7 @@
                 inputOpen.setAttribute('readonly', 'readonly');
             } else if (!el.checked) {
                 inputOpen.removeAttribute('readonly');
+                inputOpen.style.backgroundColor = "transparent";
             }
             if ('createEvent' in document) {
                 var evt = document.createEvent('HTMLEvents');
@@ -181,7 +221,7 @@
         var currentPosition = getCaretPosition(x);
         var currentValue = x.value.toString();
         var parts = [];
-        var inputNumber = document.getElementById(x.name.toString().split("_")[1]);
+        var inputNumber = document.querySelector('[name=' + x.name.toString().split("_")[1] + ']');
         parts[0] = x.value.toString();
         parts[1] = "";
         var sep = "";
@@ -239,6 +279,7 @@
         var radios = document.querySelectorAll('#adc_' + this.instanceId + ' input[type="radio"]');
         var checkboxes = document.querySelectorAll('#adc_' + this.instanceId + ' input[type="checkbox"]');
         var inputNumbers = document.querySelector('#adc_' + this.instanceId + ' .inputnumber');
+        var numInputDK = document.querySelector('#adc_' + this.instanceId + ' .numericDK input[type="checkbox"]');
         var inputOpens = document.querySelector('#adc_' + this.instanceId + ' .inputopen');
         var openInputDK = document.querySelector('#adc_' + this.instanceId + ' .openDK input[type="checkbox"]');
         var inputDates = document.querySelectorAll('#adc_' + this.instanceId + ' .inputdate');
@@ -266,6 +307,10 @@
         }
         
         if (this.type === "numeric") {
+            addEvent(numInputDK, "change", 
+                     (function(passedInElement) {
+                return function(e) {onNumericInputDK(e, passedInElement); };
+            }(this)));
             addEvent(inputNumbers, 'input', 
                      (function (passedInElement) {
                 return function (e) {
