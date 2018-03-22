@@ -189,6 +189,9 @@ body {
     appearance: none;
     cursor: pointer;
 }
+.RLTimePicker select::-ms-expand {
+    display: none;
+}
 .RLTimePicker select option {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     text-align: center;
