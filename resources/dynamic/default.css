@@ -59,7 +59,7 @@ EndIf
 #adc_{%= CurrentADC.InstanceId %} .RLTimePicker select[disabled=disabled] + span[class^="timeSeparator_"],
 #adc_{%= CurrentADC.InstanceId %} .RLTimePicker select[disabled=disabled] + .secsContainer span[class^="timeSeparator_"],
 #adc_{%= CurrentADC.InstanceId %} input[readonly=readonly] + .imperial {
-    background-color: rgba({%= Theme.BlackColor.ToRGB() %},0.05);
+    background-color: rgba({%= Theme.BlackColor.ToRGB() %},0.05) !important;
 }
 
 {% If (CurrentADC.PropValue("columnsCount").ToNumber() > 1 ) Then %}

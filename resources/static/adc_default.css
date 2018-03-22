@@ -43,6 +43,17 @@ body {
     align-self: baseline;
 }
 
+.adc-default .responses-container {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
 .adc-default input[type="radio"],
 .adc-default input[type="checkbox"],
 .adc-default .DK,

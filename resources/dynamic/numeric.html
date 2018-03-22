@@ -27,18 +27,20 @@ Dim attrStep = On(unitStep > 1, " step=\"" + unitStep + "\"", "")
 Dim attrChecked = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered, " checked=\"checked\"", "") 
 Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and CurrentADC.PropValue("numDkButton") = "1", " readonly=\"readonly\"", "") 
 %}
-	<span class="prefix">{%= CurrentADC.PropValue("numBoxPrefix") %}</span>
-	<input type="number" id="askia-input-number{%= inputCode %}" class="inputnumber" name="{%= inputName %}" value="{%:= inputValue %}"{%:= attrMin %}{%:= attrMax %}{%:= attrStep %}{%:= attrPlaceholder %}{%:= attrReadOnly %}/>
-	{% If (useInput = "2") Then %}
-	<input type="text" id="askia-input-currency{%= inputCode %}" name="currency_{%= inputName %}" value="{%:= inputValue %}" class="thousand"{%:= attrReadOnly %} />
-	{% EndIf %}
-    {% If (useInput = "1") Then %}
-    <div class="range"{%:= minVal %}{%:= maxVal %}> 
-        <input type="range" id="askia-input-range_{%= CurrentQuestion.InputCode %}" class="inputRange_{%= CurrentADC.InstanceId %}_1{%:= clsSelected %}" name="range{%= CurrentQuestion.InputName() %}" value="{%= CurrentQuestion.InputValue() %}"{%:= minVal %}{%:= maxVal %}{%:= step %}{%:= attrDisabled %}>
-        <p class="preBar"></p>
+    <div class="responses-container">
+        <span class="prefix">{%= CurrentADC.PropValue("numBoxPrefix") %}</span>
+        <input type="number" id="askia-input-number{%= inputCode %}" class="inputnumber" name="{%= inputName %}" value="{%:= inputValue %}"{%:= attrMin %}{%:= attrMax %}{%:= attrStep %}{%:= attrPlaceholder %}{%:= attrReadOnly %}/>
+        {% If (useInput = "2") Then %}
+        <input type="text" id="askia-input-currency{%= inputCode %}" name="currency_{%= inputName %}" value="{%:= inputValue %}" class="thousand"{%:= attrReadOnly %} />
+        {% EndIf %}
+        {% If (useInput = "1") Then %}
+        <div class="range"{%:= minVal %}{%:= maxVal %}> 
+            <input type="range" id="askia-input-range_{%= CurrentQuestion.InputCode %}" class="inputRange_{%= CurrentADC.InstanceId %}_1{%:= clsSelected %}" name="range{%= CurrentQuestion.InputName() %}" value="{%= CurrentQuestion.InputValue() %}"{%:= minVal %}{%:= maxVal %}{%:= step %}{%:= attrDisabled %}>
+            <p class="preBar"></p>
+        </div>
+        {% EndIf %}
+        <span class="suffix">{% If (useInput = "1") Then %}{%= CurrentQuestion.InputValue() %}{% EndIf %}{%= CurrentADC.PropValue("numBoxSuffix") %}</span>
     </div>
-    {% EndIf %}
-	<span class="suffix">{% If (useInput = "1") Then %}{%= CurrentQuestion.InputValue() %}{% EndIf %}{%= CurrentADC.PropValue("numBoxSuffix") %}</span>
     {% If (CurrentADC.PropValue("numDkButton") = "1" and CurrentQuestion.IsAllowDK ) Then %}
     <label class="DK numericDK">
         <input type="hidden" name="B{%= inputCode %}">
