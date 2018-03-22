@@ -3,29 +3,40 @@ Dim column = CurrentQuestion
 Dim inputName = column.InputName()
 Dim inputNameDate = column.InputName("date")
 Dim inputNameTime = column.InputName("time")
-Dim inputId     = (inputName + "_" + 1).Replace("D", "askia-input-date")
-Dim inputIdDate = (inputName + "_" + 1).Replace("D", "askia-input-dateO")
 Dim inputCode	 = column.InputCode 
-Dim attrMin = On(column.MinDate.ToNumber() <> DK, "min=\"" + column.MinDate.Format("dd/MM/yyyy") + "\"", "")
-Dim attrMax = On(column.MaxDate.ToNumber() <> DK, "max=\"" + column.MaxDate.Format("dd/MM/yyyy") + "\"", "")
+Dim attrMin = On(column.MinDate.ToNumber() <> DK, " min=\"" + column.MinDate.Format("dd/MM/yyyy") + "\"", "")
+Dim attrMax = On(column.MaxDate.ToNumber() <> DK, " max=\"" + column.MaxDate.Format("dd/MM/yyyy") + "\"", "")
+Dim attrReadOnly = On(column.HasDK and column.HasAnswered and CurrentADC.PropValue("dateDkButton") = "1", " readonly=\"readonly\"", " readonly=\"true\"")
+Dim attrDisabled = On(column.HasDK and column.HasAnswered and CurrentADC.PropValue("dateDkButton") = "1", " disabled=\"disabled\"", "")
+Dim attrChecked = On(column.HasDK and column.HasAnswered, " checked=\"checked\"", "")
 %}
 
 {% If Not(CurrentQuestion.IsTimeOnly) Then %}
 <div class="RLDatePicker">
-	<input type="text" id="{%= inputIdDate %}" class="inputdate askia-question-{%= inputCode %}" name="{%= inputNameDate %}" value="{%= column.InputValue("date") %}" {%:= attrMin %} {%:= attrMax %} readonly="true"/>
+	<input type="text" id="askia-input-date{%= column.InputCode %}" class="inputdate askia-question-{%= inputCode %}" name="{%= inputNameDate %}" value="{%= column.InputValue("date") %}"{%:= attrMin %}{%:= attrMax %}{%:= attrReadOnly %}{%:= attrDisabled %} />
 </div>
 {% EndIf %}
 {% If Not(CurrentQuestion.IsDateOnly) Then %}
 <div class="RLTimePicker">
-	<select id="hour_{%= CurrentADC.InstanceId %}" name="hour"></select>
-	<span class="timeSeparator_{%= CurrentADC.InstanceId %}"></span>
-	<select id="minutes_{%= CurrentADC.InstanceId %}" name="minutes"></select>
-	<span id="secsContainer_{%= CurrentADC.InstanceId %}">
-		<span class="timeSeparator_{%= CurrentADC.InstanceId %}"></span>
-		<select id="seconds_{%= CurrentADC.InstanceId %}" name="seconds"></select>
+	<select id="hour_{%= column.InputCode %}" name="hour"{%:= attrDisabled %}></select>
+	<span class="timeSeparator_{%= column.InputCode %}"></span>
+	<select id="minutes_{%= column.InputCode %}" name="minutes"{%:= attrDisabled %}></select>
+	<span id="secsContainer_{%= column.InputCode %}" class="secsContainer">
+		<span class="timeSeparator_{%= column.InputCode %}"></span>
+		<select id="seconds_{%= column.InputCode %}" name="seconds"{%:= attrDisabled %}></select>
 	</span>
 	<!--<input type="text" id="time" name="time" readonly="readonly" hidden=true/> -->
-	<input id="{%=inputId%}" class="inputdate askia-question-{%= inputCode %} time_{%= CurrentADC.InstanceId %}" hidden type="text" name="{%= inputNameTime %}" value="{%= column.InputValue("date") %}" />
-	<span class="imperial" {%If CurrentADC.PropValue("imperial") = "false" Then %} hidden {% EndIf %} id="ampm_{%= CurrentADC.InstanceId %}"></span>
+	<input id="askia-input-time{%= column.InputCode %}" class="inputdate askia-question-{%= inputCode %} time_{%= column.InputCode %}" hidden type="text" name="{%= inputNameTime %}" value="{%= column.InputValue("date") %}"{%:= attrReadOnly %} />
+	<span class="imperial" {%If CurrentADC.PropValue("imperial") = "false" Then %} hidden {% EndIf %} id="ampm_{%= column.InputCode %}"></span>
 </div>
+{% EndIf %}
+{% If (CurrentADC.PropValue("dateDkButton") = "1" and column.IsAllowDK ) Then  %}
+<label class="DK">
+    <input type="hidden" name="B{%= column.InputCode %}">
+    <input type="checkbox" id="askia-input-date_{%= column.InputCode %}_-1" class="dkbutton" name="M{%= column.InputCode %} -1" {%:= attrChecked %}>
+    <label for="askia-input-date_{%= column.InputCode %}_-1" class="askia-checkbox"></label>
+    <label for="askia-input-date_{%= column.InputCode %}_-1" class="askia-response-label">
+        <span class="caption">{%:= CurrentADC.PropValue("dateDkCaption") %}</span>
+    </label>
+</label>
 {% EndIf %}

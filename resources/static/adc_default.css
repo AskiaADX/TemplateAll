@@ -149,6 +149,9 @@ body {
     display: inline-block;
     padding: 10px 5px 5px 5px;
 }
+.adc-default label.DK {
+    display: inline-block;
+}
 .adc-default input[type=number],
 .adc-default .thousand {
     text-align: right;
@@ -162,7 +165,7 @@ body {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    display: table;
+    display: inline-flex;
     border: 0.0625em solid rgba(221,221,221,1);
 	border-radius: 0.1875em;
 }
@@ -199,6 +202,8 @@ body {
 .RLTimePicker .imperial {
     width: 45px;
     padding: 5px;
+    line-height: 1.5;
+    text-align: center;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -211,8 +216,11 @@ body {
     font-size: 100px;
     font-weight: bolder;
 }
-.RLTimePicker #secsContainer {
-    display:inline;
+.RLTimePicker [class^="timeSeparator"] {
+    line-height: 2;
+}
+.RLTimePicker .secsContainer {
+    display: inherit;
     height: 34px;
 }
 
@@ -438,7 +446,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  display: block;
+  display: inline-block;
   width: 100%;
   max-width: 10em;
 }

@@ -44,13 +44,11 @@ dim maxBound
            selected_min: "{%= Minute(column.Value.ToDate()) %}",
            selected_sec: "{%= Second(column.Value.ToDate()) %}",
            question: "{%= column.Shortcut %}",
-           adcId: {%= CurrentADC.InstanceId %}
+           adcId: {%= column.InputCode %}
 		});
 {% EndIf %}
 {% If (column.Type = "datetime") and Not(column.IsTimeOnly) Then 
 	'DATEPICKER OPTIONS
-
-	inputNameX = column.InputName("date")
 	defaultDate = CurrentADC.PropValue("defaultDate").ToString()
 	bound = CurrentADC.PropValue("bound")
 	position = "'"+CurrentADC.PropValue("position").ToString()+"'"
@@ -80,8 +78,8 @@ dim maxBound
 
 	var datePickerR1C1 = new DatePicker({
         adcId: {%= CurrentADC.InstanceId %},
-		inputNameX: "{%= inputId %}",
-		defaultDate: "{%= defaultDate %}",
+		inputNameX: 'askia-input-date{%= column.InputCode %}',
+		defaultDate: '{%= defaultDate %}',
 		bound: {%= bound%},
 		position: {%= position %},
 		setDefaultDate:{%= setDefaultDate%},

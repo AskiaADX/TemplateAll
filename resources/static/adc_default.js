@@ -200,6 +200,81 @@
     }
     
     /**
+   * Manage the change event on input DK for date
+   *
+   * @param {Object} event Change event of the input DK for date
+   * @param {Object} that AdcDefault object, same as options
+   */
+    function onDateInputDK (event, that) {
+        var el = event.target || event.srcElement;
+        var inputValue = el.id.split('_')[1];
+        var inputDate = document.getElementById('askia-input-date' + inputValue);
+        var inputTime = document.getElementById('askia-input-time' + inputValue);
+        var selectHour = document.getElementById('hour_' + inputValue);
+        var selectMinutes = document.getElementById('minutes_' + inputValue);
+        var selectSeconds = document.getElementById('seconds_' + inputValue);
+        if (el.nodeName === 'INPUT' && (el.type === 'checkbox')) {
+            if (el.checked) {
+                if (inputDate) {
+                    inputDate.value = '';
+                    inputDate.setAttribute('readonly', 'readonly');   
+                    inputDate.setAttribute('disabled', 'disabled');   
+                }
+                if (selectHour) {
+                    selectHour.selectedIndex =0;
+                    selectHour.setAttribute('disabled', 'disabled');   
+                }
+                if (selectMinutes) {
+                    selectMinutes.selectedIndex =0;
+                    selectMinutes.setAttribute('disabled', 'disabled');   
+                }
+                if (selectSeconds) {
+                    selectSeconds.selectedIndex =0;
+                    selectSeconds.setAttribute('disabled', 'disabled');   
+                }
+                if (inputTime) {
+                    inputTime.value = '';
+                    inputTime.setAttribute('readonly', 'readonly');
+                }
+            } else if (!el.checked) {
+                if (inputDate) {
+                    inputDate.setAttribute('readonly', 'true');
+                    inputDate.removeAttribute('disabled');
+                }
+                if (selectHour) {
+                    selectHour.removeAttribute('disabled');
+                }
+                if (selectMinutes) {
+                    selectMinutes.removeAttribute('disabled');
+                }
+                if (selectSeconds) {
+                    selectSeconds.removeAttribute('disabled');
+                }
+                if (inputTime) {
+                    inputTime.removeAttribute('readonly');
+                }
+            }
+            if ('createEvent' in document) {
+                var evt = document.createEvent('HTMLEvents');
+                evt.initEvent('input', false, true);
+                if (inputDate) {
+                    inputDate.dispatchEvent(evt);
+                }
+                if (inputTime) {
+                    inputTime.dispatchEvent(evt);
+                }
+            } else {
+                if (inputDate) {
+                    inputDate.fireEvent('oninput');
+                }
+                if (inputTime) {
+                    inputTime.fireEvent('oninput');
+                }
+            }
+        }
+    }
+    
+    /**
    * Manage the input event on date time
    *
    * @param {Object} event Input event of the date time
@@ -367,6 +442,7 @@
         var inputOpens = document.querySelector('#adc_' + this.instanceId + ' .inputopen');
         var openInputDK = document.querySelector('#adc_' + this.instanceId + ' .openDK input[type="checkbox"]');
         var inputDates = document.querySelectorAll('#adc_' + this.instanceId + ' .inputdate');
+        var dateInputDK = document.querySelector('#adc_' + this.instanceId + ' .DK input[type="checkbox"]');
 
         if (this.type === "single" || this.type === "multiple") {
             // Change event on input radio
@@ -431,6 +507,12 @@
         }
         
         if (this.type === "datetime") {
+            addEvent(dateInputDK, 'change', 
+                     (function (passedInElement) {
+                return function (e) {
+                    onDateInputDK(e, passedInElement); 
+                };
+            }(this)));
             // Input event on date time
             for (var k = 0; k < inputDates.length; k++) {
                 addEvent(inputDates[k], 'input', 
