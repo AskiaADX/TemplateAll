@@ -467,10 +467,12 @@
         }
         
         if (this.type === "numeric") {
-            addEvent(numInputDK, "change", 
-                     (function(passedInElement) {
-                return function(e) {onNumericInputDK(e, passedInElement); };
-            }(this)));
+            if (numInputDK) {
+                addEvent(numInputDK, "change", 
+                         (function(passedInElement) {
+                    return function(e) {onNumericInputDK(e, passedInElement); };
+                }(this)));   
+            }
             addEvent(inputNumbers, 'input', 
                      (function (passedInElement) {
                 return function (e) {
@@ -487,10 +489,12 @@
         }
         
         if (this.type === "open") {
-            addEvent(openInputDK, "change", 
-                     (function(passedInElement) {
-                return function(e) {onOpenInputDK(e, passedInElement); };
-            }(this)));
+            if (openInputDK) {
+                addEvent(openInputDK, "change", 
+                         (function(passedInElement) {
+                    return function(e) {onOpenInputDK(e, passedInElement); };
+                }(this)));   
+            }
             addEvent(inputOpens, 'input', 
                      (function (passedInElement) {
                 return function (e) {
@@ -507,12 +511,14 @@
         }
         
         if (this.type === "datetime") {
-            addEvent(dateInputDK, 'change', 
-                     (function (passedInElement) {
-                return function (e) {
-                    onDateInputDK(e, passedInElement); 
-                };
-            }(this)));
+            if (dateInputDK) {
+                addEvent(dateInputDK, 'change', 
+                         (function (passedInElement) {
+                    return function (e) {
+                        onDateInputDK(e, passedInElement); 
+                    };
+                }(this)));
+            }
             // Input event on date time
             for (var k = 0; k < inputDates.length; k++) {
                 addEvent(inputDates[k], 'input', 
@@ -565,7 +571,6 @@
             window.addEventListener("resize", function() {
             	document.querySelector('#adc_' + options.instanceId + ' #' + inputRanges.id + ' + .preBar').style.width = widthRange(inputRanges) + 'px';
             });
-            
         }
         
     }
