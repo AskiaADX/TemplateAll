@@ -115,7 +115,8 @@
 
         //Kill the jQueryUI datepicker on load
         window.onload = function() {
-            if (window.jQuery && document.querySelectorAll(".hasDatepicker")) {  
+            if (window.jQuery && document.querySelectorAll(".hasDatepicker")) {
+                jQuery.fn.datepicker = function () {};
                 var tbremoved = document.getElementById("ui-datepicker-div");
                 var bodies = document.getElementsByTagName("body");
                 if (bodies && bodies.length > 0 && tbremoved) {
