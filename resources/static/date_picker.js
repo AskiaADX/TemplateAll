@@ -144,31 +144,33 @@
                 minDate: new Date(minDate),
                 maxDate: new Date(maxDate),
                 i18n: xi18n,
-                onOpen: function(event) {
-                    var adcIndex = adcId;
-                    var elms = document.getElementsByClassName('pika-title');
-                    for (var i = 0; i<elms.length; i++) {
+                onOpen: function (event) {
+                  var adcIndex = adcId;
+                  var elms = document.getElementsByClassName('pika-title');
+                  for (var i = 0; i < elms.length; i++) {
                     var el = document.getElementsByClassName('pika-title')[i]
-                    	el.parentNode.setAttribute('id', 'picker'+adcIndex);
-                	}
-            	},
-            	onSelect: function(event) {
-            	if (window.askia 
-                	&& window.arrLiveRoutingShortcut 
-               		&& window.arrLiveRoutingShortcut.length > 0
-                	&& window.arrLiveRoutingShortcut.indexOf(question) >= 0) {
-						askia.triggerAnswer();
-                	}
-				},
-            	onDraw: function(event) {
-                	var adcIndex = adcId;
-                	var elms = document.getElementsByClassName('pika-title');
-                	for (var i = 0; i<elms.length; i++) {
-                    	var el = document.getElementsByClassName('pika-title')[i]
-                    	el.parentNode.setAttribute('id', 'picker'+adcIndex);
-                	}
-                	//var el = document.getElementsByClassName('pika-title')[0];
-            	},
+                    el.parentNode.setAttribute('id', 'picker' + adcIndex);
+                  }
+                },
+                onSelect: function (event) {
+                  var inputDate = document.getElementById(inputNameX);
+                  if ('createEvent' in document) {
+                    var evt = document.createEvent('HTMLEvents');
+                    evt.initEvent('input', false, true);
+                    inputDate.dispatchEvent(evt);
+                  } else {
+                    inputDate.fireEvent('oninput');
+                  }
+                },
+                onDraw: function (event) {
+                  var adcIndex = adcId;
+                  var elms = document.getElementsByClassName('pika-title');
+                  for (var i = 0; i < elms.length; i++) {
+                    var el = document.getElementsByClassName('pika-title')[i]
+                    el.parentNode.setAttribute('id', 'picker' + adcIndex);
+                  }
+                  //var el = document.getElementsByClassName('pika-title')[0];
+                },
                 /*onClose: function(event) {
    					var adcIndex = {%= CurrentADC.InstanceId.ToInt() %};
         			var el = document.getElementsByClassName('pika-lendar')[adcIndex-1];

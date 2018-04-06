@@ -99,12 +99,14 @@
             } else if(!showSeconds && hourVal != "hh" && minsVal != "mm"){
                 timeResult = hourVal+":"+minsVal;
             }
-            document.querySelector(".time_" + adcId).value=timeResult;
-            if (window.askia 
-                && window.arrLiveRoutingShortcut 
-                && window.arrLiveRoutingShortcut.length > 0
-                && window.arrLiveRoutingShortcut.indexOf(options.question) >= 0) {
-                askia.triggerAnswer();
+            var inputDate = document.querySelector(".time_" + adcId);
+            inputDate.value = timeResult;
+            if ('createEvent' in document) {
+                var evt = document.createEvent('HTMLEvents');
+                evt.initEvent('input', false, true);
+                inputDate.dispatchEvent(evt);
+            } else {
+                inputDate.fireEvent('oninput');
             }
         }
         min.onchange=function() {
