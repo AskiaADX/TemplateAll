@@ -33,18 +33,29 @@ EndIf
 #adc_{%= CurrentADC.InstanceId %} .RLTimePicker {
     margin: {%= controlAlign %};
 }
-#adc_{%= CurrentADC.InstanceId %} .select select,
 #adc_{%= CurrentADC.InstanceId %} .RLTimePicker select:not([disabled=disabled]) {
     color: rgba({%= Theme.BlackColor %}) !important;
     background-color: rgba({%= Theme.WhiteColor %}) !important;
 }
 #adc_{%= CurrentADC.InstanceId %} .RLTimePicker,
 #adc_{%= CurrentADC.InstanceId %} .RLTimePicker option,
-#adc_{%= CurrentADC.InstanceId %} .select option {
+#adc_{%= CurrentADC.InstanceId %} select option {
     color: rgba({%= Theme.BlackColor %}) !important;
     background-color: rgba({%= Theme.WhiteColor %}) !important;
 }
+#adc_{%= CurrentADC.InstanceId %} .RLTimePicker option:disabled {
+    color: rgba({%= Theme.BlackColor.ToRGB() %},.5) !important;
+    background-color: rgba({%= Theme.WhiteColor %}) !important;
+}
 {% EndIf %}
+#adc_{%= CurrentADC.InstanceId %} .select select {
+    color: rgba({%= Theme.BlackColor %}) !important;
+    background-color: rgba({%= Theme.WhiteColor %}) !important;
+}
+#adc_{%= CurrentADC.InstanceId %} .select option:disabled {
+    color: rgba({%= Theme.BlackColor.ToRGB() %},.5) !important;
+    background-color: rgba({%= Theme.WhiteColor %}) !important;
+}
 @media screen and (max-width: 800px) {
     #adc_{%= CurrentADC.InstanceId%} .askia-response:hover {
         background-color: transparent;
@@ -142,12 +153,22 @@ EndIf
 #adc_{%= CurrentADC.InstanceId %} input[type=range]::-ms-fill-lower {
   height: 8px; 
   border: 0px solid rgb({%= Theme.NeutralDarkColor.ToRGB() %});
-  border-radius: {%= Theme.BorderRadius %};
+  -webkit-border-top-left-radius: {%= Theme.BorderRadius %};
+  -webkit-border-bottom-left-radius: {%= Theme.BorderRadius %};
+  -moz-border-radius-topleft: {%= Theme.BorderRadius %};
+  -moz-border-radius-bottomleft: {%= Theme.BorderRadius %};
+  border-top-left-radius: {%= Theme.BorderRadius %};
+  border-bottom-left-radius: {%= Theme.BorderRadius %};
 }
 #adc_{%= CurrentADC.InstanceId %} input[type=range]::-ms-fill-upper {
   height: 8px;
   border: 0px solid rgb({%= Theme.NeutralDarkColor.ToRGB() %});
-  border-radius: {%= Theme.BorderRadius %};
+  -webkit-border-top-right-radius: {%= Theme.BorderRadius %};
+  -webkit-border-bottom-right-radius: {%= Theme.BorderRadius %};
+  -moz-border-radius-topright: {%= Theme.BorderRadius %};
+  -moz-border-radius-bottomright: {%= Theme.BorderRadius %};
+  border-top-right-radius: {%= Theme.BorderRadius %};
+  border-bottom-right-radius: {%= Theme.BorderRadius %};
 }
 #adc_{%= CurrentADC.InstanceId %} input[type=range]::-ms-thumb {
   border: 1px solid rgb({%= Theme.NeutralDarkColor.ToRGB() %});

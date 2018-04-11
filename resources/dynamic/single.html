@@ -5,12 +5,13 @@ Dim inputValue
 Dim caption
 Dim resource
 Dim i
+Dim attrSelected
 
-If useList Then %}
+If useList Then 
+    attrSelected = On(CurrentQuestion.HasDK or CurrentQuestion.HasNA, " selected=\"selected\"", "") %}
     <select name="{%= inputName %}">
-        <option value="">{%:= CurrentADC.PropValue("firstOptionText") %}</option>
+        <option value="" disabled="disabled"{%:= attrSelected %}>{%:= CurrentADC.PropValue("firstOptionText") %}</option>
     {% 
-    Dim attrSelected
     For i = 1 To CurrentQuestion.AvailableResponses.Count 
         attrSelected = On(CurrentQuestion.AvailableResponses[i].IsSelected, "selected=\"selected\"", "")
         inputValue   = CurrentQuestion.AvailableResponses[i].InputValue()

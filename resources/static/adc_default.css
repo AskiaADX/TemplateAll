@@ -8,6 +8,10 @@ body {
 *:focus {
   outline: none;
 }
+* {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
 .adc-default {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -187,12 +191,13 @@ body {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    border: 0.0625em solid rgba(221, 221, 221, 1);
     margin: 0;
     background: transparent;
     border: none;
     padding: 5px;
-    height: 34px;
-    /* width: 60px; */
+    /* height: 2em;
+    width: 60px; */
     text-align: center;
     text-align-last: center;
     -webkit-appearance: none;
@@ -200,13 +205,34 @@ body {
     appearance: none;
     cursor: pointer;
 }
-.RLTimePicker select::-ms-expand {
+.adc-default > select {
+    width: 90%;
+    box-sizing: border-box;
+    border: 0.0625em solid rgba(221, 221, 221, 1);
+    border-radius: .125em;
+    margin: 0;
+    background: transparent;
+    padding: 5px;
+    height: 2em;
+    background-image: linear-gradient(45deg, transparent 50%, rgba(221, 221, 221, 1) 50%), linear-gradient(135deg, rgba(221, 221, 221, 1) 50%, transparent 50%);
+    background-position: calc(100% - 13px) calc(0.8em), calc(100% - 6px) calc(0.8em);
+    background-size: 8px 8px, 8px 8px;
+    background-repeat: no-repeat;
+    padding-right: 1.5em;
+    cursor: pointer;
+}
+.adc-default select option:first-child {
+	display: none;   
+}
+.adc-default select::-ms-expand {
     display: none;
 }
+.adc-default select option {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  cursor: pointer;    
+}
 .RLTimePicker select option {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     text-align: center;
-    cursor: pointer;    
 }
 
 .RLTimePicker select:focus {
@@ -215,8 +241,8 @@ body {
 }
 .RLTimePicker .imperial {
     width: 45px;
-    padding: 5px;
-    line-height: 1.5;
+    /* padding: 5px; */
+    line-height: 2.5;
     text-align: center;
     user-select: none;
     -moz-user-select: none;
@@ -231,11 +257,11 @@ body {
     font-weight: bolder;
 }
 .RLTimePicker [class^="timeSeparator"] {
-    line-height: 2;
+    line-height: 2.5;
 }
 .RLTimePicker .secsContainer {
     display: inherit;
-    height: 34px;
+    height: auto;
 }
 
 /* DATE PICKER */
