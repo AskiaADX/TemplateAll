@@ -48,11 +48,12 @@ EndIf
     background-color: rgba({%= Theme.WhiteColor %}) !important;
 }
 {% EndIf %}
-#adc_{%= CurrentADC.InstanceId %} .select select {
+#adc_{%= CurrentADC.InstanceId %} select,
+#adc_{%= CurrentADC.InstanceId %} select:focus::-ms-value{
     color: rgba({%= Theme.BlackColor %}) !important;
     background-color: rgba({%= Theme.WhiteColor %}) !important;
 }
-#adc_{%= CurrentADC.InstanceId %} .select option:disabled {
+#adc_{%= CurrentADC.InstanceId %} option:disabled {
     color: rgba({%= Theme.BlackColor.ToRGB() %},.5) !important;
     background-color: rgba({%= Theme.WhiteColor %}) !important;
 }
