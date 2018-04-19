@@ -1,4 +1,87 @@
 (function () {
+    
+    // Create a safe reference to the Underscore object for use below.
+    var _ = function(obj) {
+        if (obj instanceof _) return obj;
+        if (!(this instanceof _)) return new _(obj);
+        this._wrapped = obj;
+    };
+
+    // Similar to ES6's rest param (http://ariya.ofilabs.com/2013/03/es6-and-rest-parameter.html)
+    // This accumulates the arguments passed into an array, after a given index.
+    var restArgs = function(func, startIndex) {
+        startIndex = startIndex == null ? func.length - 1 : +startIndex;
+        return function() {
+            var length = Math.max(arguments.length - startIndex, 0),
+                rest = Array(length),
+                index = 0;
+            for (; index < length; index++) {
+                rest[index] = arguments[index + startIndex];
+            }
+            switch (startIndex) {
+                case 0: return func.call(this, rest);
+                case 1: return func.call(this, arguments[0], rest);
+                case 2: return func.call(this, arguments[0], arguments[1], rest);
+                              }
+            var args = Array(startIndex + 1);
+            for (index = 0; index < startIndex; index++) {
+                args[index] = arguments[index];
+            }
+            args[startIndex] = rest;
+            return func.apply(this, args);
+        };
+    };
+
+    // Delays a function for the given number of milliseconds, and then calls
+    // it with the arguments supplied.
+    _.delay = restArgs(function(func, wait, args) {
+        return setTimeout(function() {
+            return func.apply(null, args);
+        }, wait);
+    });
+
+    /**
+ * Return a function which, until she continue to be invoked,
+ * will not be executed. The function will be executed only when
+ * the function will stop to be called for more than N milliseconds.
+ * If the parameter `immediate` equal true, then the function 
+ * will be executed to the first call instaed of the last.
+ * Parameters :
+ *  - func : the function to `debounce`
+ *  - wait : the number of milliseconds (N) to wait before 
+ *           call the function func()
+ *  - immediate : execute immediately func() (by default false)
+ *                          
+ */
+    function debounce(func, wait, immediate) {
+        var timeout, result;
+
+        var later = function(context, args) {
+            timeout = null;
+            if (args) result = func.apply(context, args);
+        };
+
+        var debounced = restArgs(function(args) {
+            if (timeout) clearTimeout(timeout);
+            if (immediate) {
+                var callNow = !timeout;
+                timeout = setTimeout(later, wait);
+                if (callNow) result = func.apply(this, args);
+            } else {
+                timeout = _.delay(later, wait, this, args);
+            }
+
+            return result;
+        });
+
+        debounced.cancel = function() {
+            clearTimeout(timeout);
+            timeout = null;
+        };
+
+        return debounced;
+
+    }
 
     /**
    * Add event listener in DOMElement
@@ -82,6 +165,71 @@
             askia.triggerAnswer();
         }
     }
+    
+    /**
+   * Check if the date question has an answer
+   *
+   * @param {Object} div Main div
+   */
+    function checkAnswersDate (div) {
+        var inputDate = div.querySelector('.RLDatePicker input[type=text]');
+        var selectHour = div.querySelector('.RLTimePicker select[id^=hour]');
+        var selectMinute = div.querySelector('.RLTimePicker select[id^=minutes]');
+        var selectSecond = div.querySelector('.RLTimePicker select[id^=seconds]');
+        var inputDk = div.querySelector('.DK input[type=checkbox]');
+        var result = true;
+        if (inputDk) {
+        	if (inputDate && selectHour) {
+                if (selectSecond && inputDk.checked === false && (inputDate.value === '' || selectHour.value.toLowerCase() === 'hh' || selectMinute.value.toLowerCase() === 'mm' || selectSecond.value.toLowerCase() === 'ss')) result = false;
+                if (!selectSecond && inputDk.checked === false && (inputDate.value === '' || selectHour.value.toLowerCase() === 'hh' || selectMinute.value.toLowerCase() === 'mm')) result = false;
+            } else if (inputDate && !selectHour) {
+                if (inputDk.checked === false && inputDate.value === '') result = false;
+            } else if (!inputDate && selectHour) {
+                if (selectSecond && inputDk.checked === false && (selectHour.value.toLowerCase() === 'hh' || selectMinute.value.toLowerCase() === 'mm' || selectSecond.value.toLowerCase() === 'ss')) result = false;
+                if (!selectSecond && inputDk.checked === false && (selectHour.value.toLowerCase() === 'hh' || selectMinute.value.toLowerCase() === 'mm')) result = false;
+            }
+        } else {
+            if (inputDate && selectHour) {
+                if (selectSecond && (inputDate.value === '' || selectHour.value.toLowerCase() === 'hh' || selectMinute.value.toLowerCase() === 'mm' || selectSecond.value.toLowerCase() === 'ss')) result = false;
+                if (!selectSecond && (inputDate.value === '' || selectHour.value.toLowerCase() === 'hh' || selectMinute.value.toLowerCase() === 'mm')) result = false;
+            } else if (inputDate && !selectHour) {
+                if (inputDate.value === '') result = false;
+            } else if (!inputDate && selectHour) {
+                if (selectSecond && (selectHour.value.toLowerCase() === 'hh' || selectMinute.value.toLowerCase() === 'mm' || selectSecond.value.toLowerCase() === 'ss')) result = false;
+                if (!selectSecond && (selectHour.value.toLowerCase() === 'hh' || selectMinute.value.toLowerCase() === 'mm')) result = false;
+            }
+        }
+        return result;
+    }
+    
+    /**
+   * Check if the select question has an answer
+   *
+   * @param {Object} div Main div
+   */
+    function checkAnswersSelect (div) {
+        var inputSelect = div.querySelector('select');
+        var result = true;
+      	if (inputSelect.value === '0') result = false;
+        return result;
+    }
+    
+    /**
+   * Check if the closed question has an answer
+   *
+   * @param {Object} div Main div
+   */
+    function checkAnswersClosed (div) {
+        var inputsClosed = div.querySelectorAll('input[type=radio]');
+        var result = false;
+        for (var i = 0; i < inputsClosed.length; i++) {
+            if (inputsClosed[i].checked === true) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
 
     /**
    * Manage the change event on input radio and checkbox
@@ -96,6 +244,13 @@
                 manageExclusive(el);
             }
             triggerRouting(that.currentQuestion);
+            if (el.type === "radio") {
+                var nextBtn = document.getElementsByName('Next')[0];
+                var mainDiv = document.getElementById("adc_" + that.instanceId);
+                if (checkAnswersClosed(mainDiv) && that.autoSubmit) {
+                    nextBtn.click();
+                }
+            }
         }
     }
     
@@ -282,6 +437,25 @@
    */
     function onInputDates (event, that) {
         triggerRouting(that.currentQuestion);
+        var nextBtn = document.getElementsByName('Next')[0];
+        var mainDiv = document.getElementById("adc_" + that.instanceId);
+        if (checkAnswersDate(mainDiv) && that.autoSubmit) {
+            nextBtn.click();
+        }
+    }
+    
+    /**
+   * Manage the change event on select
+   *
+   * @param {Object} event Change event of the select
+   * @param {Object} that AdcDefault object, same as options
+   */
+    function onSelects (event, that) {
+        var nextBtn = document.getElementsByName('Next')[0];
+        var mainDiv = document.getElementById("adc_" + that.instanceId);
+        if (checkAnswersSelect(mainDiv) && that.autoSubmit) {
+            nextBtn.click();
+        }
     }
 
     /**
@@ -430,9 +604,11 @@
         this.instanceId = options.instanceId || 1;
         this.currentQuestion = options.currentQuestion || "";
         this.type = options.type || "";
+        this.autoSubmit = options.autoSubmit;
         this.numUseInput = options.numUseInput || 0;
         this.suffixes = options.suffixes || [];
         this.decimals = options.decimals || [];
+        this.useList = options.useList;
         
         var radios = document.querySelectorAll('#adc_' + this.instanceId + ' input[type="radio"]');
         var checkboxes = document.querySelectorAll('#adc_' + this.instanceId + ' input[type="checkbox"]');
@@ -443,6 +619,7 @@
         var openInputDK = document.querySelector('#adc_' + this.instanceId + ' .openDK input[type="checkbox"]');
         var inputDates = document.querySelectorAll('#adc_' + this.instanceId + ' .inputdate');
         var dateInputDK = document.querySelector('#adc_' + this.instanceId + ' .DK input[type="checkbox"]');
+        var inputSelect = document.querySelector('#adc_' + this.instanceId + ' select');
 
         if (this.type === "single" || this.type === "multiple") {
             // Change event on input radio
@@ -464,6 +641,14 @@
                     };
                 }(this)));
             }
+             
+        }
+        
+        if (this.type === "single" && this.useList) {
+            addEvent(inputSelect, "change", 
+                     (function(passedInElement) {
+                return function(e) {onSelects(e, passedInElement); };
+            }(this))); 
         }
         
         if (this.type === "numeric") {
@@ -479,13 +664,6 @@
                     onInputNumbers(e, passedInElement); 
                 };
             }(this)));
-            if ('createEvent' in document) {
-                var evt = document.createEvent('HTMLEvents');
-                evt.initEvent('input', false, true);
-                inputNumbers.dispatchEvent(evt);
-            } else {
-                inputNumbers.fireEvent('oninput');
-            }
         }
         
         if (this.type === "open") {
@@ -501,13 +679,6 @@
                     onInputOpens(e, passedInElement); 
                 };
             }(this)));
-            if ('createEvent' in document) {
-                var evt = document.createEvent('HTMLEvents');
-                evt.initEvent('input', false, true);
-                inputOpens.dispatchEvent(evt);
-            } else {
-                inputOpens.fireEvent('oninput');
-            }
         }
         
         if (this.type === "datetime") {
@@ -527,13 +698,6 @@
                         onInputDates(e, passedInElement); 
                     };
                 }(this)));
-                if ('createEvent' in document) {
-                    var evt = document.createEvent('HTMLEvents');
-                    evt.initEvent('input', false, true);
-                    inputDates[k].dispatchEvent(evt);
-                } else {
-                    inputDates[k].fireEvent('oninput');
-                }
             }
         }
 

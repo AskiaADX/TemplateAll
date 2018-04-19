@@ -7,7 +7,7 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>2.0.9</version>
+    <version>2.0.10</version>
     <date>2016-04-15</date>
     <description><![CDATA[Default ADC with all kind of questions]]></description>
     <company>Askia SAS</company>
@@ -62,19 +62,13 @@
         ]]></description>
         <value></value>
       </property>
-      <property xsi:type="standardProperty" id="useList" name="Use a selection list" type="string" mode="dynamic" require="true" visible="true">
-        <description><![CDATA[Use a select list to enumerate all available responses.
-          This option works with closed and numeric questions.
-          For numeric question, the range between bounds should be inferior than 20. It take in account the step option.]]></description>
-        <value><![CDATA[0]]></value>
+      <property xsi:type="standardProperty" id="autoSubmit" name="Auto submit" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Auto submit]]></description>
+        <value><![CDATA[no]]></value>
         <options>
-          <option value="1" text="Yes" />
-          <option value="0" text="No" />
+          <option value="yes" text="Yes" />
+          <option value="no" text="No" />
         </options>
-      </property>
-      <property xsi:type="standardProperty" id="firstOptionText" name="First option text of the drop down" type="string" mode="dynamic" require="false" visible="true">
-        <description><![CDATA[First option text of the drop down]]></description>
-        <value></value>
       </property>
     </category>
     <category id="closedQuestion" name="Closed question">
@@ -89,6 +83,18 @@
       <property xsi:type="standardProperty" id="columnsWidth" name="Columns min width" type="string" mode="dynamic" require="false" visible="false">
         <description><![CDATA[The minimum width of the columns]]></description>
         <value><![CDATA[200px]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="useList" name="Use a selection list" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Use a select list to enumerate all available responses.]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="firstOptionText" name="First option text of the drop down" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[First option text of the drop down]]></description>
+        <value></value>
       </property>
     </category>
     <category id="numericQuestion" name="Numeric question">

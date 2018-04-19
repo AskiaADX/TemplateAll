@@ -123,7 +123,7 @@
         if((this.selected_min/minsInterval) >= 0) min.selectedIndex = (this.selected_min/minsInterval) + 1;
         if(showSeconds && (this.selected_sec/secsInterval) >= 0) sec.selectedIndex = (this.selected_sec/secsInterval) + 1;
 
-        hour.onchange();
+        // hour.onchange();
     }
     
     window.TimePicker = TimePicker;

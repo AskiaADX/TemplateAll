@@ -30,6 +30,11 @@ body {
 .adc-default ul {
     list-style-type: none;
 }
+.adc-default li {
+    -webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
+    page-break-inside: avoid; /* Firefox */
+    break-inside: avoid; /* IE 10+ */
+}
 .adc-default .askia-response {
     display: flex;
     justify-content: stretch;
@@ -192,7 +197,7 @@ body {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     border: 0.0625em solid rgba(221, 221, 221, 1);
-    margin: 0;
+    margin: 1px;
     background: transparent;
     border: none;
     padding: 5px;
