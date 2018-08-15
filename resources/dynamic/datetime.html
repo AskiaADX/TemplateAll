@@ -13,25 +13,20 @@ Dim attrChecked = On(column.HasDK and column.HasAnswered, " checked=\"checked\""
 
 {% If Not(CurrentQuestion.IsTimeOnly) Then %}
 <div class="RLDatePicker">
-    <label for="askia-input-date{%= column.InputCode %}" hidden>Date</label>
-	<input type="text" id="askia-input-date{%= column.InputCode %}" class="inputdate askia-question-{%= inputCode %}" name="{%= inputNameDate %}" value="{%= column.InputValue("date") %}"{%:= attrMin %}{%:= attrMax %}{%:= attrReadOnly %}{%:= attrDisabled %} />
+	<input type="text" id="askia-input-date{%= column.InputCode %}" class="inputdate askia-question-{%= inputCode %}" aria-label="Date" name="{%= inputNameDate %}" value="{%= column.InputValue("date") %}"{%:= attrMin %}{%:= attrMax %}{%:= attrReadOnly %}{%:= attrDisabled %} />
 </div>
 {% EndIf %}
 {% If Not(CurrentQuestion.IsDateOnly) Then %}
 <div class="RLTimePicker">
-    <label for="hour_{%= column.InputCode %}" hidden>Hour</label>
-	<select id="hour_{%= column.InputCode %}" name="hour"{%:= attrDisabled %}></select>
+	<select id="hour_{%= column.InputCode %}" aria-label="Hour" name="hour"{%:= attrDisabled %}></select>
 	<span class="timeSeparator_{%= column.InputCode %}"></span>
-    <label for="minutes_{%= column.InputCode %}" hidden>Minutes</label>	
-    <select id="minutes_{%= column.InputCode %}" name="minutes"{%:= attrDisabled %}></select>
+    <select id="minutes_{%= column.InputCode %}" aria-label="Minutes" name="minutes"{%:= attrDisabled %}></select>
 	<span id="secsContainer_{%= column.InputCode %}" class="secsContainer">
 	<span class="timeSeparator_{%= column.InputCode %}"></span>
-    <label for="seconds_{%= column.InputCode %}" hidden>Seconds</label>
-	<select id="seconds_{%= column.InputCode %}" name="seconds"{%:= attrDisabled %}></select>
+	<select id="seconds_{%= column.InputCode %}" aria-label="Seconds" name="seconds"{%:= attrDisabled %}></select>
 	</span>
 	<!--<input type="text" id="time" name="time" readonly="readonly" hidden=true/> -->
-    <label for="askia-input-time{%= column.InputCode %}" hidden>Time</label>
-	<input id="askia-input-time{%= column.InputCode %}" class="inputdate askia-question-{%= inputCode %} time_{%= column.InputCode %}" hidden type="text" name="{%= inputNameTime %}" value="{%= column.InputValue("date") %}"{%:= attrReadOnly %} />
+	<input id="askia-input-time{%= column.InputCode %}" aria-label="Time" class="inputdate askia-question-{%= inputCode %} time_{%= column.InputCode %}" hidden type="text" name="{%= inputNameTime %}" value="{%= column.InputValue("date") %}"{%:= attrReadOnly %} />
 	<span class="imperial" {%If CurrentADC.PropValue("imperial") = "false" Then %} hidden {% EndIf %} id="ampm_{%= column.InputCode %}"></span>
 </div>
 {% EndIf %}

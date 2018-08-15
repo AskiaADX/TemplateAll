@@ -14,12 +14,10 @@ Dim attrPlaceholder = On(placeholder <> "", " placeholder=\"" + placeholder + "\
 Dim attrChecked = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered, " checked=\"checked\"", "") 
 Dim attrReadOnly = On(CurrentQuestion.Value = "" and CurrentQuestion.HasAnswered and CurrentADC.PropValue("openDkButton") = "1", " readonly=\"readonly\"", "") 
 
-%}
-<label for="askia-input-open{%= CurrentQuestion.InputCode %}" hidden>Input</label>
-{%
+
 If (inputType = "textarea") Then
 %}
-<textarea id="askia-input-open{%= CurrentQuestion.InputCode %}" class="inputopen" name="{%= inputName %}"{%:= attrReadOnly %}{%:= attrMax %}{%:= attrPlaceholder %}>{%:= inputValue %}</textarea>
+<textarea id="askia-input-open{%= CurrentQuestion.InputCode %}" aria-label="Text area" class="inputopen" name="{%= inputName %}"{%:= attrReadOnly %}{%:= attrMax %}{%:= attrPlaceholder %}>{%:= inputValue %}</textarea>
 {% Else %}  
 <input type="{%= inputType %}" id="askia-input-open{%= CurrentQuestion.InputCode %}" class="inputopen" name="{%= inputName %}" value="{%:= inputValue %}"{%:= attrReadOnly %}{%:= attrMax %}{%:= attrPlaceholder %} />
 {% EndIf %}

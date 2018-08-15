@@ -11,7 +11,7 @@
     <date>2016-04-15</date>
     <description><![CDATA[Default ADC with all kind of questions
 		v2.0.11 - Added alt attribute to img
-				- Added labels to select, inputs and textarea
+				- Added aria-labels to select, inputs and textarea
 				- Added span to labels]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>

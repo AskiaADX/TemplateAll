@@ -9,8 +9,7 @@ Dim attrSelected
 
 If useList Then 
     attrSelected = On(CurrentQuestion.HasDK or CurrentQuestion.HasNA, " selected=\"selected\"", "") %}
-<label for="select-{%= inputName %}" hidden>Select</label>
-<select id="select-{%= inputName %}" name="{%= inputName %}">
+<select name="{%= inputName %}" aria-label="Select">
         <option value="" disabled="disabled"{%:= attrSelected %}>{%:= CurrentADC.PropValue("firstOptionText") %}</option>
     {% 
     For i = 1 To CurrentQuestion.AvailableResponses.Count 
