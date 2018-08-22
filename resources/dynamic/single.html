@@ -9,7 +9,7 @@ Dim attrSelected
 
 If useList Then 
     attrSelected = On(CurrentQuestion.HasDK or CurrentQuestion.HasNA, " selected=\"selected\"", "") %}
-    <select name="{%= inputName %}">
+<select name="{%= inputName %}" aria-label="Select">
         <option value="" disabled="disabled"{%:= attrSelected %}>{%:= CurrentADC.PropValue("firstOptionText") %}</option>
     {% 
     For i = 1 To CurrentQuestion.AvailableResponses.Count 
@@ -34,10 +34,10 @@ If useList Then
         %}
         <li class="askia-response">
             <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />
-            <label for="{%= inputId %}" class="askia-radio"></label>
+            <label for="{%= inputId %}" class="askia-radio"><span hidden>Radio</span></label>
             <label for="{%= inputId %}" class="askia-response-label">
                 {% IF (resource <> "") Then %}
-					<img src="{%= resource %}" style="vertical-align:middle" />
+                <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}"/>
                 {% EndIf %}{%:= caption %}</label>
         </li>
         {% Next %}

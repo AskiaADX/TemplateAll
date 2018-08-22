@@ -29,12 +29,14 @@ Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and 
 %}
     <div class="responses-container">
         <span class="prefix">{%= CurrentADC.PropValue("numBoxPrefix") %}</span>
+        <label for="askia-input-number{%= inputCode%}" hidden>Input</label>
         <input type="number" id="askia-input-number{%= inputCode %}" class="inputnumber" name="{%= inputName %}" value="{%:= inputValue %}"{%:= attrMin %}{%:= attrMax %}{%:= attrStep %}{%:= attrPlaceholder %}{%:= attrReadOnly %}/>
         {% If (useInput = "2") Then %}
         <input type="text" id="askia-input-currency{%= inputCode %}" name="currency_{%= inputName %}" value="{%:= inputValue %}" class="thousand"{%:= attrReadOnly %} />
         {% EndIf %}
         {% If (useInput = "1") Then %}
         <div class="range"{%:= minVal %}{%:= maxVal %}> 
+            <label for="askia-input-range_{%= CurrentQuestion.InputCode %}" hidden>Range</label>
             <input type="range" id="askia-input-range_{%= CurrentQuestion.InputCode %}" class="inputRange_{%= CurrentADC.InstanceId %}_1{%:= clsSelected %}" name="range{%= CurrentQuestion.InputName() %}" value="{%= CurrentQuestion.InputValue() %}"{%:= minVal %}{%:= maxVal %}{%:= step %}{%:= attrDisabled %}>
             <p class="preBar"></p>
         </div>
@@ -45,7 +47,7 @@ Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and 
     <label class="DK numericDK">
         <input type="hidden" name="B{%= inputCode %}">
         <input type="checkbox" id="askia-input-number_{%= inputCode %}_-1" class="dkbutton" name="M{%= inputCode %} -1" {%:= attrChecked %}>
-        <label for="askia-input-number_{%= inputCode %}_-1" class="askia-checkbox"></label>
+        <label for="askia-input-number_{%= inputCode %}_-1" class="askia-checkbox"><span hidden>Checkbox</span></label>
         <label for="askia-input-number_{%= inputCode %}_-1" class="askia-response-label">
             <span class="caption">{%:= CurrentADC.PropValue("numDkCaption") %}</span>
         </label>

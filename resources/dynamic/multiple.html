@@ -36,10 +36,10 @@ If useList Then
         %}
         <li class="askia-response">
             <input type="checkbox" name="{%= inputName %}" id="{%= inputId %}" {%:= attrChecked %} {%:= exclusive %} />
-            <label for="{%= inputId %}" class="askia-checkbox"></label>
+            <label for="{%= inputId %}" class="askia-checkbox"><span hidden>Checkbox</span></label>
             <label for="{%= inputId %}" class="askia-response-label">
                 {% IF (resource <> "") Then %}
-					<img src="{%= resource %}" style="vertical-align:middle" />
+                <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}" />
                 {% EndIf %}{%:= caption %}
             </label>
         </li>
