@@ -7,7 +7,7 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>2.0.10</version>
+    <version>2.0.11</version>
     <date>2016-04-15</date>
     <description><![CDATA[Default ADC with all kind of questions
 		v2.0.11 - Added alt attribute to img
@@ -104,7 +104,7 @@
       <property xsi:type="standardProperty" id="numUseInput" name="Use" type="string" mode="dynamic" require="true" visible="true">
         <description><![CDATA[Use an input number or slider or currency.
 			For currency, an input text is generated and the thousand separator are shown with a space.]]></description>
-        <value><![CDATA[1]]></value>
+        <value><![CDATA[0]]></value>
         <options>
           <option value="0" text="Input number" />
           <option value="1" text="Slider" />
