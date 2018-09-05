@@ -227,7 +227,7 @@ body {
     cursor: pointer;
 }
 .adc-default select option:first-child {
-	display: none;   
+	/*display: none;*/   
 }
 .adc-default select::-ms-expand {
     display: none;

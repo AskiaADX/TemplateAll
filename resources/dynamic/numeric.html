@@ -30,14 +30,14 @@ Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and 
     <div class="responses-container">
         <span class="prefix">{%= CurrentADC.PropValue("numBoxPrefix") %}</span>
         <label for="askia-input-number{%= inputCode%}" hidden>Input</label>
-        <input type="number" id="askia-input-number{%= inputCode %}" class="inputnumber" name="{%= inputName %}" value="{%:= inputValue %}"{%:= attrMin %}{%:= attrMax %}{%:= attrStep %}{%:= attrPlaceholder %}{%:= attrReadOnly %}/>
+        <input type="number" id="askia-input-number{%= inputCode %}" class="inputnumber" autocomplete="off" name="{%= inputName %}" value="{%:= inputValue %}"{%:= attrMin %}{%:= attrMax %}{%:= attrStep %}{%:= attrPlaceholder %}{%:= attrReadOnly %}/>
         {% If (useInput = "2") Then %}
-        <input type="text" id="askia-input-currency{%= inputCode %}" name="currency_{%= inputName %}" value="{%:= inputValue %}" class="thousand"{%:= attrReadOnly %} />
+        <input type="text" id="askia-input-currency{%= inputCode %}" autocomplete="off" name="currency_{%= inputName %}" value="{%:= inputValue %}" class="thousand"{%:= attrReadOnly %} />
         {% EndIf %}
         {% If (useInput = "1") Then %}
         <div class="range"{%:= minVal %}{%:= maxVal %}> 
             <label for="askia-input-range_{%= CurrentQuestion.InputCode %}" hidden>Range</label>
-            <input type="range" id="askia-input-range_{%= CurrentQuestion.InputCode %}" class="inputRange_{%= CurrentADC.InstanceId %}_1{%:= clsSelected %}" name="range{%= CurrentQuestion.InputName() %}" value="{%= CurrentQuestion.InputValue() %}"{%:= minVal %}{%:= maxVal %}{%:= step %}{%:= attrDisabled %}>
+            <input type="range" id="askia-input-range_{%= CurrentQuestion.InputCode %}" autocomplete="off" class="inputRange_{%= CurrentADC.InstanceId %}_1{%:= clsSelected %}" name="range{%= CurrentQuestion.InputName() %}" value="{%= CurrentQuestion.InputValue() %}"{%:= minVal %}{%:= maxVal %}{%:= step %}{%:= attrDisabled %}>
             <p class="preBar"></p>
         </div>
         {% EndIf %}
