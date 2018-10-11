@@ -621,7 +621,7 @@
         var dateInputDK = document.querySelector('#adc_' + this.instanceId + ' .DK input[type="checkbox"]');
         var inputSelect = document.querySelector('#adc_' + this.instanceId + ' select');
 
-        if (this.type === "single" || this.type === "multiple") {
+        if (this.type === "single" || this.type === "multiple" || this.type === "single-loop" || this.type === "multiple-loop") {
             // Change event on input radio
             for (var i = 0; i < radios.length; i++) {
                 addEvent(radios[i], 'change', 
@@ -644,14 +644,14 @@
              
         }
         
-        if (this.type === "single" && this.useList) {
+        if ((this.type === "single" && this.useList) || (this.type === "single-loop" && this.useList)) {
             addEvent(inputSelect, "change", 
                      (function(passedInElement) {
                 return function(e) {onSelects(e, passedInElement); };
             }(this))); 
         }
         
-        if (this.type === "numeric") {
+        if (this.type === "numeric" || this.type === "numeric-loop") {
             if (numInputDK) {
                 addEvent(numInputDK, "change", 
                          (function(passedInElement) {
@@ -701,7 +701,7 @@
             }
         }
 
-        if (this.type === "numeric" && this.numUseInput === 2) {
+        if ((this.type === "numeric" && this.numUseInput === 2) || (this.type === "numeric-loop" && this.numUseInput === 2)) {
             document.addEventListener("keypress", function(event){
                 var el = event.target || event.srcElement;
                 if (el.nodeName === "INPUT" && el.className.indexOf("thousand") >= 0) {
@@ -716,7 +716,7 @@
             },false);
         }
         
-        if (this.type === "numeric" && this.numUseInput === 1) {
+        if ((this.type === "numeric" && this.numUseInput === 1) || (this.type === "numeric-loop" && this.numUseInput === 1)) {
             addEvent(inputRanges, 'change', 
                      (function (passedInElement) {
                 return function (e) {

@@ -8,22 +8,22 @@ Else
     controlAlign = "0 auto 10px 0"
 EndIf
 %}
-{% If (CurrentQuestion.Type = "numeric" or CurrentQuestion.Type = "open" or CurrentQuestion.Type = "datetime" ) Then %}
+{% If (CurrentQuestion.Type = "numeric" or CurrentQuestion.Type = "numeric-loop" or CurrentQuestion.Type = "open" or CurrentQuestion.Type = "datetime" ) Then %}
 #adc_{%= CurrentADC.InstanceId %} {
     text-align: {%= CurrentADC.PropValue("controlAlign") %};
 }
 {% EndIf %}
-{% If (CurrentQuestion.Type = "numeric" and CurrentADC.PropValue("numUseInput") = "2") Then %}
+{% If ((CurrentQuestion.Type = "numeric" and CurrentADC.PropValue("numUseInput") = "2") or (CurrentQuestion.Type = "numeric-loop" and CurrentADC.PropValue("numUseInput") = "2")) Then %}
 #adc_{%= CurrentADC.InstanceId %} input[type=number] {
     display: none;
 }
 {% EndIf %}
-{% If (CurrentQuestion.Type = "single" or CurrentQuestion.Type = "multiple" ) Then %}
+{% If (CurrentQuestion.Type = "single" or CurrentQuestion.Type = "multiple" or CurrentQuestion.Type = "single-loop" or CurrentQuestion.Type = "multiple-loop" ) Then %}
 #adc_{%= CurrentADC.InstanceId %} {
     width: 100%;
     max-width: {%= CurrentADC.PropValue("maxWidth") %};
     margin: {%= controlAlign %};
-    {% If (CurrentQuestion.Type = "single" and CurrentADC.PropValue("useList") = "1") Then %}
+    {% If (CurrentQuestion.Type = "single" and CurrentADC.PropValue("useList") = "1") or (CurrentQuestion.Type = "single-loop" and CurrentADC.PropValue("useList") = "1") Then %}
     text-align: {%= CurrentADC.PropValue("controlAlign") %};
     {% EndIf %}
 }

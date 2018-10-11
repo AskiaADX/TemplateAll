@@ -1,9 +1,9 @@
-﻿<div id="adc_{%= CurrentADC.InstanceId %}" class="adc-default">
-{% If CurrentQuestion.Type = "single" Then %}
+<div id="adc_{%= CurrentADC.InstanceId %}" class="adc-default">
+{% If (CurrentQuestion.Type = "single" or CurrentQuestion.Type = "single-loop") Then %}
     {%:= CurrentADC.GetContent("dynamic/single.html").ToText() %}
-{% ElseIf CurrentQuestion.Type = "multiple" Then %}
+{% ElseIf (CurrentQuestion.Type = "multiple" or CurrentQuestion.Type = "multiple-loop") Then %}
     {%:= CurrentADC.GetContent("dynamic/multiple.html").ToText() %}
-{% ElseIf CurrentQuestion.Type = "numeric" Then %}
+{% ElseIf (CurrentQuestion.Type = "numeric" or CurrentQuestion.Type = "numeric-loop") Then %}
     {%:= CurrentADC.GetContent("dynamic/numeric.html").ToText() %}
 {% ElseIf CurrentQuestion.Type = "open" Then %}
     {%:= CurrentADC.GetContent("dynamic/open.html").ToText() %}

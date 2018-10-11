@@ -7,13 +7,14 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>2.0.12</version>
+    <version>2.0.13</version>
     <date>2016-04-15</date>
     <description><![CDATA[Default ADC with all kind of questions
 		v2.0.11 - Added alt attribute to img
 				- Added aria-labels to select, inputs and textarea
 				- Added span to labels
-		v2.0.12 - Added autocomplete off and fixed select first option]]></description>
+		v2.0.12 - Added autocomplete off and fixed select first option
+		v2.0.12 - Add the compatibility with the screen of the loop with selection at each iteration and loop with preliminary selection]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
     <site>http://www.askia.com</site>
