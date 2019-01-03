@@ -23,13 +23,13 @@
       <category>General</category>
     </categories>
     <constraints>
-      <constraint on="questions" single="true" multiple="true" numeric="true" date="true" open="true" chapter="false" requireParentLoop="false" RequireLoopDepth="0" />
+      <constraint on="questions" single="true" multiple="true" numeric="true" date="true" open="true" chapter="false" requireParentLoop="false" requireLoopDepth="0" />
       <constraint on="controls" responseblock="true" checkbox="false" label="false" listbox="false" radiobutton="false" textbox="true" />
       <constraint on="responses" max="*" min="*" />
     </constraints>
   </info>
   <outputs defaultOutput="default">
-    <output id="default" ManageLoopDepth="0">
+    <output id="default" manageLoopDepth="0">
       <description><![CDATA[Default output]]></description>
       <content fileName="adc_default.css" type="css" mode="static" position="head" />
       <content fileName="default.css" type="css" mode="dynamic" position="head" />
