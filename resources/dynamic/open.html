@@ -17,9 +17,9 @@ Dim attrReadOnly = On(CurrentQuestion.Value = "" and CurrentQuestion.HasAnswered
 
 If (inputType = "textarea") Then
 %}
-<textarea id="askia-input-open{%= CurrentQuestion.InputCode %}" aria-label="Text area" class="inputopen" name="{%= inputName %}"{%:= attrReadOnly %}{%:= attrMax %}{%:= attrPlaceholder %}>{%:= inputValue %}</textarea>
+<textarea id="askia-input-open{%= CurrentQuestion.InputCode %}" aria-label="Text area" class="inputopen" name="{%= inputName %}"{%:= attrReadOnly %}{%:= attrMax %}{%:= attrPlaceholder %}>{%= inputValue %}</textarea>
 {% Else %}  
-<input type="{%= inputType %}" id="askia-input-open{%= CurrentQuestion.InputCode %}" autocomplete="off" class="inputopen" name="{%= inputName %}" value="{%:= inputValue %}"{%:= attrReadOnly %}{%:= attrMax %}{%:= attrPlaceholder %} />
+<input type="{%= inputType %}" id="askia-input-open{%= CurrentQuestion.InputCode %}" autocomplete="off" class="inputopen" name="{%= inputName %}" value="{%= inputValue %}"{%:= attrReadOnly %}{%:= attrMax %}{%:= attrPlaceholder %} />
 {% EndIf %}
 {% If (CurrentADC.PropValue("openDkButton") = "1" and CurrentQuestion.IsAllowDK) Then %}
 <label class="DK openDK">
