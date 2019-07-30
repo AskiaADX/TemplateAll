@@ -4,6 +4,7 @@ Dim useInput = CurrentADC.PropValue("numUseInput")
 Dim inputName  = CurrentQuestion.InputName()
 Dim inputValue = CurrentQuestion.InputValue()
 Dim inputCode = CurrentQuestion.InputCode
+Dim useBrowserValidation = "" + CurrentADC.PropValue("useBrowserValidation")
 Dim minValue  = On(CurrentQuestion.Type = "numeric-loop",1,CurrentQuestion.MinValue)
 Dim maxValue  = CurrentQuestion.MaxValue
 
@@ -11,12 +12,18 @@ If (CurrentQuestion.Type = "numeric-loop") Then
 	maxValue = CurrentQuestion.AvailableResponses.Count    
 EndIf
 Dim rangeLength = 0
+Dim attrMin = ""
+Dim attrMax = ""
+Dim minVal = ""
+Dim maxVal = ""
 
-Dim attrMin = On(minValue <> DK, " min=\"" + minValue + "\"", "")
-Dim attrMax = On(maxValue <> DK, " max=\"" + maxValue + "\"", "")
+if useBrowserValidation = "1" then
+	attrMin = On(minValue <> DK, " min=\"" + minValue + "\"", "")
+	attrMax = On(maxValue <> DK, " max=\"" + maxValue + "\"", "")
+	 minVal = On(minValue <> DK, " min=\"" + minValue + "\"", "") 
+	 maxVal = On(maxValue <> DK, " max=\"" + maxValue + "\"", "") 
+EndIf
 
-Dim minVal = On(minValue <> DK, " min=\"" + minValue + "\"", "") 
-Dim maxVal = On(maxValue <> DK, " max=\"" + maxValue + "\"", "") 
 Dim step = On(CurrentADC.PropValue("unitStep") <> "", " step=\"" + CurrentADC.PropValue("unitStep").Replace(",",".") + "\"", "")
 
 Dim attrDisabled = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and CurrentADC.PropValue("numDkButton") = "1", " disabled=\"disabled\"", "")

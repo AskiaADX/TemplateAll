@@ -4,9 +4,12 @@ Dim inputValue =  CurrentQuestion.InputValue()
 Dim i
 
 Dim inputType  = CurrentADC.PropValue("opensubtype")
+Dim useBrowserValidation = "" + CurrentADC.PropValue("useBrowserValidation")
 
 Dim maxValue = CurrentQuestion.MaxValue
-Dim attrMax  = On(maxValue <> DK AND maxValue > 0, " maxLength=\"" + maxValue + "\"", "")
+Dim attrMax  = On(maxValue <> DK AND maxValue > 0 AND useBrowserValidation = "1", " maxLength=\"" + maxValue + "\"", "")
+
+
 
 Dim placeholder = CurrentADC.PropValue("placeholder")
 Dim attrPlaceholder = On(placeholder <> "", " placeholder=\"" + placeholder + "\"", "")
