@@ -5,41 +5,65 @@ Dim inputValue
 Dim caption
 Dim resource
 Dim i
+Dim j
 Dim attrSelected
+Dim isHeader
 
-If useList Then 
+
+If useList Then
     attrSelected = On(CurrentQuestion.HasDK or CurrentQuestion.HasNA, " selected=\"selected\"", "") %}
 <select name="{%= inputName %}" aria-label="Select">
         <option value="" disabled="disabled"{%:= attrSelected %}>{%:= CurrentADC.PropValue("firstOptionText") %}</option>
-    {% 
-    For i = 1 To CurrentQuestion.AvailableResponses.Count 
-        attrSelected = On(CurrentQuestion.AvailableResponses[i].IsSelected, "selected=\"selected\"", "")
-        inputValue   = CurrentQuestion.AvailableResponses[i].InputValue()
-        caption      = CurrentQuestion.AvailableResponses[i].Caption
+    {%
+    For i = 1 To CurrentQuestion.Responses.Count
+        attrSelected = On(CurrentQuestion.Responses[i].IsSelected, "selected=\"selected\"", "")
+        inputValue   = CurrentQuestion.Responses[i].InputValue()
+        caption      = CurrentQuestion.Responses[i].Caption
+        isHeader     = CurrentQuestion.Responses[i].isHeader
+
+        IF isHeader = True Then
         %}
+        <optgroup label="{%= caption %}">
+          {%
+            Dim cr = CurrentQuestion.Responses[i].Children
+            For j = 1 To cr.Count
+          %}
+          <option value="{%= inputValue %}" {%:= attrSelected %}>{%= cr[j].Caption %}</option>
+          {% Next j %}
+        </optgroup>
+        {% ElseIf CurrentQuestion.Responses[i].Parent.isHeader <> True Then %}
         <option value="{%= inputValue %}" {%:= attrSelected %}>{%= caption %}</option>
+        {% EndIF %}
     {% Next %}
     </select>
 {% Else %}
     <ul>
-        {% 
+        {%
         Dim inputId
         Dim attrChecked
-        For i = 1 To CurrentQuestion.AvailableResponses.Count 
+        For i = 1 To CurrentQuestion.Responses.Count
             inputId     = (inputName + "_" + i).Replace("U", "askia-input")
-            attrChecked = On(CurrentQuestion.AvailableResponses[i].IsSelected, "checked=\"checked\"", "")
-            inputValue  = CurrentQuestion.AvailableResponses[i].InputValue()
-            caption     = CurrentQuestion.AvailableResponses[i].Caption
-			resource	= CurrentQuestion.AvailableResponses.ResourceURL[i] 
-        %}
-        <li class="askia-response">
-            <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />
-            <label for="{%= inputId %}" class="askia-radio"><span hidden>Radio</span></label>
-            <label for="{%= inputId %}" class="askia-response-label">
-                {% IF (resource <> "") Then %}
-                <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}"/>
-                {% EndIf %}{%:= caption %}</label>
-        </li>
+            attrChecked = On(CurrentQuestion.Responses[i].IsSelected, "checked=\"checked\"", "")
+            inputValue  = CurrentQuestion.Responses[i].InputValue()
+            caption     = CurrentQuestion.Responses[i].Caption
+			resource	= CurrentQuestion.Responses.ResourceURL[i]
+
+      isHeader     = CurrentQuestion.Responses[i].isHeader
+
+        IF isHeader = True Then
+
+          %}
+          <li class="responseHeader" onmousedown="return false;">{%:= caption %}</li>
+          {% Else %}
+          <li class="askia-response">
+              <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />
+              <label for="{%= inputId %}" class="askia-radio"><span hidden>Radio</span></label>
+              <label for="{%= inputId %}" class="askia-response-label">
+                  {% IF (resource <> "") Then %}
+                  <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}"/>
+                  {% EndIf %}{%:= caption %}</label>
+          </li>
+          {% EndIF %}
         {% Next %}
     </ul>
 {% EndIf %}
