@@ -8,7 +8,7 @@ Dim i
 Dim j
 Dim attrSelected
 Dim isHeader
-
+Dim showHeader    = CurrentADC.PropValue("showHeaders") ="1"
 
 If useList Then
     attrSelected = On(CurrentQuestion.HasDK or CurrentQuestion.HasNA, " selected=\"selected\"", "") %}
@@ -21,6 +21,7 @@ If useList Then
         caption      = CurrentQuestion.Responses[i].Caption
         isHeader     = CurrentQuestion.Responses[i].isHeader
 
+        If isHeader = False or showHeader = True Then
         IF isHeader = True Then
         %}
         <optgroup label="{%= caption %}">
@@ -33,6 +34,7 @@ If useList Then
         </optgroup>
         {% ElseIf CurrentQuestion.Responses[i].Parent.isHeader <> True Then %}
         <option value="{%= inputValue %}" {%:= attrSelected %}>{%= caption %}</option>
+        {% EndIF %}
         {% EndIF %}
     {% Next %}
     </select>

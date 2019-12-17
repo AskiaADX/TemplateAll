@@ -1,4 +1,7 @@
 {%
+Dim headerColourPrimary =CurrentADC.PropValue("headerColourPrimary")
+Dim headerFontColour =CurrentADC.PropValue("headerFontColour")
+
 Dim controlAlign
 If (CurrentADC.PropValue("controlAlign") = "center" ) Then
     controlAlign = "0 auto 10px auto"
@@ -152,7 +155,7 @@ EndIf
   border-radius: {%= Theme.BorderRadius %};
 }
 #adc_{%= CurrentADC.InstanceId %} input[type=range]::-ms-fill-lower {
-  height: 8px; 
+  height: 8px;
   border: 0px solid rgb({%= Theme.NeutralDarkColor.ToRGB() %});
   -webkit-border-top-left-radius: {%= Theme.BorderRadius %};
   -webkit-border-bottom-left-radius: {%= Theme.BorderRadius %};
@@ -220,21 +223,21 @@ EndIf
 }
 #adc_{%= CurrentADC.InstanceId %} input[type="range"].selected::-moz-range-progress {
   /** Selected color */
-  background-color: rgb({%= Theme.SecondaryColor.ToRGB() %}); 
+  background-color: rgb({%= Theme.SecondaryColor.ToRGB() %});
 }
-#adc_{%= CurrentADC.InstanceId %} input[type="range"]::-moz-range-track {  
+#adc_{%= CurrentADC.InstanceId %} input[type="range"]::-moz-range-track {
   background-color: rgb({%= Theme.NeutralLightColor.ToRGB() %});
 }
 /* IE*/
 #adc_{%= CurrentADC.InstanceId %} input[type="range"]::-ms-fill-lower {
   /** Selected color */
-  background-color: rgb({%= Theme.NeutralLightColor.ToRGB() %}); 
+  background-color: rgb({%= Theme.NeutralLightColor.ToRGB() %});
 }
 #adc_{%= CurrentADC.InstanceId %} input[type="range"].selected::-ms-fill-lower {
   /** Selected color */
-  background-color: rgb({%= Theme.SecondaryColor.ToRGB() %}); 
+  background-color: rgb({%= Theme.SecondaryColor.ToRGB() %});
 }
-#adc_{%= CurrentADC.InstanceId %} input[type="range"]::-ms-fill-upper {  
+#adc_{%= CurrentADC.InstanceId %} input[type="range"]::-ms-fill-upper {
   background-color: rgb({%= Theme.NeutralLightColor.ToRGB() %});
 }
 

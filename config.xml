@@ -64,10 +64,10 @@
       </property>
       <property xsi:type="standardProperty" id="placeholder" name="Placeholder" type="string" mode="dynamic">
         <description><![CDATA[
-          
+
           Using HTML 5, in modern browser.
           Helper text shows in the input when it's empty.
-        
+
         ]]></description>
         <value></value>
       </property>
@@ -305,5 +305,23 @@ Format: MM/DD/YYYY]]></description>
         <value><![CDATA[1]]></value>
       </property>
     </category>
+    <category id="headers" name="Headers (non clickable responses)">
+      <property xsi:type="standardProperty" id="showHeaders" name="Show Headers" type="string" require="false" visible="true">
+        <description><![CDATA[]]></description>
+        <value><![CDATA[1]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="headerColourPrimary" name="Header Background Colour" type="color" mode="dynamic" visible="true">
+        <description><![CDATA[Background colour of the header item]]></description>
+        <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="headerFontColour" name="Header Font Colour" type="color" mode="dynamic" visible="true">
+        <description><![CDATA[Header colour]]></description>
+        <value><![CDATA[{%= Theme.BlackColor %}]]></value>
+      </property>
+    </category>    
   </properties>
 </control>
