@@ -7,7 +7,7 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.0.0</version>
+    <version>4.0.1</version>
     <date>2016-04-15</date>
     <description><![CDATA[Default ADC with all kind of questions
 		v2.0.11 - Added alt attribute to img
@@ -17,7 +17,8 @@
 		v2.0.12 - Add the compatibility with the screen of the loop with selection at each iteration and loop with preliminary selection
         v2.0.14 - Added fix for numeric step value
         v2.0.15/ v3.0.1 - Added option to override browser validation using required, minLength and maxLength
-		v4.0.0 - Dropdown headers
+		v4.0.0 - headers single-closed
+		v4.0.1 - headers multicoded
 	]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
@@ -322,6 +323,6 @@ Format: MM/DD/YYYY]]></description>
         <description><![CDATA[Header colour]]></description>
         <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
-    </category>    
+    </category>
   </properties>
 </control>

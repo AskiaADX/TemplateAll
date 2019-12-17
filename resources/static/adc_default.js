@@ -1,5 +1,5 @@
 (function () {
-    
+
     // Create a safe reference to the Underscore object for use below.
     var _ = function(obj) {
         if (obj instanceof _) return obj;
@@ -44,14 +44,14 @@
  * Return a function which, until she continue to be invoked,
  * will not be executed. The function will be executed only when
  * the function will stop to be called for more than N milliseconds.
- * If the parameter `immediate` equal true, then the function 
+ * If the parameter `immediate` equal true, then the function
  * will be executed to the first call instaed of the last.
  * Parameters :
  *  - func : the function to `debounce`
- *  - wait : the number of milliseconds (N) to wait before 
+ *  - wait : the number of milliseconds (N) to wait before
  *           call the function func()
  *  - immediate : execute immediately func() (by default false)
- *                          
+ *
  */
     function debounce(func, wait, immediate) {
         var timeout, result;
@@ -101,7 +101,7 @@
             obj.attachEvent('on' + type, obj[type + fn]);
         }
     }
-    
+
     /**
    * Add class in DOMElement
    *
@@ -110,9 +110,9 @@
    */
     function addClass (obj, clsName) {
         if (obj.classList)      {
-            obj.classList.add(clsName); 
+            obj.classList.add(clsName);
         }    else            {
-            obj.className += ' ' + clsName; 
+            obj.className += ' ' + clsName;
         }
     }
 
@@ -138,9 +138,10 @@
     function manageExclusive(obj) {
         var ul = obj.parentNode.parentNode;
 
-        for (var i = 0; j = ul.children.length, i < j; i++) { 
+        for (var i = 0; j = ul.children.length, i < j; i++) {
+          if(ul.children[i].children[0] != null){
             var element =  document.getElementById(ul.children[i].children[0].attributes.id.value);
-            if (obj !== ul.children[i].children[0] && 
+            if (obj !== ul.children[i].children[0] &&
                 obj.className.indexOf("exclusive") >= 0 &&
                 obj.checked) {
                 element.checked = false;
@@ -149,23 +150,24 @@
                        obj.checked && ul.children[i].children[0].checked) {
                 element.checked = false;
             }
+          }
         }
     }
-    
+
     /**
    * Trigger the ajax request for live routings
    *
    * @param {String} shortcut Shortcut of the question
    */
     function triggerRouting(shortcut) {
-        if (window.askia 
-            && window.arrLiveRoutingShortcut 
+        if (window.askia
+            && window.arrLiveRoutingShortcut
             && window.arrLiveRoutingShortcut.length > 0
             && window.arrLiveRoutingShortcut.indexOf(shortcut) >= 0) {
             askia.triggerAnswer();
         }
     }
-    
+
     /**
    * Check if the date question has an answer
    *
@@ -201,7 +203,7 @@
         }
         return result;
     }
-    
+
     /**
    * Check if the select question has an answer
    *
@@ -213,7 +215,7 @@
       	if (inputSelect.value === '0') result = false;
         return result;
     }
-    
+
     /**
    * Check if the closed question has an answer
    *
@@ -253,7 +255,7 @@
             }
         }
     }
-    
+
     /**
    * Manage the input event on numeric variables
    *
@@ -263,7 +265,7 @@
     function onInputNumbers (event, that) {
         triggerRouting(that.currentQuestion);
     }
-    
+
     /**
    * Manage the input event on open ended (input text, email, url and textarea)
    *
@@ -273,7 +275,7 @@
     function onInputOpens (event, that) {
         triggerRouting(that.currentQuestion);
     }
-    
+
     /**
    * Manage the change event on input DK for numeric
    *
@@ -325,7 +327,7 @@
             }
         }
     }
-    
+
     /**
    * Manage the change event on input DK for open
    *
@@ -353,7 +355,7 @@
             }
         }
     }
-    
+
     /**
    * Manage the change event on input DK for date
    *
@@ -372,20 +374,20 @@
             if (el.checked) {
                 if (inputDate) {
                     inputDate.value = '';
-                    inputDate.setAttribute('readonly', 'readonly');   
-                    inputDate.setAttribute('disabled', 'disabled');   
+                    inputDate.setAttribute('readonly', 'readonly');
+                    inputDate.setAttribute('disabled', 'disabled');
                 }
                 if (selectHour) {
                     selectHour.selectedIndex =0;
-                    selectHour.setAttribute('disabled', 'disabled');   
+                    selectHour.setAttribute('disabled', 'disabled');
                 }
                 if (selectMinutes) {
                     selectMinutes.selectedIndex =0;
-                    selectMinutes.setAttribute('disabled', 'disabled');   
+                    selectMinutes.setAttribute('disabled', 'disabled');
                 }
                 if (selectSeconds) {
                     selectSeconds.selectedIndex =0;
-                    selectSeconds.setAttribute('disabled', 'disabled');   
+                    selectSeconds.setAttribute('disabled', 'disabled');
                 }
                 if (inputTime) {
                     inputTime.value = '';
@@ -428,7 +430,7 @@
             }
         }
     }
-    
+
     /**
    * Manage the input event on date time
    *
@@ -443,7 +445,7 @@
             nextBtn.click();
         }
     }
-    
+
     /**
    * Manage the change event on select
    *
@@ -552,7 +554,7 @@
         }
         return true;
     }
-    
+
     /**
    * Manage the input event on input ranges
    *
@@ -609,7 +611,7 @@
         this.suffixes = options.suffixes || [];
         this.decimals = options.decimals || [];
         this.useList = options.useList;
-        
+
         var radios = document.querySelectorAll('#adc_' + this.instanceId + ' input[type="radio"]');
         var checkboxes = document.querySelectorAll('#adc_' + this.instanceId + ' input[type="checkbox"]');
         var inputNumbers = document.querySelector('#adc_' + this.instanceId + ' .inputnumber');
@@ -624,78 +626,78 @@
         if (this.type === "single" || this.type === "multiple" || this.type === "single-loop" || this.type === "multiple-loop") {
             // Change event on input radio
             for (var i = 0; i < radios.length; i++) {
-                addEvent(radios[i], 'change', 
+                addEvent(radios[i], 'change',
                          (function (passedInElement) {
                     return function (e) {
-                        onChange(e, passedInElement); 
+                        onChange(e, passedInElement);
                     };
                 }(this)));
             }
 
             // Change event on input checkbox
             for (var j = 0; j < checkboxes.length; j++) {
-                addEvent(checkboxes[j], 'change', 
+                addEvent(checkboxes[j], 'change',
                          (function (passedInElement) {
                     return function (e) {
-                        onChange(e, passedInElement); 
+                        onChange(e, passedInElement);
                     };
                 }(this)));
             }
-             
+
         }
-        
+
         if ((this.type === "single" && this.useList) || (this.type === "single-loop" && this.useList)) {
-            addEvent(inputSelect, "change", 
+            addEvent(inputSelect, "change",
                      (function(passedInElement) {
                 return function(e) {onSelects(e, passedInElement); };
-            }(this))); 
+            }(this)));
         }
-        
+
         if (this.type === "numeric" || this.type === "numeric-loop") {
             if (numInputDK) {
-                addEvent(numInputDK, "change", 
+                addEvent(numInputDK, "change",
                          (function(passedInElement) {
                     return function(e) {onNumericInputDK(e, passedInElement); };
-                }(this)));   
+                }(this)));
             }
-            addEvent(inputNumbers, 'input', 
+            addEvent(inputNumbers, 'input',
                      (function (passedInElement) {
                 return function (e) {
-                    onInputNumbers(e, passedInElement); 
+                    onInputNumbers(e, passedInElement);
                 };
             }(this)));
         }
-        
+
         if (this.type === "open") {
             if (openInputDK) {
-                addEvent(openInputDK, "change", 
+                addEvent(openInputDK, "change",
                          (function(passedInElement) {
                     return function(e) {onOpenInputDK(e, passedInElement); };
-                }(this)));   
+                }(this)));
             }
-            addEvent(inputOpens, 'input', 
+            addEvent(inputOpens, 'input',
                      (function (passedInElement) {
                 return function (e) {
-                    onInputOpens(e, passedInElement); 
+                    onInputOpens(e, passedInElement);
                 };
             }(this)));
         }
-        
+
         if (this.type === "datetime") {
             if (dateInputDK) {
-                addEvent(dateInputDK, 'change', 
+                addEvent(dateInputDK, 'change',
                          (function (passedInElement) {
                     return function (e) {
-                        onDateInputDK(e, passedInElement); 
+                        onDateInputDK(e, passedInElement);
                     };
                 }(this)));
             }
             // Input event on date time
             for (var k = 0; k < inputDates.length; k++) {
-                addEvent(inputDates[k], 'input', 
+                addEvent(inputDates[k], 'input',
                          (function (passedInElement) {
                     return function (e) {
-                        onInputDates(e, passedInElement); 
+                        onInputDates(e, passedInElement);
                     };
                 }(this)));
             }
@@ -715,28 +717,28 @@
                 }
             },false);
         }
-        
+
         if ((this.type === "numeric" && this.numUseInput === 1) || (this.type === "numeric-loop" && this.numUseInput === 1)) {
-            addEvent(inputRanges, 'change', 
+            addEvent(inputRanges, 'change',
                      (function (passedInElement) {
                 return function (e) {
-                    onInputRanges(e, passedInElement); 
+                    onInputRanges(e, passedInElement);
                 };
             }(this)));
-            addEvent(inputRanges, 'input', 
+            addEvent(inputRanges, 'input',
                      (function (passedInElement) {
                 return function (e) {
-                    onInputRanges(e, passedInElement); 
+                    onInputRanges(e, passedInElement);
                 };
             }(this)));
             document.querySelector('#adc_' + this.instanceId + ' #' + inputRanges.id + ' + .preBar').style.width = widthRange(inputRanges) + 'px';
-            
+
             // Resize event on input range
             window.addEventListener("resize", function() {
             	document.querySelector('#adc_' + options.instanceId + ' #' + inputRanges.id + ' + .preBar').style.width = widthRange(inputRanges) + 'px';
             });
         }
-        
+
     }
 
     /**

@@ -48,24 +48,24 @@ If useList Then
             attrChecked = On(CurrentQuestion.Responses[i].IsSelected, "checked=\"checked\"", "")
             inputValue  = CurrentQuestion.Responses[i].InputValue()
             caption     = CurrentQuestion.Responses[i].Caption
-			resource	= CurrentQuestion.Responses.ResourceURL[i]
+			      resource	= CurrentQuestion.Responses.ResourceURL[i]
 
-      isHeader     = CurrentQuestion.Responses[i].isHeader
-
-        IF isHeader = True Then
-
-          %}
-          <li class="responseHeader" onmousedown="return false;">{%:= caption %}</li>
-          {% Else %}
-          <li class="askia-response">
-              <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />
-              <label for="{%= inputId %}" class="askia-radio"><span hidden>Radio</span></label>
-              <label for="{%= inputId %}" class="askia-response-label">
-                  {% IF (resource <> "") Then %}
-                  <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}"/>
-                  {% EndIf %}{%:= caption %}</label>
-          </li>
-          {% EndIF %}
+            isHeader     = CurrentQuestion.Responses[i].isHeader
+            If isHeader = False or showHeader = True Then
+            IF isHeader = True Then
+            %}
+            <li class="responseHeader" onmousedown="return false;">{%:= caption %}</li>
+            {% Else %}
+            <li class="askia-response">
+                <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />
+                <label for="{%= inputId %}" class="askia-radio"><span hidden>Radio</span></label>
+                <label for="{%= inputId %}" class="askia-response-label">
+                    {% IF (resource <> "") Then %}
+                    <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}"/>
+                    {% EndIf %}{%:= caption %}</label>
+            </li>
+            {% EndIF %}
+            {% EndIF %}          
         {% Next %}
     </ul>
 {% EndIf %}

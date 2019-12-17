@@ -255,3 +255,13 @@ EndIf
     background-color: rgba({%= Theme.PrimaryColor %}) !important;
     color: rgba(255,255,255,1) !important;
 }
+
+#adc_{%= CurrentADC.InstanceId%} .responseHeader
+{
+  font-weight:bold;
+}
+
+#adc_{%= CurrentADC.InstanceId%} .multiSelect
+{
+  height: auto !important;
+}
