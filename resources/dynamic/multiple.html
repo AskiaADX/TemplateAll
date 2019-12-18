@@ -10,7 +10,6 @@ Dim isHeader
 Dim showHeader    = CurrentADC.PropValue("showHeaders") ="1"
 
 If useList Then
-
     inputName = CurrentQuestion.InputName("list") %}
     <select name="{%= inputName %}" multiple="multiple" class="multiSelect">
         {%
@@ -28,12 +27,13 @@ If useList Then
               {%
                 Dim cr = CurrentQuestion.Responses[i].Children
                 For j = 1 To cr.Count
+                attrSelected = On(cr[j].IsSelected, "selected=\"selected\"", "")
               %}
-              <option value="{%= inputValue %}">{%= cr[j].Caption %}</option>
+              <option value="{%= cr[j].InputValue() %}" {%:= attrSelected %}>{%= cr[j].Caption %}</option>
               {% Next j %}
               </optgroup>
             {% ElseIf CurrentQuestion.Responses[i].Parent.isHeader <> True Then %}
-              <option value="{%= inputValue %}">{%= caption %}</option>
+              <option value="{%= inputValue %}" {%:= attrSelected %}>{%= caption %}</option>
             {% EndIF %}
             {% EndIF %}
         {% Next %}
