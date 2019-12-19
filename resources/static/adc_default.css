@@ -37,6 +37,7 @@ body {
 }
 .adc-default .askia-response {
     display: flex;
+    display: -ms-flexbox;
     justify-content: stretch;
     align-items: center;
 }
@@ -46,10 +47,10 @@ body {
         display: block;
     }
 }
-.adc-default input[type=radio] + label.askia-radio, 
+.adc-default input[type=radio] + label.askia-radio,
 .adc-default input[type=checkbox] + label.askia-checkbox {
     min-width: 1.5rem;
-    align-self: baseline;
+    /* align-self: baseline; */
 }
 
 .adc-default .responses-container {
@@ -155,7 +156,7 @@ body {
     min-width: 80%;
     max-width: 90%;
     height : 50px;
-    resize: vertical; 
+    resize: vertical;
 }
 .adc-default label.openDK {
     display: inline-block;
@@ -227,15 +228,32 @@ body {
     cursor: pointer;
 }
 .adc-default select option:first-child {
-	/*display: none;*/   
+	/*display: none;*/
 }
 .adc-default select::-ms-expand {
     display: none;
 }
 .adc-default select option {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  cursor: pointer;    
+  cursor: pointer;
 }
+
+.adc-default .otherText {
+	display:none;
+	/* margin:10px; */
+	padding:5px;
+
+	/* disable highlight text */
+	-moz-user-select: text !important;
+	-khtml-user-select: text !important;
+	-webkit-user-select: text !important;
+	-ms-user-select: text !important;
+	user-select: text !important;
+
+	position:relative;
+	left:0px;
+}
+
 .RLTimePicker select option {
     text-align: center;
 }
@@ -520,7 +538,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 .RLDatePicker input:focus {
     /* border: 1px solid #dddddd;
     border-bottom-color: #ace; */
-    outline: none; 
+    outline: none;
 }
 /**
  * This theme is an example to show how you can create your own.
@@ -582,5 +600,3 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 .triangle-theme .pika-label:after {
     content:" \25be";
 }
-
-

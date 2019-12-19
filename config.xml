@@ -7,7 +7,7 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.0.2</version>
+    <version>4.0.3</version>
     <date>2016-04-15</date>
     <description><![CDATA[Default ADC with all kind of questions
 		v2.0.11 - Added alt attribute to img
@@ -20,6 +20,7 @@
 		v4.0.0 - headers single-closed
 		v4.0.1 - headers multicoded
     v4.0.2 - select-dropdown input value issue fix - multicoded
+    v4.0.3 - Semi-open single-closed/multicoded
 	]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>

@@ -1,6 +1,7 @@
 {%
 Dim useList   = (CurrentADC.PropValue("useList") = "1") ' Convert to boolean
 Dim inputName = CurrentQuestion.InputName()
+Dim ar = CurrentQuestion.Responses
 Dim inputValue
 Dim caption
 Dim resource
@@ -9,6 +10,21 @@ Dim j
 Dim attrSelected
 Dim isHeader
 Dim showHeader    = CurrentADC.PropValue("showHeaders") ="1"
+
+Dim	otherIDarray As NumberArray
+Dim arrOpenValues As StringArray
+Dim arrOpenNames As StringArray
+Dim otherID
+Dim k
+Dim index
+
+For i = 1 to ar.Count
+    If ar[i].isOpen = True Then
+        arrOpenValues.Push(ar[i].OpenQuestion.InputValue())
+        arrOpenNames.Push(ar[i].OpenQuestion.InputName())
+        otherIDarray.Push(ar[i].Index)
+    Endif
+Next i
 
 If useList Then
     attrSelected = On(CurrentQuestion.HasDK or CurrentQuestion.HasNA, " selected=\"selected\"", "") %}
@@ -50,6 +66,7 @@ If useList Then
             inputValue  = CurrentQuestion.Responses[i].InputValue()
             caption     = CurrentQuestion.Responses[i].Caption
 			      resource	= CurrentQuestion.Responses.ResourceURL[i]
+            index		= CurrentQuestion.Responses[i].index
 
             isHeader     = CurrentQuestion.Responses[i].isHeader
             If isHeader = False or showHeader = True Then
@@ -61,9 +78,20 @@ If useList Then
                 <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />
                 <label for="{%= inputId %}" class="askia-radio"><span hidden>Radio</span></label>
                 <label for="{%= inputId %}" class="askia-response-label">
-                    {% IF (resource <> "") Then %}
-                    <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}"/>
-                    {% EndIf %}{%:= caption %}</label>
+                {% IF (resource <> "") Then %}
+                  <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}"/>
+                {% EndIf %}{%:= caption %}
+                </label>
+
+                <!-- <div style="clear:both"></div> -->
+                {% For k = 1 To otherIDarray.Count
+                	otherID = otherIDarray[k].ToNumber()
+                	IF index = otherID Then %}
+                        <div style="overflow:hidden"><input type="text" aria-label="Other" class="otherText"  id="{%= CurrentQuestion.Responses[i].OpenQuestion.InputName() %}"
+                          name="{%= CurrentQuestion.Responses[i].OpenQuestion.InputName() %}" data-id="{%= k %}" value="{%= CurrentQuestion.Responses[i].OpenQuestion.inputValue() %}"></div>
+                        <!-- <div style="clear:both"></div> -->
+                  {% EndIF %}
+                {% Next %}
             </li>
             {% EndIF %}
             {% EndIF %}

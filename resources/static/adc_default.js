@@ -205,6 +205,34 @@
     }
 
     /**
+   * show otherText when radio button is checked
+   */
+    var radioIns = document.querySelectorAll('input[type=radio]');
+    for (var i = 0; i < radioIns.length; i++) {
+      if(radioIns[i].parentElement.querySelector('.otherText') != null){
+        if (radioIns[i].checked === true ) {
+            radioIns[i].parentElement.querySelector('.otherText').style.display = 'block';
+        } else {
+            radioIns[i].parentElement.querySelector('.otherText').value = '';
+        }
+      }
+    }
+
+    /**
+   * show otherText when checkboxes are checked
+   */
+    var checkboxIns = document.querySelectorAll('input[type=checkbox]');
+    for (var i = 0; i < checkboxIns.length; i++) {
+      if(checkboxIns[i].parentElement.querySelector('.otherText') != null){
+        if (checkboxIns[i].checked === true ) {
+            checkboxIns[i].parentElement.querySelector('.otherText').style.display = 'block';
+        } else {
+            checkboxIns[i].parentElement.querySelector('.otherText').value = '';
+        }
+      }
+    }
+
+    /**
    * Check if the select question has an answer
    *
    * @param {Object} div Main div
@@ -226,11 +254,46 @@
         var result = false;
         for (var i = 0; i < inputsClosed.length; i++) {
             if (inputsClosed[i].checked === true) {
+                selectSingleResponseWithOther(inputsClosed[i]);
                 result = true;
                 break;
             }
         }
         return result;
+    }
+
+    /**
+   * Manage the change event on input radio
+   *
+   * @param {Input[type=radio]} radioEl radio element
+   */
+    function selectSingleResponseWithOther(radioEl){
+      var ulElem = radioEl.parentElement.parentElement;
+      var otherElems = ulElem.querySelectorAll('.otherText');
+      for (var i = 0; i < otherElems.length; i++) {
+        otherElems[i].style.display = 'none';
+        otherElems[i].value = '';
+      }
+      if (radioEl.parentElement.querySelector('.otherText') != null) {
+        radioEl.parentElement.querySelector('.otherText').style.display = 'block';
+        radioEl.parentElement.querySelector('.otherText').focus();
+      }
+    }
+
+    /**
+   * Manage the change event on input checkbox
+   *
+   * @param {Input[type=checkbox]} checkboxEl checkbox element
+   */
+    function selectMultipleResponseWithOther(checkboxEl){
+      if (checkboxEl.parentElement.querySelector('.otherText') != null) {
+        if (checkboxEl.checked === true) {
+            checkboxEl.parentElement.querySelector('.otherText').style.display = 'block';
+            checkboxEl.parentElement.querySelector('.otherText').focus();
+        } else {
+            checkboxEl.parentElement.querySelector('.otherText').style.display = 'none';
+        }
+      }
     }
 
     /**
@@ -244,6 +307,7 @@
         if (el.nodeName === "INPUT" && (el.type === 'radio' || el.type === 'checkbox') && el.className !== 'dkbutton') {
             if (el.type === "checkbox") {
                 manageExclusive(el);
+                selectMultipleResponseWithOther(el);
             }
             triggerRouting(that.currentQuestion);
             if (el.type === "radio") {
