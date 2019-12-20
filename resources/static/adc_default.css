@@ -43,9 +43,9 @@ body {
 }
 @media screen and (min-width:0\0) {
     /* IE9 and IE10 rule sets go here */
-    .adc-default .askia-response {
+    /* .adc-default .askia-response {
         display: block;
-    }
+    } */
 }
 .adc-default input[type=radio] + label.askia-radio,
 .adc-default input[type=checkbox] + label.askia-checkbox {
