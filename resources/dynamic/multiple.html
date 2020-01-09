@@ -9,7 +9,7 @@ Dim j
 Dim isHeader
 Dim showHeader    = CurrentADC.PropValue("showHeaders") ="1"
 
-Dim ar = CurrentQuestion.Responses
+Dim ar = CurrentQuestion.AvailableResponses
 Dim	otherIDarray As NumberArray
 Dim arrOpenValues As StringArray
 Dim arrOpenNames As StringArray
@@ -30,25 +30,25 @@ If useList Then
     <select name="{%= inputName %}" multiple="multiple" class="multiSelect">
         {%
         Dim attrSelected
-        For i = 1 To CurrentQuestion.Responses.Count
-            attrSelected = On(CurrentQuestion.Responses[i].IsSelected, "selected=\"selected\"", "")
-            inputValue  = CurrentQuestion.Responses[i].InputValue()
-            caption     = CurrentQuestion.Responses[i].Caption
-            isHeader     = CurrentQuestion.Responses[i].isHeader
+        For i = 1 To CurrentQuestion.AvailableResponses.Count
+            attrSelected = On(CurrentQuestion.AvailableResponses[i].IsSelected, "selected=\"selected\"", "")
+            inputValue  = CurrentQuestion.AvailableResponses[i].InputValue()
+            caption     = CurrentQuestion.AvailableResponses[i].Caption
+            isHeader     = CurrentQuestion.AvailableResponses[i].isHeader
 
             If isHeader = False or showHeader = True Then
             IF isHeader = True Then
             %}
               <optgroup label="{%= caption %}">
               {%
-                Dim cr = CurrentQuestion.Responses[i].Children
+                Dim cr = CurrentQuestion.AvailableResponses[i].Children
                 For j = 1 To cr.Count
                 attrSelected = On(cr[j].IsSelected, "selected=\"selected\"", "")
               %}
               <option value="{%= cr[j].InputValue() %}" {%:= attrSelected %}>{%= cr[j].Caption %}</option>
               {% Next j %}
               </optgroup>
-            {% ElseIf CurrentQuestion.Responses[i].Parent.isHeader <> True Then %}
+            {% ElseIf CurrentQuestion.AvailableResponses[i].Parent.isHeader <> True Then %}
               <option value="{%= inputValue %}" {%:= attrSelected %}>{%= caption %}</option>
             {% EndIF %}
             {% EndIF %}
@@ -60,17 +60,17 @@ If useList Then
         Dim inputId
         Dim attrChecked
 		    Dim exclusive
-        For i = 1 To CurrentQuestion.Responses.Count
-            inputName   = CurrentQuestion.Responses[i].InputName()
+        For i = 1 To CurrentQuestion.AvailableResponses.Count
+            inputName   = CurrentQuestion.AvailableResponses[i].InputName()
             inputId     = inputName.Replace(" ", "_").Replace("M", "askia-input")
-            inputValue  = CurrentQuestion.Responses[i].InputValue()
-            attrChecked = On(CurrentQuestion.Responses[i].IsSelected, "checked=\"checked\"", "")
-    		    exclusive = On(CurrentQuestion.Responses[i].IsExclusive, "class=\"askia-exclusive\"", "")
-            caption     = CurrentQuestion.Responses[i].Caption
-    		    resource	= CurrentQuestion.Responses.ResourceURL[i]
-            index		= CurrentQuestion.Responses[i].index
+            inputValue  = CurrentQuestion.AvailableResponses[i].InputValue()
+            attrChecked = On(CurrentQuestion.AvailableResponses[i].IsSelected, "checked=\"checked\"", "")
+    		    exclusive = On(CurrentQuestion.AvailableResponses[i].IsExclusive, "class=\"askia-exclusive\"", "")
+            caption     = CurrentQuestion.AvailableResponses[i].Caption
+    		    resource	= CurrentQuestion.AvailableResponses.ResourceURL[i]
+            index		= CurrentQuestion.AvailableResponses[i].index
 
-            isHeader     = CurrentQuestion.Responses[i].isHeader
+            isHeader     = CurrentQuestion.AvailableResponses[i].isHeader
             If isHeader = False or showHeader = True Then
             IF isHeader = True Then
             %}
@@ -88,8 +88,8 @@ If useList Then
                 {% For k = 1 To otherIDarray.Count
                 	otherID = otherIDarray[k].ToNumber()
                 	IF index = otherID Then %}
-                        <div style="overflow:hidden"><input type="text" aria-label="Other" class="otherText"  id="{%= CurrentQuestion.Responses[i].OpenQuestion.InputName() %}"
-                          name="{%= CurrentQuestion.Responses[i].OpenQuestion.InputName() %}" data-id="{%= k %}" value="{%= CurrentQuestion.Responses[i].OpenQuestion.inputValue() %}"></div>
+                        <div style="overflow:hidden"><input type="text" aria-label="Other" class="otherText"  id="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
+                          name="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}" data-id="{%= k %}" value="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.inputValue() %}"></div>
                         <!-- <div style="clear:both"></div> -->
                   {% EndIF %}
                 {% Next %}
