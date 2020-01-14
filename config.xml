@@ -7,7 +7,7 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.0.4</version>
+    <version>4.0.5</version>
     <date>2016-04-15</date>
     <description><![CDATA[Default ADC with all kind of questions
 		v2.0.11 - Added alt attribute to img
@@ -22,6 +22,7 @@
     v4.0.2 - select-dropdown input value issue fix - multicoded
     v4.0.3 - Semi-open single-closed/multicoded
     v4.0.4 - AvailableResponses & manageHeader = true
+    v4.0.5 - manageSemiOpen = true
 	]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
@@ -31,7 +32,7 @@
       <category>General</category>
     </categories>
     <constraints>
-      <constraint on="questions" single="true" multiple="true" numeric="true" date="true" open="true" chapter="false" requireParentLoop="false" requireLoopDepth="0" manageHeader="true" />
+      <constraint on="questions" single="true" multiple="true" numeric="true" date="true" open="true" chapter="false" requireParentLoop="false" requireLoopDepth="0" manageHeader="true" manageSemiOpen="true"/>
       <constraint on="controls" responseblock="true" checkbox="false" label="false" listbox="false" radiobutton="false" textbox="true" />
       <constraint on="responses" max="*" min="*" />
     </constraints>
