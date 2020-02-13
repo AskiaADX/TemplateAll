@@ -8,6 +8,8 @@ Dim i
 Dim j
 Dim isHeader
 Dim showHeader    = CurrentADC.PropValue("showHeaders") ="1"
+Dim expandableHeaders = CurrentADC.PropValue("expandableHeaders") ="1"
+Dim accordionInitialState = CurrentADC.PropValue("accordionInitialState")
 
 Dim ar = CurrentQuestion.AvailableResponses
 Dim	otherIDarray As NumberArray
@@ -74,9 +76,24 @@ If useList Then
             If isHeader = False or showHeader = True Then
             IF isHeader = True Then
             %}
-            <li class="responseHeader" onmousedown="return false;">{%:= caption %}</li>
+            <li class="responseHeader" data-id="{%= index %}">
+              {%
+              If expandableHeaders = True Then
+                  If accordionInitialState = "expanded" Then %}
+                  <span class="minus"></span>
+                  {% Else %}
+                  <span class="plus"></span>
+                  {% EndIf %}
+              {% EndIf %}
+              {%:= caption %}</li>
+
             {% Else %}
-            <li class="askia-response">
+
+              {% If CurrentQuestion.AvailableResponses[i].Parent.isHeader = true Then %}
+              <li class="askia-response headerchild{%= CurrentQuestion.AvailableResponses[i].Parent.index %}" style="margin-left: 1em">
+              {% Else %}
+              <li class="askia-response">
+              {% EndIf %}
                 <input type="checkbox" name="{%= inputName %}" id="{%= inputId %}" {%:= attrChecked %} {%:= exclusive %} />
                 <label for="{%= inputId %}" class="askia-checkbox"><span hidden>Checkbox</span></label>
                 <label for="{%= inputId %}" class="askia-response-label">
@@ -88,9 +105,10 @@ If useList Then
                 {% For k = 1 To otherIDarray.Count
                 	otherID = otherIDarray[k].ToNumber()
                 	IF index = otherID Then %}
-                        <div style="overflow:hidden"><input type="text" aria-label="Other" class="otherText"  id="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
-                          name="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}" data-id="{%= k %}" value="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.inputValue() %}"></div>
-                        <!-- <div style="clear:both"></div> -->
+                        <div style="overflow:hidden"><input type="text" aria-label="Other" class="otherText"
+                          id="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
+                          name="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
+                          data-id="{%= k %}" value="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.inputValue() %}"></div>
                   {% EndIF %}
                 {% Next %}
             </li>

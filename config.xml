@@ -7,7 +7,7 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.0.6</version>
+    <version>4.0.7</version>
     <date>2016-04-15</date>
     <description><![CDATA[Default ADC with all kind of questions
 		v2.0.11 - Added alt attribute to img
@@ -24,6 +24,7 @@
     v4.0.4 - AvailableResponses & manageHeader = true
     v4.0.5 - manageSemiOpen = true
     v4.0.6 - otherText display:block
+    v4.0.7 - expandableHeaders
 	]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
@@ -318,6 +319,22 @@ Format: MM/DD/YYYY]]></description>
         <options>
           <option value="1" text="Yes" />
           <option value="0" text="No" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="expandableHeaders" name="Expandable Headers" type="string" require="false" visible="true">
+        <description><![CDATA[]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="accordionInitialState" name="Accordion Initial State" type="string" require="false" visible="true">
+        <description><![CDATA[]]></description>
+        <value><![CDATA[expanded]]></value>
+        <options>
+          <option value="expanded" text="Expanded" />
+          <option value="collapsed" text="Collapsed" />
         </options>
       </property>
       <property xsi:type="standardProperty" id="headerColourPrimary" name="Header Background Colour" type="color" mode="dynamic" visible="true">

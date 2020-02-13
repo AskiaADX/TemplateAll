@@ -11,6 +11,23 @@ Else
     controlAlign = "0 auto 10px 0"
 EndIf
 %}
+
+.plus::after {
+	content: '\2BC6';
+  font-weight: bold;
+  float: left;
+	line-height: 1.02em;
+  margin-right: 5px;
+}
+
+.minus::after {
+	content: "\2BC8";
+  font-weight: bold;
+	float: left;
+  line-height: 1.02em;
+  margin-right: 5px;
+}
+
 {% If (CurrentQuestion.Type = "numeric" or CurrentQuestion.Type = "numeric-loop" or CurrentQuestion.Type = "open" or CurrentQuestion.Type = "datetime" ) Then %}
 #adc_{%= CurrentADC.InstanceId %} {
     text-align: {%= CurrentADC.PropValue("controlAlign") %};
@@ -259,6 +276,7 @@ EndIf
 #adc_{%= CurrentADC.InstanceId%} .responseHeader
 {
   font-weight:bold;
+  cursor: pointer;
 }
 
 #adc_{%= CurrentADC.InstanceId%} .multiSelect

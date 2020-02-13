@@ -688,6 +688,30 @@
         var inputSelect = document.querySelector('#adc_' + this.instanceId + ' select');
 
         if (this.type === "single" || this.type === "multiple" || this.type === "single-loop" || this.type === "multiple-loop") {
+
+          var expandableHeaders = options.expandableHeaders
+          var accordionInitialState = options.accordionInitialState
+          if(expandableHeaders){
+            var headers = document.querySelectorAll(".responseHeader");
+            for (var i = 0; i < headers.length; i++) {
+              if (accordionInitialState == 'collapsed') {
+                var index = $(headers[i]).attr("data-id");
+                var headerChildren = document.querySelectorAll(".headerchild"+index);
+                for (var j = 0; j < headerChildren.length; j++) {
+                  $(headerChildren[j]).toggle();
+                }
+              }
+              headers[i].onclick = function(){
+                var index = $(this).attr("data-id");
+                var headerChildren = document.querySelectorAll(".headerchild"+index);
+                for (var j = 0; j < headerChildren.length; j++) {
+                  $(headerChildren[j]).toggle();
+                  $("span", this).toggleClass("minus plus");
+                }
+              }
+            }
+          }
+
             // Change event on input radio
             for (var i = 0; i < radios.length; i++) {
                 addEvent(radios[i], 'change',
