@@ -94,21 +94,22 @@ If useList Then
               {% EndIf %}
                 <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />
                 <label for="{%= inputId %}" class="askia-radio"><span hidden>Radio</span></label>
+
                 <label for="{%= inputId %}" class="askia-response-label">
                     {% IF (resource <> "") Then %}
                       <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}"/>
                     {% EndIf %}{%:= caption %}
-                </label>
 
-                {% For k = 1 To otherIDarray.Count
-                	otherID = otherIDarray[k].ToNumber()
-                	IF index = otherID Then %}
-                        <div style="overflow:hidden"><input type="text" aria-label="Other" class="otherText"
-                          id="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
-                          name="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
-                          data-id="{%= k %}" value="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.inputValue() %}"></div>
-                  {% EndIF %}
-                {% Next k %}
+                    {% For k = 1 To otherIDarray.Count
+                    	otherID = otherIDarray[k].ToNumber()
+                    	IF index = otherID Then %}
+                            <div style="overflow:hidden"><input type="text" aria-label="Other" class="otherText"
+                              id="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
+                              name="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
+                              data-id="{%= k %}" value="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.inputValue() %}"></div>
+                      {% EndIF %}
+                    {% Next k %}
+                </label>
               </li>
             {% EndIF %}
             {% EndIF %}
