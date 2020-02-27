@@ -1,5 +1,5 @@
 {%
-Dim headerColourPrimary =CurrentADC.PropValue("headerColourPrimary")
+'Dim headerColourPrimary =CurrentADC.PropValue("headerColourPrimary")
 Dim headerFontColour =CurrentADC.PropValue("headerFontColour")
 
 Dim controlAlign
@@ -293,6 +293,7 @@ EndIf
 {
   font-weight:bold;
   cursor: pointer;
+  color: rgb({%= headerFontColour.ToRGB() %})
 }
 
 #adc_{%= CurrentADC.InstanceId%} .multiSelect

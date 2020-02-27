@@ -7,7 +7,7 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.0.10</version>
+    <version>4.0.11</version>
     <date>2016-04-15</date>
     <description><![CDATA[Default ADC with all kind of questions
 		v2.0.11 - Added alt attribute to img
@@ -28,6 +28,7 @@
 	v4.0.8 - bug fix
 	v4.0.9 - headers collapsed issue fixed
   v4.0.10 - semi-open, autocomplete off
+  v4.0.11 - headerFontColour
 	]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
@@ -339,10 +340,6 @@ Format: MM/DD/YYYY]]></description>
           <option value="expanded" text="Expanded" />
           <option value="collapsed" text="Collapsed" />
         </options>
-      </property>
-      <property xsi:type="standardProperty" id="headerColourPrimary" name="Header Background Colour" type="color" mode="dynamic" visible="true">
-        <description><![CDATA[Background colour of the header item]]></description>
-        <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="headerFontColour" name="Header Font Colour" type="color" mode="dynamic" visible="true">
         <description><![CDATA[Header colour]]></description>
