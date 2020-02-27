@@ -7,7 +7,7 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.0.9</version>
+    <version>4.0.10</version>
     <date>2016-04-15</date>
     <description><![CDATA[Default ADC with all kind of questions
 		v2.0.11 - Added alt attribute to img
@@ -27,6 +27,7 @@
     v4.0.7 - expandableHeaders
 	v4.0.8 - bug fix
 	v4.0.9 - headers collapsed issue fixed
+  v4.0.10 - semi-open, autocomplete off
 	]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>

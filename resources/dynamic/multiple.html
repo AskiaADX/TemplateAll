@@ -107,7 +107,7 @@ If useList Then
                             <div style="overflow:hidden"><input type="text" aria-label="Other" class="otherText"
                               id="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
                               name="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
-                              data-id="{%= k %}" value="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.inputValue() %}"></div>
+                              data-id="{%= k %}" value="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.inputValue() %}" autocomplete="off"></div>
                       {% EndIF %}
                     {% Next %}
                 </label>
