@@ -12,21 +12,37 @@ Else
 EndIf
 %}
 
-.plus::after {
+/* .down-point::after {
 	content: '\2BC6';
   font-weight: bold;
   float: left;
 	line-height: 1.02em;
   margin-right: 5px;
-}
+} */
 
-.minus::after {
+.right-point::after {
 	content: "\2BC8";
   font-weight: bold;
 	float: left;
   line-height: 1.02em;
   margin-right: 5px;
 }
+
+#adc_{%= CurrentADC.InstanceId %} .right-point {
+	content: "\2BC8";
+  font-weight: bold;
+	float: left;
+  line-height: 1.02em;
+  margin-right: 5px;
+}
+
+/* #adc_{%= CurrentADC.InstanceId %} .down-point {
+	content: '\2BC6';
+  font-weight: bold;
+  float: left;
+	line-height: 1.02em;
+  margin-right: 5px;
+} */
 
 {% If (CurrentQuestion.Type = "numeric" or CurrentQuestion.Type = "numeric-loop" or CurrentQuestion.Type = "open" or CurrentQuestion.Type = "datetime" ) Then %}
 #adc_{%= CurrentADC.InstanceId %} {

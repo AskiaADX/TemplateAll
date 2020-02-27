@@ -139,7 +139,7 @@
         var ul = obj.parentNode.parentNode;
 
         for (var i = 0; j = ul.children.length, i < j; i++) {
-          if(ul.children[i].children[0] != null){
+          if(ul.children[i].children[0] != null && ul.children[i].className.indexOf("responseHeader") < 0){
             var element =  document.getElementById(ul.children[i].children[0].attributes.id.value);
             if (obj !== ul.children[i].children[0] &&
                 obj.className.indexOf("exclusive") >= 0 &&
@@ -699,16 +699,17 @@
                 var headerChildren = document.querySelectorAll(".headerchild"+index);
                 for (var j = 0; j < headerChildren.length; j++) {
                   $(headerChildren[j]).toggle();
+                  // $("span", this).toggleClass("down-point right-point");
                 }
               }
-              headers[i].onclick = function(){
-                var index = $(this).attr("data-id");
-                var headerChildren = document.querySelectorAll(".headerchild"+index);
-                for (var j = 0; j < headerChildren.length; j++) {
-                  $(headerChildren[j]).toggle();
-                  $("span", this).toggleClass("minus plus");
+                headers[i].onclick = function(){
+                  var index = $(this).attr("data-id");
+                  var headerChildren = document.querySelectorAll(".headerchild"+index);
+                  for (var j = 0; j < headerChildren.length; j++) {
+                    $(headerChildren[j]).toggle();
+                    // $("span", this).toggleClass("right-point down-point");
+                  }
                 }
-              }
             }
           }
 
