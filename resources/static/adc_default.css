@@ -22,8 +22,7 @@ body {
 .adc-default input {
   margin: 0;
 }
-.adc-default ul,
-.adc-default li {
+.adc-default ul {
     margin  : 0;
     padding : 2px;
 }
