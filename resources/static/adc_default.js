@@ -145,10 +145,16 @@
                 obj.className.indexOf("exclusive") >= 0 &&
                 obj.checked) {
                 element.checked = false;
+                if (element.parentNode.children[2].children[0]) {
+                    element.parentNode.children[2].children[0].children[0].style.display = 'none';
+                }
             } else if (obj !== ul.children[i].children[0] &&
                        ul.children[i].children[0].className.indexOf("exclusive") >= 0 &&
                        obj.checked && ul.children[i].children[0].checked) {
                 element.checked = false;
+                if (element.parentNode.children[2].children[0]) {
+                    element.parentNode.children[2].children[0].children[0].style.display = 'none';
+                }
             }
           }
         }
