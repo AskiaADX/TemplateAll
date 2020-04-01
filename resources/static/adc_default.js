@@ -698,7 +698,7 @@
           var expandableHeaders = options.expandableHeaders
           var accordionInitialState = options.accordionInitialState
           if(expandableHeaders){
-            var headers = document.querySelectorAll(".responseHeader");
+            var headers = document.querySelectorAll('#adc_' + this.instanceId + ' .responseHeader');
             for (var i = 0; i < headers.length; i++) {
               if (accordionInitialState == 'collapsed') {
                 var index = $(headers[i]).attr("data-id");

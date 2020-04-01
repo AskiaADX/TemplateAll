@@ -7,7 +7,7 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.0.13</version>
+    <version>4.0.14</version>
     <date>2016-04-15</date>
     <description><![CDATA[Default ADC with all kind of questions
 		v2.0.11 - Added alt attribute to img
@@ -31,6 +31,7 @@
   v4.0.11 - headerFontColour
   v4.0.12 - Fixed padding li
   v4.0.13 - Fix for exclusive responses
+  v4.0.14 - Fix a bug by using CurrentADC
 	]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
