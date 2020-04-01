@@ -79,11 +79,11 @@ If useList Then
             <li class="responseHeader" data-id="{%= CurrentQuestion.id %}_{%= index %}">
               {%
               If expandableHeaders = True Then
-                  'If accordionInitialState = "expanded" Then %}
-                  <!-- <span class="down-point"></span> -->
-                  {% 'Else %}
+                  If accordionInitialState = "expanded" Then %}
+                  <span class="down-point"></span>
+                  {% Else %}
                   <span class="right-point"></span>
-                  {% 'EndIf %}
+                  {% EndIf %}
               {% EndIf %}
               {%:= caption %}</li>
 

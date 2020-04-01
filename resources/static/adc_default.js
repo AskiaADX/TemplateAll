@@ -705,7 +705,6 @@
                 var headerChildren = document.querySelectorAll(".headerchild"+index);
                 for (var j = 0; j < headerChildren.length; j++) {
                   $(headerChildren[j]).toggle();
-                  // $("span", this).toggleClass("down-point right-point");
                 }
               }
                 headers[i].onclick = function(){
@@ -713,8 +712,8 @@
                   var headerChildren = document.querySelectorAll(".headerchild"+index);
                   for (var j = 0; j < headerChildren.length; j++) {
                     $(headerChildren[j]).toggle();
-                    // $("span", this).toggleClass("right-point down-point");
                   }
+                  $("span", this).toggleClass("right-point down-point");                  
                 }
             }
           }
