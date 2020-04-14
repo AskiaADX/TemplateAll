@@ -177,7 +177,7 @@ body {
     text-align: right;
 }
 .adc-default .askia-response-label {
-    margin-left: 5px !important;
+    /* margin-left: 5px !important; */
     flex: 1 1 0%;
 }
 /* TIME PICKER */
