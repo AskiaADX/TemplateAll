@@ -1,5 +1,10 @@
 (function () {
 
+    // This will globally handle any TypeError is occured.
+    window.onerror = function (msg, url, lineNo, columnNo, error) {
+      if(error.name == 'TypeError') return true;
+    };
+
     // Create a safe reference to the Underscore object for use below.
     var _ = function(obj) {
         if (obj instanceof _) return obj;
@@ -713,7 +718,7 @@
                   for (var j = 0; j < headerChildren.length; j++) {
                     $(headerChildren[j]).toggle();
                   }
-                  $("span", this).toggleClass("right-point down-point");                  
+                  $("span", this).toggleClass("right-point down-point");
                 }
             }
           }
