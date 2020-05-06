@@ -21,37 +21,37 @@ Dim k
 Dim index
 
 For i = 1 to ar.Count
-    If ar[i].isOpen = True Then
+    If (ar[i].isOpen = True) Then
         arrOpenValues.Push(ar[i].OpenQuestion.InputValue())
         arrOpenNames.Push(ar[i].OpenQuestion.InputName())
         otherIDarray.Push(ar[i].Index)
     Endif
 Next i
 
-If useList Then
+If (useList) Then
     attrSelected = On(CurrentQuestion.HasDK or CurrentQuestion.HasNA, " selected=\"selected\"", "") %}
 <select name="{%= inputName %}" aria-label="Select">
         <option value="" disabled="disabled"{%:= attrSelected %}>{%:= CurrentADC.PropValue("firstOptionText") %}</option>
     {%
-    For i = 1 To CurrentQuestion.AvailableResponses.Count
-        attrSelected = On(CurrentQuestion.AvailableResponses[i].IsSelected, "selected=\"selected\"", "")
-        inputValue   = CurrentQuestion.AvailableResponses[i].InputValue()
-        caption      = CurrentQuestion.AvailableResponses[i].Caption
-        isHeader     = CurrentQuestion.AvailableResponses[i].isHeader
+    For i = 1 To ar.Count
+        attrSelected = On(ar[i].IsSelected, "selected=\"selected\"", "")
+        inputValue   = ar[i].InputValue()
+        caption      = ar[i].Caption
+        isHeader     = ar[i].isHeader
 
-        If isHeader = False or showHeader = True Then
-        IF isHeader = True Then
+        If ((isHeader = False) or (showHeader = True)) Then
+        IF (isHeader = True) Then
         %}
         <optgroup label="{%= caption %}">
           {%
-            Dim cr = CurrentQuestion.AvailableResponses[i].Children
+            Dim cr = ar[i].Children
             For j = 1 To cr.Count
             attrSelected = On(cr[j].IsSelected, "selected=\"selected\"", "")
           %}
           <option value="{%= cr[j].InputValue() %}" {%:= attrSelected %}>{%= cr[j].Caption %}</option>
           {% Next j %}
         </optgroup>
-        {% ElseIf CurrentQuestion.AvailableResponses[i].Parent.isHeader <> True Then %}
+        {% ElseIf (ar[i].Parent.isHeader <> True) Then %}
         <option value="{%= inputValue %}" {%:= attrSelected %}>{%= caption %}</option>
         {% EndIF %}
         {% EndIF %}
@@ -62,22 +62,22 @@ If useList Then
         {%
         Dim inputId
         Dim attrChecked
-        For i = 1 To CurrentQuestion.AvailableResponses.Count
+        For i = 1 To ar.Count
             inputId     = (inputName + "_" + i).Replace("U", "askia-input")
-            attrChecked = On(CurrentQuestion.AvailableResponses[i].IsSelected, "checked=\"checked\"", "")
-            inputValue  = CurrentQuestion.AvailableResponses[i].InputValue()
-            caption     = CurrentQuestion.AvailableResponses[i].Caption
-			      resource	= CurrentQuestion.AvailableResponses.ResourceURL[i]
-            index		= CurrentQuestion.AvailableResponses[i].index
+            attrChecked = On(ar[i].IsSelected, "checked=\"checked\"", "")
+            inputValue  = ar[i].InputValue()
+            caption     = ar[i].Caption
+			      resource	= ar.ResourceURL[i]
+            index		= ar[i].index
 
-            isHeader     = CurrentQuestion.AvailableResponses[i].isHeader
-            If isHeader = False or showHeader = True Then
-            IF isHeader = True Then
+            isHeader     = ar[i].isHeader
+            If ((isHeader = False) or (showHeader = True)) Then
+            IF (isHeader = True) Then
             %}
             <li class="responseHeader" data-id="{%= CurrentQuestion.id %}_{%= index %}">
               {%
-              If expandableHeaders = True Then
-                  If accordionInitialState = "expanded" Then %}
+              If (expandableHeaders = True) Then
+                  If (accordionInitialState = "expanded") Then %}
                   <span class="down-point"></span>
                   {% Else %}
                   <span class="right-point"></span>
@@ -87,7 +87,7 @@ If useList Then
 
             {% Else %}
 
-              {% If CurrentQuestion.AvailableResponses[i].Parent.isHeader = true Then %}
+              {% If (ar[i].Parent.isHeader = true) Then %}
               <li class="askia-response headerchild{%= CurrentQuestion.id %}_{%= CurrentQuestion.AvailableResponses[i].Parent.index %}" style="margin-left: 1em">
               {% Else %}
               <li class="askia-response">
