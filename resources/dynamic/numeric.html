@@ -1,15 +1,15 @@
-{% 
+{%
 Dim useInput = CurrentADC.PropValue("numUseInput")
 
 Dim inputName  = CurrentQuestion.InputName()
-Dim inputValue = CurrentQuestion.InputValue()
+Dim inputValue = CurrentQuestion.InputValue().Replace(",",".")
 Dim inputCode = CurrentQuestion.InputCode
 Dim useBrowserValidation = "" + CurrentADC.PropValue("useBrowserValidation")
 Dim minValue  = On(CurrentQuestion.Type = "numeric-loop",1,CurrentQuestion.MinValue)
 Dim maxValue  = CurrentQuestion.MaxValue
 
 If (CurrentQuestion.Type = "numeric-loop") Then
-	maxValue = CurrentQuestion.AvailableResponses.Count    
+	maxValue = CurrentQuestion.AvailableResponses.Count
 EndIf
 Dim rangeLength = 0
 Dim attrMin = ""
@@ -20,8 +20,8 @@ Dim maxVal = ""
 if useBrowserValidation = "1" then
 	attrMin = On(minValue <> DK, " min=\"" + minValue + "\"", "")
 	attrMax = On(maxValue <> DK, " max=\"" + maxValue + "\"", "")
-	 minVal = On(minValue <> DK, " min=\"" + minValue + "\"", "") 
-	 maxVal = On(maxValue <> DK, " max=\"" + maxValue + "\"", "") 
+	 minVal = On(minValue <> DK, " min=\"" + minValue + "\"", "")
+	 maxVal = On(maxValue <> DK, " max=\"" + maxValue + "\"", "")
 EndIf
 
 Dim step = On(CurrentADC.PropValue("unitStep") <> "", " step=\"" + CurrentADC.PropValue("unitStep").Replace(",",".") + "\"", "")
@@ -35,8 +35,8 @@ Dim attrPlaceholder = On(placeholder <> "", " placeholder=\"" + placeholder + "\
 Dim unitStep = CurrentADC.PropValue("unitStep").ToNumber()
 Dim attrStep = On(unitStep > 1, " step=\"" + unitStep + "\"", "")
 
-Dim attrChecked = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered, " checked=\"checked\"", "") 
-Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and CurrentADC.PropValue("numDkButton") = "1", " readonly=\"readonly\"", "") 
+Dim attrChecked = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered, " checked=\"checked\"", "")
+Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and CurrentADC.PropValue("numDkButton") = "1", " readonly=\"readonly\"", "")
 %}
     <div class="responses-container">
         <span class="prefix">{%= CurrentADC.PropValue("numBoxPrefix") %}</span>
@@ -46,7 +46,7 @@ Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and 
         <input type="text" id="askia-input-currency{%= inputCode %}" autocomplete="off" name="currency_{%= inputName %}" value="{%:= inputValue %}" class="thousand"{%:= attrReadOnly %} />
         {% EndIf %}
         {% If (useInput = "1") Then %}
-        <div class="range"{%:= minVal %}{%:= maxVal %}> 
+        <div class="range"{%:= minVal %}{%:= maxVal %}>
             <label for="askia-input-range_{%= CurrentQuestion.InputCode %}" hidden>Range</label>
             <input type="range" id="askia-input-range_{%= CurrentQuestion.InputCode %}" autocomplete="off" class="inputRange_{%= CurrentADC.InstanceId %}_1{%:= clsSelected %}" name="range{%= CurrentQuestion.InputName() %}" value="{%= CurrentQuestion.InputValue() %}"{%:= minVal %}{%:= maxVal %}{%:= step %}{%:= attrDisabled %}>
             <p class="preBar"></p>

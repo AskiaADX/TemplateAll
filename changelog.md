@@ -26,3 +26,4 @@ v4.0.15 - jquery.min.js as a resource file
 v4.0.16 - tiny css fix, askia-response-label margin-left removed
 v4.0.17 - JS error when DK - fix
 v4.0.18 - Some optimisation
+v4.0.19 - decimal seperator issue when language changes
