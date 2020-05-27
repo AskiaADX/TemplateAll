@@ -8,7 +8,7 @@ body {
 *:focus {
   outline: none;
 }
-* {
+.adc-default {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
@@ -46,7 +46,7 @@ body {
         display: block;
     }
 }
-.adc-default input[type=radio] + label.askia-radio, 
+.adc-default input[type=radio] + label.askia-radio,
 .adc-default input[type=checkbox] + label.askia-checkbox {
     min-width: 1.5rem;
     align-self: baseline;
@@ -155,7 +155,7 @@ body {
     min-width: 80%;
     max-width: 90%;
     height : 50px;
-    resize: vertical; 
+    resize: vertical;
 }
 .adc-default label.openDK {
     display: inline-block;
@@ -227,14 +227,14 @@ body {
     cursor: pointer;
 }
 .adc-default select option:first-child {
-	/*display: none;*/   
+	/*display: none;*/
 }
 .adc-default select::-ms-expand {
     display: none;
 }
 .adc-default select option {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  cursor: pointer;    
+  cursor: pointer;
 }
 .RLTimePicker select option {
     text-align: center;
@@ -520,7 +520,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 .RLDatePicker input:focus {
     /* border: 1px solid #dddddd;
     border-bottom-color: #ace; */
-    outline: none; 
+    outline: none;
 }
 /**
  * This theme is an example to show how you can create your own.
@@ -582,5 +582,3 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 .triangle-theme .pika-label:after {
     content:" \25be";
 }
-
-
