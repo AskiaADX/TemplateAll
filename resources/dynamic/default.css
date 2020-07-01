@@ -3,12 +3,17 @@
 Dim headerFontColour =CurrentADC.PropValue("headerFontColour")
 
 Dim controlAlign
+Dim justifyContent
+
 If (CurrentADC.PropValue("controlAlign") = "center" ) Then
     controlAlign = "0 auto 10px auto"
+    justifyContent = "center"
 ElseIf (CurrentADC.PropValue("controlAlign") = "right" ) Then
     controlAlign = "0 0 10px auto"
+    justifyContent = "flex-end"
 Else
     controlAlign = "0 auto 10px 0"
+    justifyContent = "flex-start"
 EndIf
 %}
 
@@ -26,6 +31,10 @@ EndIf
 	float: left;
   line-height: 1.02em;
   margin-right: 5px;
+}
+
+#adc_{%= CurrentADC.InstanceId %} .responses-container {
+  justify-content: {%= justifyContent %};
 }
 
 #adc_{%= CurrentADC.InstanceId %} .right-point {
