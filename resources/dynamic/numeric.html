@@ -33,7 +33,7 @@ Dim placeholder = CurrentADC.PropValue("placeholder")
 Dim attrPlaceholder = On(placeholder <> "", " placeholder=\"" + placeholder + "\"", "")
 
 Dim unitStep = CurrentADC.PropValue("unitStep").ToNumber()
-Dim attrStep = On(unitStep > 1, " step=\"" + unitStep + "\"", "")
+Dim attrStep = On(unitStep >= 0.01, " step=\"" + unitStep + "\"", "")
 
 Dim attrChecked = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered, " checked=\"checked\"", "")
 Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and CurrentADC.PropValue("numDkButton") = "1", " readonly=\"readonly\"", "")
