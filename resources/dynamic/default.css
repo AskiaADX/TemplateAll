@@ -127,7 +127,7 @@ EndIf
 }
 {% EndIf %}
 
-{% If (CurrentADC.PropValue("useInput") = "1") Then %}
+{% If (CurrentADC.PropValue("numUseInput") = "1") Then %}
 #adc_{%= CurrentADC.InstanceId %} .numeric .suffix {
   min-width: 50px;
 }
