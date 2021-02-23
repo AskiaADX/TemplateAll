@@ -30,3 +30,4 @@ v4.0.19 - decimal seperator issue when language changes
 v4.0.20 - css fix on numeric questions
 v4.0.21 - Decimal step value
 v4.0.23 - numUseInput
+v4.0.24  - 

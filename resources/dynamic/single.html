@@ -1,7 +1,7 @@
 {%
 Dim useList   = (CurrentADC.PropValue("useList") = "1") ' Convert to boolean
 Dim inputName = CurrentQuestion.InputName()
-Dim ar = CurrentQuestion.AvailableResponses
+Dim ar = CurrentQuestion.Responses
 Dim inputValue
 Dim caption
 Dim resource
@@ -63,7 +63,7 @@ If (useList) Then
         Dim inputId
         Dim attrChecked
         For i = 1 To ar.Count
-            inputId     = (inputName + "_" + i).Replace("U", "askia-input")
+            inputId     = (inputName + "_" + ar[i].InputValue()).Replace("U", "askia-input")
             attrChecked = On(ar[i].IsSelected, "checked=\"checked\"", "")
             inputValue  = ar[i].InputValue()
             caption     = ar[i].Caption
