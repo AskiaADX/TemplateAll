@@ -1,7 +1,7 @@
 {%
 Dim useList   = (CurrentADC.PropValue("useList") = "1") ' Convert to boolean
 Dim inputName = CurrentQuestion.InputName()
-Dim ar = CurrentQuestion.Responses
+Dim ar = CurrentQuestion.AvailableResponses
 Dim inputValue
 Dim caption
 Dim resource
