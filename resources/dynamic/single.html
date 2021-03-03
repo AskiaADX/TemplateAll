@@ -1,7 +1,7 @@
 {%
 Dim useList   = (CurrentADC.PropValue("useList") = "1") ' Convert to boolean
 Dim inputName = CurrentQuestion.InputName()
-Dim ar = CurrentQuestion.AvailableResponses
+Dim ar = CurrentQuestion.Responses
 Dim inputValue
 Dim caption
 Dim resource
@@ -83,7 +83,7 @@ If (useList) Then
                   <span class="right-point"></span>
                   {% EndIf %}
               {% EndIf %}
-              {%:= caption %}</li>
+              <span style="display:none" id="{%= inputId %}">&nbsp;</span>{%:= caption %}</li>
 
             {% Else %}
 

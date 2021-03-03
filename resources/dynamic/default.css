@@ -305,6 +305,10 @@ EndIf
   color: rgb({%= headerFontColour.ToRGB() %})
 }
 
+#adc_{%= CurrentADC.InstanceId%} .disabled{
+  color: grey;
+}
+
 #adc_{%= CurrentADC.InstanceId%} .multiSelect
 {
   height: auto !important;

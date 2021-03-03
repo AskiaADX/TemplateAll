@@ -5,13 +5,13 @@
           version="2.2.0"
           askiaCompat="5.5.2">
   <info>
-    <name>TemplateAll</name>
-    <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.0.25</version>
-    <date>2021-02-23</date>
+    <name>ResponseLiveRouting</name>
+    <guid>eb4c47fe-eb8c-4a74-88ee-a1d03fc52e09</guid>
+    <version>1.0.3</version>
+    <date>2021-03-03</date>
     <description><![CDATA[Default ADC with all kind of questions]]></description>
     <company>Askia SAS</company>
-    <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
+    <author><![CDATA[Prabath Gamage <prabath@askia.com>]]></author>
     <site>http://www.askia.com</site>
     <helpURL></helpURL>
     <categories>
@@ -77,6 +77,14 @@
         <options>
           <option value="1" text="Yes" />
           <option value="0" text="No" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="hideOrDisable" name="hide/disable when ignoring responses" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Hide or Disable responses when ignore_responses live-routing happens.]]></description>
+        <value><![CDATA[disable]]></value>
+        <options>
+          <option value="hide" text="Hide" />
+          <option value="disable" text="Disable" />
         </options>
       </property>
     </category>
