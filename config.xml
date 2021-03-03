@@ -7,8 +7,8 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.0.25</version>
-    <date>2021-02-23</date>
+    <version>4.0.26</version>
+    <date>2021-03-03</date>
     <description><![CDATA[Default ADC with all kind of questions]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
@@ -79,6 +79,14 @@
           <option value="0" text="No" />
         </options>
       </property>
+      <property xsi:type="standardProperty" id="hideOrDisable" name="hide/disable when ignoring responses" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Hide or Disable responses when ignore_responses live-routing happens.]]></description>
+        <value><![CDATA[disable]]></value>
+        <options>
+          <option value="hide" text="Hide" />
+          <option value="disable" text="Disable" />
+        </options>
+      </property>      
     </category>
     <category id="closedQuestion" name="Closed question">
       <property xsi:type="standardProperty" id="maxWidth" name="Max Width" type="string" mode="dynamic" require="true" visible="false">

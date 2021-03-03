@@ -33,7 +33,8 @@ dim maxBound
     	decimals: [{%:= On((CurrentQuestion.Type = "numeric"), CurrentQuestion.Decimals + "", "")%}],
         useList: {%= On(CurrentADC.PropValue("useList") = "1", true, false)%},
         expandableHeaders : {%= (CurrentADC.PropValue("expandableHeaders") = "1") %},
-        accordionInitialState : '{%= CurrentADC.PropValue("accordionInitialState") %}'        
+        accordionInitialState : '{%= CurrentADC.PropValue("accordionInitialState") %}',
+        hideOrDisable : {%= On((CurrentADC.PropValue("hideOrDisable")) = "disable",true,false) %}
     });
 {% If (column.Type = "datetime") and Not(column.IsDateOnly) Then %}
        var timePickerR1C1 = new TimePicker({

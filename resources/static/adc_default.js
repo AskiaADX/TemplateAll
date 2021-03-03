@@ -1,4 +1,5 @@
 (function () {
+    var hideOrDisable = true;
 
     // This will globally handle any TypeError is occured.
     window.onerror = function (msg, url, lineNo, columnNo, error) {
@@ -175,8 +176,58 @@
             && window.arrLiveRoutingShortcut
             && window.arrLiveRoutingShortcut.length > 0
             && window.arrLiveRoutingShortcut.indexOf(shortcut) >= 0) {
-            askia.triggerAnswer();
+              askia.defaultEventActions.askiaShowResponses = executeShowHideResponses;
+              askia.triggerAnswer();
         }
+    }
+
+    /**
+     * Show or hide responses
+     *
+     * @param {Object} data Definition of the action to do
+     * @param {"showResponses"|"hideResponses"} data.action Action to execute
+     * @param {Number} data.inputCode Input code associated with the question
+     */
+    function executeShowHideResponses (data) {
+      if (!(data.question.inputCode >= 0)) {
+        return;
+      }
+      var questionClassName = '.askia-question-' + data.question.inputCode;
+      var orderLength = data.order.length;
+      var showResponseInputCodes = [];
+      var responses = [];
+      var responseElems = document.querySelectorAll(questionClassName + ' li');
+
+      for (var h = 0; h < responseElems.length; h++) {
+        if (responseElems[h].classList.contains("askia-response") || responseElems[h].classList.contains("responseHeader"))
+          responses.push(responseElems[h]);
+      }
+
+      for (var i = 0; i < responses.length; i++) {
+        responses[i].style.display = "";
+        responses[i].classList.remove("disabled");
+        responses[i].children[0].disabled = false;
+      }
+
+      for (var k = 0; k < orderLength; k++) {
+        showResponseInputCodes.push(parseInt(data.order[k].inputCode));
+      }
+
+      for (var j = 0; j < responses.length; j++) {
+        var str = (responses[j].children[0].id).split('_');
+        if (showResponseInputCodes.indexOf(parseInt(str[1])) < 0){
+            if(document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(str[1])) != null){
+              if (hideOrDisable) {
+                document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(str[1])).disabled = true;
+                document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(str[1])).checked = false;
+                document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(str[1])).parentElement.classList.add("disabled");
+              } else {
+                document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(str[1])).checked = false;
+                document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(str[1])).parentElement.style.display = "none";
+              }
+            }
+        }
+      }
     }
 
     /**
@@ -686,6 +737,7 @@
         this.suffixes = options.suffixes || [];
         this.decimals = options.decimals || [];
         this.useList = options.useList;
+        hideOrDisable = options.hideOrDisable;
 
         var radios = document.querySelectorAll('#adc_' + this.instanceId + ' input[type="radio"]');
         var checkboxes = document.querySelectorAll('#adc_' + this.instanceId + ' input[type="checkbox"]');
