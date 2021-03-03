@@ -7,7 +7,7 @@
   <info>
     <name>ResponseLiveRouting</name>
     <guid>eb4c47fe-eb8c-4a74-88ee-a1d03fc52e09</guid>
-    <version>1.0.3</version>
+    <version>1.0.5</version>
     <date>2021-03-03</date>
     <description><![CDATA[Default ADC with all kind of questions]]></description>
     <company>Askia SAS</company>
@@ -81,7 +81,7 @@
       </property>
       <property xsi:type="standardProperty" id="hideOrDisable" name="hide/disable when ignoring responses" type="string" mode="dynamic" require="true" visible="true">
         <description><![CDATA[Hide or Disable responses when ignore_responses live-routing happens.]]></description>
-        <value><![CDATA[disable]]></value>
+        <value><![CDATA[hide]]></value>
         <options>
           <option value="hide" text="Hide" />
           <option value="disable" text="Disable" />

@@ -74,7 +74,7 @@ If (useList) Then
             If ((isHeader = False) or (showHeader = True)) Then
             IF (isHeader = True) Then
             %}
-            <li class="responseHeader" data-id="{%= CurrentQuestion.id %}_{%= index %}">
+            <li class="responseHeader" data-id="{%= CurrentQuestion.id %}_{%= index %}" style="display:none">
               {%
               If (expandableHeaders = True) Then
                   If (accordionInitialState = "expanded") Then %}
@@ -88,9 +88,9 @@ If (useList) Then
             {% Else %}
 
               {% If (ar[i].Parent.isHeader = true) Then %}
-              <li class="askia-response headerchild{%= CurrentQuestion.id %}_{%= CurrentQuestion.AvailableResponses[i].Parent.index %}" style="margin-left: 1em">
+              <li class="askia-response headerchild{%= CurrentQuestion.id %}_{%= CurrentQuestion.AvailableResponses[i].Parent.index %}" style="margin-left: 1em;display:none">
               {% Else %}
-              <li class="askia-response">
+              <li class="askia-response" style="display:none">
               {% EndIf %}
                 <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />
                 <label for="{%= inputId %}" class="askia-radio"><span hidden>Radio</span></label>

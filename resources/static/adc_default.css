@@ -5,6 +5,15 @@ html {
 body {
   -webkit-tap-highlight-color: transparent;
 }
+
+table{
+  visibility: hidden;
+}
+
+.loader{
+  visibility: visible;
+}
+
 *:focus {
   outline: none;
 }

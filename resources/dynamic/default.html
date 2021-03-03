@@ -1,3 +1,4 @@
+<div class="loader"></div>
 <div id="adc_{%= CurrentADC.InstanceId %}" class="adc-default">
 {% If (CurrentQuestion.Type = "single" or CurrentQuestion.Type = "single-loop") Then %}
     {%:= CurrentADC.GetContent("dynamic/single.html").ToText() %}

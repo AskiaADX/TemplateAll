@@ -302,7 +302,7 @@ EndIf
 {
   font-weight:bold;
   cursor: pointer;
-  color: rgb({%= headerFontColour.ToRGB() %})
+  color: rgb({%= headerFontColour.ToRGB() %});
 }
 
 #adc_{%= CurrentADC.InstanceId%} .disabled{

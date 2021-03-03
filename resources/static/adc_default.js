@@ -1,5 +1,14 @@
 (function () {
     var hideOrDisable = true;
+    var responseElems = [];
+
+
+    window.onload = function(){
+      // window.setTimeout(function(){
+        document.querySelector("table").style.visibility = "visible";
+        document.querySelector(".loader").style.display = "none";
+      // },1500);
+    }
 
     // This will globally handle any TypeError is occured.
     window.onerror = function (msg, url, lineNo, columnNo, error) {
@@ -176,19 +185,19 @@
             && window.arrLiveRoutingShortcut
             && window.arrLiveRoutingShortcut.length > 0
             && window.arrLiveRoutingShortcut.indexOf(shortcut) >= 0) {
-              askia.defaultEventActions.askiaShowResponses = executeShowHideResponses;
+              askia.defaultEventActions.askiaShowResponses = executeHideResponses;
               askia.triggerAnswer();
         }
     }
 
     /**
-     * Show or hide responses
+     * hide responses
      *
      * @param {Object} data Definition of the action to do
-     * @param {"showResponses"|"hideResponses"} data.action Action to execute
+     * @param {"hideResponses"} data.action Action to execute
      * @param {Number} data.inputCode Input code associated with the question
      */
-    function executeShowHideResponses (data) {
+    function executeHideResponses (data) {
       if (!(data.question.inputCode >= 0)) {
         return;
       }
@@ -196,8 +205,8 @@
       var orderLength = data.order.length;
       var showResponseInputCodes = [];
       var responses = [];
-      var responseElems = document.querySelectorAll(questionClassName + ' li');
-
+      responseElems = document.querySelectorAll(questionClassName + ' li');
+      
       for (var h = 0; h < responseElems.length; h++) {
         if (responseElems[h].classList.contains("askia-response") || responseElems[h].classList.contains("responseHeader"))
           responses.push(responseElems[h]);
@@ -226,6 +235,34 @@
                 document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(str[1])).parentElement.style.display = "none";
               }
             }
+        }
+      }
+    }
+
+
+    /**
+     * Show responses
+     *
+     * @param {Object} data Definition of the action to do
+     * @param {"showResponses"} data.action Action to execute
+     * @param {Number} data.inputCode Input code associated with the question
+     */
+    function executeShowResponses (data) {
+      if (!(data.question.inputCode >= 0)) {
+        return;
+      }
+      var questionClassName = '.askia-question-' + data.question.inputCode;
+      var orderLength = data.order.length;
+      var showResponseInputCodes = [];
+
+      for (var k = 0; k < orderLength; k++) {
+        showResponseInputCodes.push(parseInt(data.order[k].inputCode));
+      }
+
+      for (var j = 0; j < showResponseInputCodes.length; j++) {
+        if(document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(showResponseInputCodes[j])) != null){
+            document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(showResponseInputCodes[j])).parentElement.style.display = "";
+            // responseElems.push(document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(showResponseInputCodes[j])).parentElement);
         }
       }
     }
@@ -749,6 +786,14 @@
         var inputDates = document.querySelectorAll('#adc_' + this.instanceId + ' .inputdate');
         var dateInputDK = document.querySelector('#adc_' + this.instanceId + ' .DK input[type="checkbox"]');
         var inputSelect = document.querySelector('#adc_' + this.instanceId + ' select');
+
+        if (window.askia
+            && window.arrLiveRoutingShortcut
+            && window.arrLiveRoutingShortcut.length > 0
+            && window.arrLiveRoutingShortcut.indexOf(this.currentQuestion) >= 0) {
+              askia.defaultEventActions.askiaShowResponses = executeShowResponses;
+              askia.triggerAnswer();
+        }
 
         if (this.type === "single" || this.type === "multiple" || this.type === "single-loop" || this.type === "multiple-loop") {
 
