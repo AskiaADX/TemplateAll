@@ -104,9 +104,12 @@ If (useList) Then
                     {% For k = 1 To otherIDarray.Count
                     	otherID = otherIDarray[k].ToNumber()
                     	IF index = otherID Then %}
-                            <div style="overflow:hidden"><input type="text" aria-label="Other" class="otherText"
-                              id="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
-                              name="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
+                            <div style="overflow:hidden"><input type="hidden" class="otherHidden"
+                                id="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
+                                name="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
+                                value="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.inputValue() %}" autocomplete="off"><input type="text" aria-label="Other" class="otherText"
+                              id="other{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
+                              name="other{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
                               data-id="{%= k %}" value="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.inputValue() %}" autocomplete="off"></div>
                       {% EndIF %}
                     {% Next %}

@@ -383,6 +383,19 @@
     }
 
     /**
+   * Manage the input event on input semi open
+   *
+   * @param {Object} event Input event of the input semi open
+   * @param {Object} that AdcDefault object, same as options
+   */
+  function onInputSemiOpen (event, that) {
+    var el = event.target || event.srcElement;
+    if (el.nodeName === "INPUT" && (el.type === 'text') && el.className === 'otherText') {
+        el.previousElementSibling.value = myTrim(el.value);
+    }
+}
+
+    /**
    * Manage the input event on numeric variables
    *
    * @param {Object} event Input event of the numerical variable
@@ -722,6 +735,15 @@
     }
 
     /**
+   * Return the value of the input trimed
+   *
+   * @param {x} value to trim
+   */
+    function myTrim(x) {
+        return x.replace(/^\s+|\s+$/gm,'');
+      }
+
+    /**
    * Creates a new instance of the AdcDefault
    *
    * @param {Object} options Options of the AdcDefault
@@ -749,6 +771,7 @@
         var inputDates = document.querySelectorAll('#adc_' + this.instanceId + ' .inputdate');
         var dateInputDK = document.querySelector('#adc_' + this.instanceId + ' .DK input[type="checkbox"]');
         var inputSelect = document.querySelector('#adc_' + this.instanceId + ' select');
+        var inputSemiOpens = document.querySelectorAll('#adc_' + this.instanceId + ' input.otherText');
 
         if (this.type === "single" || this.type === "multiple" || this.type === "single-loop" || this.type === "multiple-loop") {
 
@@ -791,6 +814,16 @@
                          (function (passedInElement) {
                     return function (e) {
                         onChange(e, passedInElement);
+                    };
+                }(this)));
+            }
+
+            // Change event on input semi open
+            for (var j1 = 0; j1 < inputSemiOpens.length; j1++) {
+                addEvent(inputSemiOpens[j1], 'input',
+                         (function (passedInElement) {
+                    return function (e) {
+                        onInputSemiOpen(e, passedInElement);
                     };
                 }(this)));
             }
