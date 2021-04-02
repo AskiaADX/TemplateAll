@@ -1,45 +1,121 @@
 {%
 Dim useList   = (CurrentADC.PropValue("useList") = "1") ' Convert to boolean
 Dim inputName = CurrentQuestion.InputName()
+Dim ar = CurrentQuestion.AvailableResponses
 Dim inputValue
 Dim caption
 Dim resource
 Dim i
+Dim j
 Dim attrSelected
+Dim isHeader
+Dim showHeader    = CurrentADC.PropValue("showHeaders") ="1"
+Dim expandableHeaders = CurrentADC.PropValue("expandableHeaders") ="1"
+Dim accordionInitialState = CurrentADC.PropValue("accordionInitialState")
 
-If useList Then 
+Dim	otherIDarray As NumberArray
+Dim arrOpenValues As StringArray
+Dim arrOpenNames As StringArray
+Dim otherID
+Dim k
+Dim index
+
+For i = 1 to ar.Count
+    If (ar[i].isOpen = True) Then
+        arrOpenValues.Push(ar[i].OpenQuestion.InputValue())
+        arrOpenNames.Push(ar[i].OpenQuestion.InputName())
+        otherIDarray.Push(ar[i].Index)
+    Endif
+Next i
+
+If (useList) Then
     attrSelected = On(CurrentQuestion.HasDK or CurrentQuestion.HasNA, " selected=\"selected\"", "") %}
 <select name="{%= inputName %}" aria-label="Select">
         <option value="" disabled="disabled"{%:= attrSelected %}>{%:= CurrentADC.PropValue("firstOptionText") %}</option>
-    {% 
-    For i = 1 To CurrentQuestion.AvailableResponses.Count 
-        attrSelected = On(CurrentQuestion.AvailableResponses[i].IsSelected, "selected=\"selected\"", "")
-        inputValue   = CurrentQuestion.AvailableResponses[i].InputValue()
-        caption      = CurrentQuestion.AvailableResponses[i].Caption
+    {%
+    For i = 1 To ar.Count
+        attrSelected = On(ar[i].IsSelected, "selected=\"selected\"", "")
+        inputValue   = ar[i].InputValue()
+        caption      = ar[i].Caption
+        isHeader     = ar[i].isHeader
+
+        If ((isHeader = False) or (showHeader = True)) Then
+        IF (isHeader = True) Then
         %}
+        <optgroup label="{%= caption %}">
+          {%
+            Dim cr = ar[i].Children
+            For j = 1 To cr.Count
+            attrSelected = On(cr[j].IsSelected, "selected=\"selected\"", "")
+          %}
+          <option value="{%= cr[j].InputValue() %}" {%:= attrSelected %}>{%= cr[j].Caption %}</option>
+          {% Next j %}
+        </optgroup>
+        {% ElseIf (ar[i].Parent.isHeader <> True) Then %}
         <option value="{%= inputValue %}" {%:= attrSelected %}>{%= caption %}</option>
+        {% EndIF %}
+        {% EndIF %}
     {% Next %}
     </select>
 {% Else %}
     <ul>
-        {% 
+        {%
         Dim inputId
         Dim attrChecked
-        For i = 1 To CurrentQuestion.AvailableResponses.Count 
-            inputId     = (inputName + "_" + i).Replace("U", "askia-input")
-            attrChecked = On(CurrentQuestion.AvailableResponses[i].IsSelected, "checked=\"checked\"", "")
-            inputValue  = CurrentQuestion.AvailableResponses[i].InputValue()
-            caption     = CurrentQuestion.AvailableResponses[i].Caption
-			resource	= CurrentQuestion.AvailableResponses.ResourceURL[i] 
-        %}
-        <li class="askia-response">
-            <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />
-            <label for="{%= inputId %}" class="askia-radio"><span hidden>Radio</span></label>
-            <label for="{%= inputId %}" class="askia-response-label">
-                {% IF (resource <> "") Then %}
-                <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}"/>
-                {% EndIf %}{%:= caption %}</label>
-        </li>
+        For i = 1 To ar.Count
+            inputId     = (inputName + "_" + ar[i].InputValue()).Replace("U", "askia-input")
+            attrChecked = On(ar[i].IsSelected, "checked=\"checked\"", "")
+            inputValue  = ar[i].InputValue()
+            caption     = ar[i].Caption
+			      resource	= ar.ResourceURL[i]
+            index		= ar[i].index
+
+            isHeader     = ar[i].isHeader
+            If ((isHeader = False) or (showHeader = True)) Then
+            IF (isHeader = True) Then
+            %}
+            <li class="responseHeader" data-id="{%= CurrentQuestion.id %}_{%= index %}">
+              {%
+              If (expandableHeaders = True) Then
+                  If (accordionInitialState = "expanded") Then %}
+                  <span class="down-point"></span>
+                  {% Else %}
+                  <span class="right-point"></span>
+                  {% EndIf %}
+              {% EndIf %}
+              {%:= caption %}</li>
+
+            {% Else %}
+
+              {% If (ar[i].Parent.isHeader = true) Then %}
+              <li class="askia-response headerchild{%= CurrentQuestion.id %}_{%= CurrentQuestion.AvailableResponses[i].Parent.index %}" style="margin-left: 1em">
+              {% Else %}
+              <li class="askia-response">
+              {% EndIf %}
+                <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />
+                <label for="{%= inputId %}" class="askia-radio"><span hidden>Radio</span></label>
+
+                <label for="{%= inputId %}" class="askia-response-label">
+                    {% IF (resource <> "") Then %}
+                      <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}"/>
+                    {% EndIf %}{%:= caption %}
+
+                    {% For k = 1 To otherIDarray.Count
+                    	otherID = otherIDarray[k].ToNumber()
+                    	IF index = otherID Then %}
+                            <div style="overflow:hidden"><input type="hidden" class="otherHidden"
+                                id="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
+                                name="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
+                                value="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.inputValue() %}" autocomplete="off"><input type="text" aria-label="Other" class="otherText"
+                              id="other{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
+                              name="other{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.InputName() %}"
+                              data-id="{%= k %}" value="{%= CurrentQuestion.AvailableResponses[i].OpenQuestion.inputValue() %}" autocomplete="off"></div>
+                      {% EndIF %}
+                    {% Next k %}
+                </label>
+              </li>
+            {% EndIF %}
+            {% EndIF %}
         {% Next %}
     </ul>
 {% EndIf %}

@@ -1,13 +1,58 @@
 {%
+'Dim headerColourPrimary =CurrentADC.PropValue("headerColourPrimary")
+Dim headerFontColour =CurrentADC.PropValue("headerFontColour")
+
 Dim controlAlign
+Dim justifyContent
+
 If (CurrentADC.PropValue("controlAlign") = "center" ) Then
     controlAlign = "0 auto 10px auto"
+    justifyContent = "center"
 ElseIf (CurrentADC.PropValue("controlAlign") = "right" ) Then
     controlAlign = "0 0 10px auto"
+    justifyContent = "flex-end"
 Else
     controlAlign = "0 auto 10px 0"
+    justifyContent = "flex-start"
 EndIf
 %}
+
+.down-point::after {
+	content: '\2BC6';
+  font-weight: bold;
+  float: left;
+	line-height: 1.02em;
+  margin-right: 5px;
+}
+
+.right-point::after {
+	content: "\2BC8";
+  font-weight: bold;
+	float: left;
+  line-height: 1.02em;
+  margin-right: 5px;
+}
+
+#adc_{%= CurrentADC.InstanceId %} .responses-container {
+  justify-content: {%= justifyContent %};
+}
+
+#adc_{%= CurrentADC.InstanceId %} .right-point {
+	content: "\2BC8";
+  font-weight: bold;
+	float: left;
+  line-height: 1.02em;
+  margin-right: 5px;
+}
+
+#adc_{%= CurrentADC.InstanceId %} .down-point {
+	content: '\2BC6';
+  font-weight: bold;
+  float: left;
+	line-height: 1.02em;
+  margin-right: 5px;
+}
+
 {% If (CurrentQuestion.Type = "numeric" or CurrentQuestion.Type = "numeric-loop" or CurrentQuestion.Type = "open" or CurrentQuestion.Type = "datetime" ) Then %}
 #adc_{%= CurrentADC.InstanceId %} {
     text-align: {%= CurrentADC.PropValue("controlAlign") %};
@@ -82,7 +127,7 @@ EndIf
 }
 {% EndIf %}
 
-{% If (CurrentADC.PropValue("useInput") = "1") Then %}
+{% If (CurrentADC.PropValue("numUseInput") = "1") Then %}
 #adc_{%= CurrentADC.InstanceId %} .numeric .suffix {
   min-width: 50px;
 }
@@ -152,7 +197,7 @@ EndIf
   border-radius: {%= Theme.BorderRadius %};
 }
 #adc_{%= CurrentADC.InstanceId %} input[type=range]::-ms-fill-lower {
-  height: 8px; 
+  height: 8px;
   border: 0px solid rgb({%= Theme.NeutralDarkColor.ToRGB() %});
   -webkit-border-top-left-radius: {%= Theme.BorderRadius %};
   -webkit-border-bottom-left-radius: {%= Theme.BorderRadius %};
@@ -220,21 +265,21 @@ EndIf
 }
 #adc_{%= CurrentADC.InstanceId %} input[type="range"].selected::-moz-range-progress {
   /** Selected color */
-  background-color: rgb({%= Theme.SecondaryColor.ToRGB() %}); 
+  background-color: rgb({%= Theme.SecondaryColor.ToRGB() %});
 }
-#adc_{%= CurrentADC.InstanceId %} input[type="range"]::-moz-range-track {  
+#adc_{%= CurrentADC.InstanceId %} input[type="range"]::-moz-range-track {
   background-color: rgb({%= Theme.NeutralLightColor.ToRGB() %});
 }
 /* IE*/
 #adc_{%= CurrentADC.InstanceId %} input[type="range"]::-ms-fill-lower {
   /** Selected color */
-  background-color: rgb({%= Theme.NeutralLightColor.ToRGB() %}); 
+  background-color: rgb({%= Theme.NeutralLightColor.ToRGB() %});
 }
 #adc_{%= CurrentADC.InstanceId %} input[type="range"].selected::-ms-fill-lower {
   /** Selected color */
-  background-color: rgb({%= Theme.SecondaryColor.ToRGB() %}); 
+  background-color: rgb({%= Theme.SecondaryColor.ToRGB() %});
 }
-#adc_{%= CurrentADC.InstanceId %} input[type="range"]::-ms-fill-upper {  
+#adc_{%= CurrentADC.InstanceId %} input[type="range"]::-ms-fill-upper {
   background-color: rgb({%= Theme.NeutralLightColor.ToRGB() %});
 }
 
@@ -251,4 +296,20 @@ EndIf
 #picker{%= CurrentADC.InstanceId %} .pika-button:hover {
     background-color: rgba({%= Theme.PrimaryColor %}) !important;
     color: rgba(255,255,255,1) !important;
+}
+
+#adc_{%= CurrentADC.InstanceId%} .responseHeader
+{
+  font-weight:bold;
+  cursor: pointer;
+  color: rgb({%= headerFontColour.ToRGB() %})
+}
+
+#adc_{%= CurrentADC.InstanceId%} .disabled{
+  color: grey;
+}
+
+#adc_{%= CurrentADC.InstanceId%} .multiSelect
+{
+  height: auto !important;
 }

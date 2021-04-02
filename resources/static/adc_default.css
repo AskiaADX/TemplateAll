@@ -22,8 +22,7 @@ body {
 .adc-default input {
   margin: 0;
 }
-.adc-default ul,
-.adc-default li {
+.adc-default ul {
     margin  : 0;
     padding : 2px;
 }
@@ -36,20 +35,21 @@ body {
     break-inside: avoid; /* IE 10+ */
 }
 .adc-default .askia-response {
-    display: flex;
+    /* display: flex;
+    display: -ms-flexbox;
     justify-content: stretch;
-    align-items: center;
+    align-items: center; */
 }
 @media screen and (min-width:0\0) {
     /* IE9 and IE10 rule sets go here */
-    .adc-default .askia-response {
+    /* .adc-default .askia-response {
         display: block;
-    }
+    } */
 }
 .adc-default input[type=radio] + label.askia-radio,
 .adc-default input[type=checkbox] + label.askia-checkbox {
     min-width: 1.5rem;
-    align-self: baseline;
+    /* align-self: baseline; */
 }
 
 .adc-default .responses-container {
@@ -177,7 +177,7 @@ body {
     text-align: right;
 }
 .adc-default .askia-response-label {
-    margin-left: 5px !important;
+    /* margin-left: 5px !important; */
     flex: 1 1 0%;
 }
 /* TIME PICKER */
@@ -236,6 +236,23 @@ body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   cursor: pointer;
 }
+
+.adc-default .otherText {
+	display:none;
+	margin: 5px 0 0 0;
+	padding:5px;
+
+	/* disable highlight text */
+	-moz-user-select: text !important;
+	-khtml-user-select: text !important;
+	-webkit-user-select: text !important;
+	-ms-user-select: text !important;
+	user-select: text !important;
+
+	position:relative;
+	left:0px;
+}
+
 .RLTimePicker select option {
     text-align: center;
 }

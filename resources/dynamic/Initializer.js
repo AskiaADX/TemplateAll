@@ -4,17 +4,17 @@ Dim inputName
 Dim inputId
 Dim i
 Dim j
-dim inputNameX 
+dim inputNameX
 dim defaultDate
-dim bound 
+dim bound
 dim position
-dim setDefaultDate 
-dim firstDay 
+dim setDefaultDate
+dim firstDay
 dim dpTheme
-dim disableWeekends 
-dim showWeekNumber 
-dim showMonthAfterYear 
-dim numberOfMonths 
+dim disableWeekends
+dim showWeekNumber
+dim showMonthAfterYear
+dim numberOfMonths
 dim mainCalendar
 dim minDate
 dim maxDate
@@ -31,7 +31,10 @@ dim maxBound
         numUseInput: {%= CurrentADC.PropValue("numUseInput") %},
         suffixes: [{%:= On((CurrentQuestion.Type = "numeric"), "'" + CurrentADC.PropValue("numBoxSuffix") + "'", "''")%}],
     	decimals: [{%:= On((CurrentQuestion.Type = "numeric"), CurrentQuestion.Decimals + "", "")%}],
-        useList: {%= On(CurrentADC.PropValue("useList") = "1", true, false)%}
+        useList: {%= On(CurrentADC.PropValue("useList") = "1", true, false)%},
+        expandableHeaders : {%= (CurrentADC.PropValue("expandableHeaders") = "1") %},
+        accordionInitialState : '{%= CurrentADC.PropValue("accordionInitialState") %}',
+        hideOrDisable : {%= On((CurrentADC.PropValue("hideOrDisable")) = "disable",true,false) %}
     });
 {% If (column.Type = "datetime") and Not(column.IsDateOnly) Then %}
        var timePickerR1C1 = new TimePicker({
@@ -49,7 +52,7 @@ dim maxBound
            adcId: {%= column.InputCode %}
 		});
 {% EndIf %}
-{% If (column.Type = "datetime") and Not(column.IsTimeOnly) Then 
+{% If (column.Type = "datetime") and Not(column.IsTimeOnly) Then
 	'DATEPICKER OPTIONS
 	defaultDate = CurrentADC.PropValue("defaultDate").ToString()
 	bound = CurrentADC.PropValue("bound")
@@ -74,7 +77,7 @@ dim maxBound
 	if CvDkNa(maxBound) < 1 Then
 		maxBound = 2100
 	EndIf
-	
+
 	inputName = column.InputName()
 	inputId     = (inputName + "_" + 1).Replace("D", "askia-input-dateO") %}
 

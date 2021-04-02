@@ -2,11 +2,14 @@
 Dim useInput = CurrentADC.PropValue("numUseInput")
 
 Dim inputName  = CurrentQuestion.InputName()
+
 Dim inputValue = CurrentQuestion.InputValue().Replace(",",".")
+
 Dim inputCode = CurrentQuestion.InputCode
 Dim useBrowserValidation = "" + CurrentADC.PropValue("useBrowserValidation")
 Dim minValue  = On(CurrentQuestion.Type = "numeric-loop",1,CurrentQuestion.MinValue)
 Dim maxValue  = CurrentQuestion.MaxValue
+Dim decimals  = CurrentQuestion.Decimals
 
 If (CurrentQuestion.Type = "numeric-loop") Then
 	maxValue = CurrentQuestion.AvailableResponses.Count
@@ -33,7 +36,14 @@ Dim placeholder = CurrentADC.PropValue("placeholder")
 Dim attrPlaceholder = On(placeholder <> "", " placeholder=\"" + placeholder + "\"", "")
 
 Dim unitStep = CurrentADC.PropValue("unitStep").ToNumber()
-Dim attrStep = On(unitStep >= 0.01, " step=\"" + unitStep + "\"", "")
+Dim attrStep
+attrStep = On(unitStep > 1, " step=\"" + unitStep + "\"", " step=\"any\"")
+
+IF CurrentQuestion.Type = "numeric" AND decimals > 0 Then
+	dim dec = 10
+	Dim stepValue = 1/(dec.Pow(decimals))
+	attrStep = " step=\"" + stepValue + "\""
+EndIF
 
 Dim attrChecked = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered, " checked=\"checked\"", "")
 Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and CurrentADC.PropValue("numDkButton") = "1", " readonly=\"readonly\"", "")
@@ -41,7 +51,8 @@ Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and 
     <div class="responses-container">
         <span class="prefix">{%= CurrentADC.PropValue("numBoxPrefix") %}</span>
         <label for="askia-input-number{%= inputCode%}" hidden>Input</label>
-        <input type="number" id="askia-input-number{%= inputCode %}" class="inputnumber" autocomplete="off" name="{%= inputName %}" value="{%:= inputValue %}"{%:= attrMin %}{%:= attrMax %}{%:= attrStep %}{%:= attrPlaceholder %}{%:= attrReadOnly %}/>
+        <input type="number" id="askia-input-number{%= inputCode %}" class="inputnumber"
+				autocomplete="off" name="{%= inputName %}" value="{%:= inputValue %}"{%:= attrMin %}{%:= attrMax %}{%:= attrStep %}{%:= attrPlaceholder %}{%:= attrReadOnly %}/>
         {% If (useInput = "2") Then %}
         <input type="text" id="askia-input-currency{%= inputCode %}" autocomplete="off" name="currency_{%= inputName %}" value="{%:= inputValue %}" class="thousand"{%:= attrReadOnly %} />
         {% EndIf %}
