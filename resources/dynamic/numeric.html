@@ -3,7 +3,8 @@ Dim useInput = CurrentADC.PropValue("numUseInput")
 
 Dim inputName  = CurrentQuestion.InputName()
 
-Dim inputValue = CurrentQuestion.InputValue().Replace(",",".")
+Dim inputValue
+	inputValue = CurrentQuestion.InputValue().Replace(",",".")
 
 Dim inputCode = CurrentQuestion.InputCode
 Dim useBrowserValidation = "" + CurrentADC.PropValue("useBrowserValidation")
