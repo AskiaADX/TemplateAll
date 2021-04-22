@@ -33,3 +33,4 @@ v4.0.23 - numUseInput
 v4.0.24 - 
 v4.0.27 - Trim semi open 
 v4.0.28 - Fixed exclusive and semi open
+v4.0.29 - Fixed semi open go back
