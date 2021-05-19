@@ -233,7 +233,7 @@ EndIf
     display: none;
 }
 #adc_{%= CurrentADC.InstanceId %} label.numericDK {
-    display: block;
+    display: inline-block;
 }
 #adc_{%= CurrentADC.InstanceId %} .range + .suffix {
   	min-width: 50px;
