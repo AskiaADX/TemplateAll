@@ -94,9 +94,9 @@ If (useList) Then
               {% Else %}
               <li class="askia-response">
               {% EndIf %}
-                <input type="checkbox" name="{%= inputName %}" id="{%= inputId %}" {%:= attrChecked %} {%:= exclusive %} />
-                <label for="{%= inputId %}" class="askia-checkbox"><span hidden>Checkbox</span></label>
-                <label for="{%= inputId %}" class="askia-response-label">
+                <input type="checkbox" name="{%= inputName %}" id="askia-input_{%= ar[i].InputValue() %}" {%:= attrChecked %} {%:= exclusive %} />
+                <label for="askia-input_{%= ar[i].InputValue() %}" class="askia-checkbox"><span hidden>Checkbox</span></label>
+                <label for="askia-input_{%= ar[i].InputValue() %}" class="askia-response-label">
                     {% IF (resource <> "") Then %}
                     <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}" />
                     {% EndIf %}{%:= caption %}

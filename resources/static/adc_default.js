@@ -166,6 +166,8 @@
         }
     }
 
+
+
     /**
    * Trigger the ajax request for live routings
    *
@@ -316,7 +318,7 @@
         var result = false;
         for (var i = 0; i < inputsClosed.length; i++) {
             if (inputsClosed[i].checked === true) {
-                selectSingleResponseWithOther(inputsClosed[i]);
+                selectSingleResponseWithOther(inputsClosed[i], 1);
                 result = true;
                 break;
             }
@@ -329,12 +331,12 @@
    *
    * @param {Input[type=radio]} radioEl radio element
    */
-    function selectSingleResponseWithOther(radioEl){
+    function selectSingleResponseWithOther(radioEl, emptyVal){
       var ulElem = radioEl.parentElement.parentElement;
       var otherElems = ulElem.querySelectorAll('.otherText');
       for (var i = 0; i < otherElems.length; i++) {
         otherElems[i].style.display = 'none';
-        otherElems[i].value = '';
+        if(emptyVal) otherElems[i].value = '';
       }
       if (radioEl.parentElement.querySelector('.otherText') != null) {
         radioEl.parentElement.querySelector('.otherText').style.display = 'block';
@@ -773,6 +775,33 @@
         var inputSelect = document.querySelector('#adc_' + this.instanceId + ' select');
         var inputSemiOpens = document.querySelectorAll('#adc_' + this.instanceId + ' input.otherText');
 
+        addEvent(document, 'askiaSetValue',
+         (function (passedInElement) {
+            return function (data) {
+              let val = data.detail.value;
+              if (Array.isArray(val)){
+                for (var i = 0; i < val.length; i++) {
+                  let checkEl = document.querySelector('#askia-input_' + val[i].inputCode);
+                  if (checkEl)
+                    checkEl.checked = true,
+                      (checkEl.type == 'radio') ? selectSingleResponseWithOther(checkEl, 0) : selectMultipleResponseWithOther(checkEl);
+                }
+              } else {
+                if (typeof val === 'string'){
+                  let openEl = document.querySelector('#askia-input-open' + data.detail.question.inputCode);
+                  if (openEl) openEl.value = val;
+                } else {
+                  let numberEl = document.querySelector('#askia-input-number' + data.detail.question.inputCode);
+                  if (numberEl) numberEl.value = val;
+
+                  let rangeEl = document.querySelector('#askia-input-range' + data.detail.question.inputCode);
+                  if (rangeEl) rangeEl.value = val;
+                }
+              }
+            };
+        }(this)));
+
+
         if (this.type === "single" || this.type === "multiple" || this.type === "single-loop" || this.type === "multiple-loop") {
 
           var expandableHeaders = options.expandableHeaders
@@ -806,6 +835,7 @@
                         onChange(e, passedInElement);
                     };
                 }(this)));
+
             }
 
             // Change event on input checkbox

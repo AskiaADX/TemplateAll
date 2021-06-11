@@ -7,8 +7,8 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.0.31</version>
-    <date>2021-04-22</date>
+    <version>4.1.0</version>
+    <date>2021-06-11</date>
     <description><![CDATA[Default ADC with all kind of questions]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
@@ -86,7 +86,7 @@
           <option value="hide" text="Hide" />
           <option value="disable" text="Disable" />
         </options>
-      </property>      
+      </property>
     </category>
     <category id="closedQuestion" name="Closed question">
       <property xsi:type="standardProperty" id="maxWidth" name="Max Width" type="string" mode="dynamic" require="true" visible="false">
