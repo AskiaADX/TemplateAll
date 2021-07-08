@@ -59,8 +59,8 @@ Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and 
         {% EndIf %}
         {% If (useInput = "1") Then %}
         <div class="range"{%:= minVal %}{%:= maxVal %}>
-            <label for="askia-input-range_{%= CurrentQuestion.InputCode %}" hidden>Range</label>
-            <input type="range" id="askia-input-range_{%= CurrentQuestion.InputCode %}" autocomplete="off" class="inputRange_{%= CurrentADC.InstanceId %}_1{%:= clsSelected %}" name="range{%= CurrentQuestion.InputName() %}" value="{%= CurrentQuestion.InputValue() %}"{%:= minVal %}{%:= maxVal %}{%:= step %}{%:= attrDisabled %}>
+            <label for="askia-input-range{%= CurrentQuestion.InputCode %}" hidden>Range</label>
+            <input type="range" id="askia-input-range{%= CurrentQuestion.InputCode %}" autocomplete="off" class="inputRange_{%= CurrentADC.InstanceId %}_1{%:= clsSelected %}" name="range{%= CurrentQuestion.InputName() %}" value="{%= CurrentQuestion.InputValue() %}"{%:= minVal %}{%:= maxVal %}{%:= step %}{%:= attrDisabled %}>
             <p class="preBar"></p>
         </div>
         {% EndIf %}
