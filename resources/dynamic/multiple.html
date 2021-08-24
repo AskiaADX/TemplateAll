@@ -62,6 +62,9 @@ If (useList) Then
         Dim inputId
         Dim attrChecked
 		    Dim exclusive
+        Dim arr
+        Dim ariaLabel
+
         For i = 1 To ar.Count
             inputName   = ar[i].InputName()
             inputId     = inputName.Replace(" ", "_").Replace("M", "askia-input")
@@ -71,6 +74,8 @@ If (useList) Then
             caption     = ar[i].Caption
     		    resource	= ar.ResourceURL[i]
             index		= ar[i].index
+
+            arr = caption.Split("|")
 
             isHeader     = ar[i].isHeader
             If ((isHeader = False) or (showHeader = True)) Then
@@ -85,7 +90,7 @@ If (useList) Then
                   <span class="right-point"></span>
                   {% EndIf %}
               {% EndIf %}
-              {%:= caption %}</li>
+              {%:= On(arr.Count > 1, arr[1], caption)%}</li>
 
             {% Else %}
 
@@ -96,10 +101,11 @@ If (useList) Then
               {% EndIf %}
                 <input type="checkbox" name="{%= inputName %}" id="askia-input_{%= ar[i].InputValue() %}" {%:= attrChecked %} {%:= exclusive %} />
                 <label for="askia-input_{%= ar[i].InputValue() %}" class="askia-checkbox"><span hidden>Checkbox</span></label>
-                <label for="askia-input_{%= ar[i].InputValue() %}" class="askia-response-label">
+
+                <label for="askia-input_{%= ar[i].InputValue() %}" class="askia-response-label"  aria-label="{%:= On(arr.Count > 1, arr[2], caption)%}">
                     {% IF (resource <> "") Then %}
-                    <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}" />
-                    {% EndIf %}{%:= caption %}
+                    <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= On(arr.Count > 1, arr[1], caption)%}" />
+                    {% EndIf %}{%:= On(arr.Count > 1, arr[1], caption)%}
 
                     {% IF (ar[i].IsOpen) Then %}
                             <div style="overflow:hidden"><input type="hidden" class="otherHidden"
