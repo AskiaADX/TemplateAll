@@ -36,4 +36,5 @@ v4.0.28 - Fixed exclusive and semi open
 v4.0.29 - Fixed semi open go back
 v4.0.30 - Fixed semi open go back
 v4.0.31 - Fixed alignement of the DK option for numerical
-v4.1.0  - SetValue Ajax Event
+v4.1.0   - SetValue Ajax Event
+v4.1.1   - Use lang attribute on number box
