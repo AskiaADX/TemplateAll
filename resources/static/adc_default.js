@@ -661,6 +661,9 @@
         if ( x.value.toString().indexOf(".") >= 0 ) {
             parts = x.value.toString().split(".");
             sep = ".";
+        } else if (x.value.toString().indexOf(",") >= 0) {
+          parts = x.value.toString().split(",");
+          sep = ",";
         }
         parts[1] = parts[1].trim();
         x.value = parts[0].replace(/ /g,"").replace(/\B(?=(\d{3})+(?!\d))/g, " ") + sep + parts[1];
@@ -689,7 +692,7 @@
    */
     function isNumberKey(evt, x){
         var charCode = (evt.which) ? evt.which : event.keyCode;
-        if (((charCode != 46) && (charCode < 48 || charCode > 57)) || ((x.value.toString().indexOf(".") >= 0) && (charCode === 46  || charCode === 110  || charCode === 190 ))) {
+        if (((charCode != 46 && charCode != 44) && (charCode < 48 || charCode > 57)) || ((x.value.toString().indexOf(".") >= 0 || x.value.toString().indexOf(",") >= 0) && (charCode === 46  || charCode === 44  || charCode === 110  || charCode === 190 || charCode === 188))) {
             evt.preventDefault();
             return false;
         }

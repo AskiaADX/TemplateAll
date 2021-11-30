@@ -55,7 +55,7 @@ Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and 
         <input type="number" id="askia-input-number{%= inputCode %}" class="inputnumber"
 				autocomplete="off" name="{%= inputName %}" value="{%:= inputValue %}" lang="{%:= lang %}" {%:= attrMin %}{%:= attrMax %}{%:= attrStep %}{%:= attrPlaceholder %}{%:= attrReadOnly %}/>
         {% If (useInput = "2") Then %}
-        <input type="text" id="askia-input-currency{%= inputCode %}" autocomplete="off" name="currency_{%= inputName %}" value="{%:= inputValue %}" class="thousand"{%:= attrReadOnly %} />
+        <input type="text" id="askia-input-currency{%= inputCode %}" autocomplete="off" lang="{%:= lang %}" name="currency_{%= inputName %}" value="{%:= inputValue %}" class="thousand"{%:= attrReadOnly %} />
         {% EndIf %}
         {% If (useInput = "1") Then %}
         <div class="range"{%:= minVal %}{%:= maxVal %}>
