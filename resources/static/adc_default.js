@@ -661,9 +661,6 @@
         if ( x.value.toString().indexOf(".") >= 0 ) {
             parts = x.value.toString().split(".");
             sep = ".";
-        } else if (x.value.toString().indexOf(",") >= 0) {
-          parts = x.value.toString().split(",");
-          sep = ",";
         }
         parts[1] = parts[1].trim();
         x.value = parts[0].replace(/ /g,"").replace(/\B(?=(\d{3})+(?!\d))/g, " ") + sep + parts[1];
@@ -690,9 +687,15 @@
    * @param {Object} event Press event of the input
    * @param {Object} x Input element
    */
-    function isNumberKey(evt, x){
+    function isNumberKey(evt, x, deciSeperator){
         var charCode = (evt.which) ? evt.which : event.keyCode;
-        if (((charCode != 46 && charCode != 44) && (charCode < 48 || charCode > 57)) || ((x.value.toString().indexOf(".") >= 0 || x.value.toString().indexOf(",") >= 0) && (charCode === 46  || charCode === 44  || charCode === 110  || charCode === 190 || charCode === 188))) {
+
+        if ((deciSeperator === "," && charCode == 44)) {
+          return true;
+        }
+        if (((charCode != 46) &&
+              (charCode < 48 || charCode > 57)) || (( x.value.toString().indexOf(deciSeperator) >= 0) &&
+               (charCode === 46  || charCode === 44  || charCode === 110  || charCode === 190 ))) {
             evt.preventDefault();
             return false;
         }
@@ -765,6 +768,7 @@
         this.decimals = options.decimals || [];
         this.useList = options.useList;
         hideOrDisable = options.hideOrDisable;
+        this.deciSeperator = options.deciSeperator;
 
         var radios = document.querySelectorAll('#adc_' + this.instanceId + ' input[type="radio"]');
         var checkboxes = document.querySelectorAll('#adc_' + this.instanceId + ' input[type="checkbox"]');
@@ -924,7 +928,7 @@
             document.addEventListener("keypress", function(event){
                 var el = event.target || event.srcElement;
                 if (el.nodeName === "INPUT" && el.className.indexOf("thousand") >= 0) {
-                    isNumberKey(event, el);
+                    isNumberKey(event, el, options.deciSeperator);
                 }
             });
             document.addEventListener("input", function(event){
