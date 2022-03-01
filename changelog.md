@@ -39,3 +39,4 @@ v4.0.0 - headers single-closed
 v4.1.0 - SetValue Ajax Event
   v4.1.1 - Use lang attribute on number box
   v4.1.2 - Fixed - EU decimal sign issue
+v4.2.0 - WCAG Compliance issues
