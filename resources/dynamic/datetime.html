@@ -3,7 +3,7 @@ Dim column = CurrentQuestion
 Dim inputName = column.InputName()
 Dim inputNameDate = column.InputName("date")
 Dim inputNameTime = column.InputName("time")
-Dim inputCode	 = column.InputCode 
+Dim inputCode	 = column.InputCode
 Dim attrMin = On(column.MinDate.ToNumber() <> DK, " min=\"" + column.MinDate.Format("dd/MM/yyyy") + "\"", "")
 Dim attrMax = On(column.MaxDate.ToNumber() <> DK, " max=\"" + column.MaxDate.Format("dd/MM/yyyy") + "\"", "")
 Dim attrReadOnly = On(column.HasDK and column.HasAnswered and CurrentADC.PropValue("dateDkButton") = "1", " readonly=\"readonly\"", " readonly=\"true\"")
@@ -35,8 +35,8 @@ Dim attrChecked = On(column.HasDK and column.HasAnswered, " checked=\"checked\""
     <input type="hidden" name="B{%= column.InputCode %}">
     <input type="checkbox" id="askia-input-date_{%= column.InputCode %}_-1" class="dkbutton" name="M{%= column.InputCode %} -1" {%:= attrChecked %}>
     <label for="askia-input-date_{%= column.InputCode %}_-1" class="askia-checkbox"><span hidden>Checkbox</span></label>
-    <label for="askia-input-date_{%= column.InputCode %}_-1" class="askia-response-label">
+    <p for="askia-input-date_{%= column.InputCode %}_-1" class="askia-response-label">
         <span class="caption">{%:= CurrentADC.PropValue("dateDkCaption") %}</span>
-    </label>
+    </p>
 </label>
 {% EndIf %}

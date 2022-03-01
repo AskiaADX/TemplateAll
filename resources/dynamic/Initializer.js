@@ -20,7 +20,6 @@ dim minDate
 dim maxDate
 dim minBound
 dim maxBound
-
 %}
 (function () {
     var adcdefault = new AdcDefault({
@@ -30,11 +29,12 @@ dim maxBound
         autoSubmit: {%= On(CurrentADC.PropValue("autoSubmit") = "yes", true, false)%},
         numUseInput: {%= CurrentADC.PropValue("numUseInput") %},
         suffixes: [{%:= On((CurrentQuestion.Type = "numeric"), "'" + CurrentADC.PropValue("numBoxSuffix") + "'", "''")%}],
-    	decimals: [{%:= On((CurrentQuestion.Type = "numeric"), CurrentQuestion.Decimals + "", "")%}],
+    	  decimals: [{%:= On((CurrentQuestion.Type = "numeric"), CurrentQuestion.Decimals + "", "")%}],
         useList: {%= On(CurrentADC.PropValue("useList") = "1", true, false)%},
         expandableHeaders : {%= (CurrentADC.PropValue("expandableHeaders") = "1") %},
         accordionInitialState : '{%= CurrentADC.PropValue("accordionInitialState") %}',
-        hideOrDisable : {%= On((CurrentADC.PropValue("hideOrDisable")) = "disable",true,false) %}
+        hideOrDisable : {%= On((CurrentADC.PropValue("hideOrDisable")) = "disable",true,false) %},
+        deciSeperator : '{%:= Interview.Language.DecimalSeparator %}'
     });
 {% If (column.Type = "datetime") and Not(column.IsDateOnly) Then %}
        var timePickerR1C1 = new TimePicker({

@@ -62,6 +62,7 @@ If (useList) Then
         Dim inputId
         Dim attrChecked
 		    Dim exclusive
+
         For i = 1 To ar.Count
             inputName   = ar[i].InputName()
             inputId     = inputName.Replace(" ", "_").Replace("M", "askia-input")
@@ -96,7 +97,8 @@ If (useList) Then
               {% EndIf %}
                 <input type="checkbox" name="{%= inputName %}" id="askia-input_{%= ar[i].InputValue() %}" {%:= attrChecked %} {%:= exclusive %} />
                 <label for="askia-input_{%= ar[i].InputValue() %}" class="askia-checkbox"><span hidden>Checkbox</span></label>
-                <label for="askia-input_{%= ar[i].InputValue() %}" class="askia-response-label">
+
+                <p for="askia-input_{%= ar[i].InputValue() %}" class="askia-response-label">
                     {% IF (resource <> "") Then %}
                     <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}" />
                     {% EndIf %}{%:= caption %}
@@ -110,7 +112,7 @@ If (useList) Then
                               name="other{%= ar[i].OpenQuestion.InputName() %}"
                               data-id="{%= i %}" value="{%= ar[i].OpenQuestion.inputValue() %}" autocomplete="off"></div>
                       {% EndIF %}
-                </label>
+                </p>
             </li>
             {% EndIf %}
             {% EndIf %}

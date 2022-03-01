@@ -1,4 +1,4 @@
-{% 
+{%
 Dim inputName  =  CurrentQuestion.InputName()
 Dim inputValue =  CurrentQuestion.InputValue()
 Dim i
@@ -14,24 +14,23 @@ Dim attrMax  = On(maxValue <> DK AND maxValue > 0 AND useBrowserValidation = "1"
 Dim placeholder = CurrentADC.PropValue("placeholder")
 Dim attrPlaceholder = On(placeholder <> "", " placeholder=\"" + placeholder + "\"", "")
 
-Dim attrChecked = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered, " checked=\"checked\"", "") 
-Dim attrReadOnly = On(CurrentQuestion.Value = "" and CurrentQuestion.HasAnswered and CurrentADC.PropValue("openDkButton") = "1", " readonly=\"readonly\"", "") 
+Dim attrChecked = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered, " checked=\"checked\"", "")
+Dim attrReadOnly = On(CurrentQuestion.Value = "" and CurrentQuestion.HasAnswered and CurrentADC.PropValue("openDkButton") = "1", " readonly=\"readonly\"", "")
 
 
 If (inputType = "textarea") Then
 %}
 <textarea id="askia-input-open{%= CurrentQuestion.InputCode %}" aria-label="Text area" class="inputopen" name="{%= inputName %}"{%:= attrReadOnly %}{%:= attrMax %}{%:= attrPlaceholder %}>{%= inputValue %}</textarea>
-{% Else %}  
-<input type="{%= inputType %}" id="askia-input-open{%= CurrentQuestion.InputCode %}" autocomplete="off" class="inputopen" name="{%= inputName %}" value="{%= inputValue %}"{%:= attrReadOnly %}{%:= attrMax %}{%:= attrPlaceholder %} />
+{% Else %}
+<input type="{%= inputType %}" id="askia-input-open{%= CurrentQuestion.InputCode %}" aria-label="Text box" autocomplete="off" class="inputopen" name="{%= inputName %}" value="{%= inputValue %}"{%:= attrReadOnly %}{%:= attrMax %}{%:= attrPlaceholder %} />
 {% EndIf %}
 {% If (CurrentADC.PropValue("openDkButton") = "1" and CurrentQuestion.IsAllowDK) Then %}
 <label class="DK openDK">
     <input type="hidden" name="B{%= CurrentQuestion.InputCode %}">
     <input type="checkbox" id="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="dkbutton" name="M{%= CurrentQuestion.InputCode %} -1" {%:= attrChecked %}>
     <label for="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="askia-checkbox"><span hidden>Input</span></label>
-    <label for="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="askia-response-label">
+    <p for="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="askia-response-label">
         <span class="caption">{%:= CurrentADC.PropValue("openDkCaption") %}</span>
-    </label>
+    </p>
 </label>
 {% EndIf %}
-

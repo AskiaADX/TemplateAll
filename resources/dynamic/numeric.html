@@ -1,10 +1,14 @@
 {%
+
+Dim lang = Interview.Language.Abbr
+lang = Mid(lang, 1, 2)
+lang = LCase(lang)
+
 Dim useInput = CurrentADC.PropValue("numUseInput")
 
 Dim inputName  = CurrentQuestion.InputName()
 
-Dim inputValue
-	inputValue = CurrentQuestion.InputValue().Replace(",",".")
+Dim inputValue = CurrentQuestion.InputValue()
 
 Dim inputCode = CurrentQuestion.InputCode
 Dim useBrowserValidation = "" + CurrentADC.PropValue("useBrowserValidation")
@@ -53,9 +57,9 @@ Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and 
         <span class="prefix">{%= CurrentADC.PropValue("numBoxPrefix") %}</span>
         <label for="askia-input-number{%= inputCode%}" hidden>Input</label>
         <input type="number" id="askia-input-number{%= inputCode %}" class="inputnumber"
-				autocomplete="off" name="{%= inputName %}" value="{%:= inputValue %}"{%:= attrMin %}{%:= attrMax %}{%:= attrStep %}{%:= attrPlaceholder %}{%:= attrReadOnly %}/>
+				autocomplete="off" name="{%= inputName %}" lang="{%:= lang %}" value="{%:= inputValue %}" {%:= attrMin %}{%:= attrMax %}{%:= attrStep %}{%:= attrPlaceholder %}{%:= attrReadOnly %}/>
         {% If (useInput = "2") Then %}
-        <input type="text" id="askia-input-currency{%= inputCode %}" autocomplete="off" name="currency_{%= inputName %}" value="{%:= inputValue %}" class="thousand"{%:= attrReadOnly %} />
+        <input type="text" id="askia-input-currency{%= inputCode %}" lang="{%:= lang %}" autocomplete="off" name="currency_{%= inputName %}" value="{%:= inputValue %}" class="thousand"{%:= attrReadOnly %} />
         {% EndIf %}
         {% If (useInput = "1") Then %}
         <div class="range"{%:= minVal %}{%:= maxVal %}>
@@ -71,8 +75,8 @@ Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and 
         <input type="hidden" name="B{%= inputCode %}">
         <input type="checkbox" id="askia-input-number_{%= inputCode %}_-1" class="dkbutton" name="M{%= inputCode %} -1" {%:= attrChecked %}>
         <label for="askia-input-number_{%= inputCode %}_-1" class="askia-checkbox"><span hidden>Checkbox</span></label>
-        <label for="askia-input-number_{%= inputCode %}_-1" class="askia-response-label">
+        <p for="askia-input-number_{%= inputCode %}_-1" class="askia-response-label">
             <span class="caption">{%:= CurrentADC.PropValue("numDkCaption") %}</span>
-        </label>
+        </p>
     </label>
     {% EndIf %}

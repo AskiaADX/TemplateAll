@@ -62,11 +62,14 @@ If (useList) Then
         {%
         Dim inputId
         Dim attrChecked
+
         For i = 1 To ar.Count
             inputId     = (inputName + "_" + ar[i].InputValue()).Replace("U", "askia-input")
             attrChecked = On(ar[i].IsSelected, "checked=\"checked\"", "")
             inputValue  = ar[i].InputValue()
-            caption     = ar[i].Caption
+
+            caption = ar[i].Caption
+
 			      resource	= ar.ResourceURL[i]
             index		= ar[i].index
 
@@ -95,7 +98,7 @@ If (useList) Then
                 <input type="radio" name="{%= inputName %}" id="askia-input_{%= ar[i].InputValue() %}" value="{%= inputValue %}" {%:= attrChecked %} />
                 <label for="askia-input_{%= ar[i].InputValue() %}" class="askia-radio"><span hidden>Radio</span></label>
 
-                <label for="askia-input_{%= ar[i].InputValue() %}" class="askia-response-label">
+                <p for="askia-input_{%= ar[i].InputValue() %}" class="askia-response-label">
                     {% IF (resource <> "") Then %}
                       <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}"/>
                     {% EndIf %}{%:= caption %}
@@ -109,7 +112,7 @@ If (useList) Then
                               name="other{%= ar[i].OpenQuestion.InputName() %}"
                               data-id="{%= i %}" value="{%= ar[i].OpenQuestion.inputValue() %}" autocomplete="off"></div>
                       {% EndIF %}
-                </label>
+                </p>
               </li>
             {% EndIF %}
             {% EndIF %}

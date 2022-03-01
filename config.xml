@@ -7,8 +7,8 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.1.0</version>
-    <date>2021-06-11</date>
+    <version>4.2.0</version>
+    <date>2022-03-01</date>
     <description><![CDATA[Default ADC with all kind of questions]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
@@ -18,7 +18,7 @@
       <category>General</category>
     </categories>
     <constraints>
-      <constraint on="questions" single="true" multiple="true" numeric="true" date="true" open="true" chapter="false" requireParentLoop="false" requireLoopDepth="0" manageHeader="true" manageSemiOpen="true"/>
+      <constraint on="questions" single="true" multiple="true" numeric="true" date="true" open="true" chapter="false" requireParentLoop="false" requireLoopDepth="0" manageHeader="true" manageSemiOpen="true" />
       <constraint on="controls" responseblock="true" checkbox="false" label="false" listbox="false" radiobutton="false" textbox="true" />
       <constraint on="responses" max="*" min="*" />
     </constraints>
