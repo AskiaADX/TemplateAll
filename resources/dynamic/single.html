@@ -86,7 +86,7 @@ If (useList) Then
                   <span class="right-point"></span>
                   {% EndIf %}
               {% EndIf %}
-              {%:= caption %}</li>
+              {%= caption %}</li>
 
             {% Else %}
 
@@ -101,7 +101,7 @@ If (useList) Then
                 <p for="askia-input_{%= ar[i].InputValue() %}" class="askia-response-label">
                     {% IF (resource <> "") Then %}
                       <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}"/>
-                    {% EndIf %}{%:= caption %}
+                    {% EndIf %}{%= caption %}
 
                     {% IF (ar[i].IsOpen) Then %}
                             <div style="overflow:hidden"><input type="hidden" class="otherHidden"
