@@ -33,7 +33,7 @@ EndIf
   margin-right: 5px;
 }
 
-#adc_{%= CurrentADC.InstanceId %} p.askia-response-label {
+#adc_{%= CurrentADC.InstanceId %} div.askia-response-label {
   margin: 0;
 }
 #adc_{%= CurrentADC.InstanceId %} .responses-container {
@@ -235,7 +235,7 @@ EndIf
 #adc_{%= CurrentADC.InstanceId %} [id^=askia-input-number]:not(.dkbutton) {
     display: none;
 }
-#adc_{%= CurrentADC.InstanceId %} label.numericDK, p.numericDK {
+#adc_{%= CurrentADC.InstanceId %} label.numericDK, label.numericDK {
     display: inline-block;
 }
 #adc_{%= CurrentADC.InstanceId %} .range + .suffix {
