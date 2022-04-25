@@ -284,11 +284,9 @@
 
     var respLabels = document.querySelectorAll('.askia-response-label');
     for (var i = 0; i < respLabels.length; i++) {
-      respLabels[i].addEventListener("click", function(){
-        let elemId = respLabels[i].getAttribute("for");
-        // document.getElementById(elemId).focus();
-        document.getElementById(elemId).click();
-      });
+      respLabels[i].onclick = function(){
+        document.getElementById(this.dataset.for).click();
+      };
     }
 
     /**

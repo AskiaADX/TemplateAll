@@ -52,8 +52,8 @@ Dim attrReadOnly = On(CurrentQuestion.HasDK and CurrentQuestion.HasAnswered and 
         <input type="hidden" name="B{%= inputCode %}">
         <input type="checkbox" id="askia-input-number_{%= inputCode %}_-1" class="dkbutton" name="M{%= inputCode %} -1" {%:= attrChecked %}>
         <label for="askia-input-number_{%= inputCode %}_-1" class="askia-checkbox"><span hidden>Checkbox</span></label>
-        <p for="askia-input-number_{%= inputCode %}_-1" class="askia-response-label">
+        <div data-for="askia-input-number_{%= inputCode %}_-1" class="askia-response-label">
             <span class="caption">{%:= CurrentADC.PropValue("numDkCaption") %}</span>
-        </p>
+        </div>
     </label>
     {% EndIf %}

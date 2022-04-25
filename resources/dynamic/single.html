@@ -98,7 +98,7 @@ If (useList) Then
                 <input type="radio" name="{%= inputName %}" id="askia-input_{%= ar[i].InputValue() %}" value="{%= inputValue %}" {%:= attrChecked %} />
                 <label for="askia-input_{%= ar[i].InputValue() %}" class="askia-radio"><span hidden>Radio</span></label>
 
-                <div for="askia-input_{%= ar[i].InputValue() %}" class="askia-response-label">
+                <div data-for="askia-input_{%= ar[i].InputValue() %}" class="askia-response-label">
                     {% IF (resource <> "") Then %}
                       <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}"/>
                     {% EndIf %}{%= caption %}
