@@ -698,7 +698,6 @@
         var charCode = (evt.which) ? evt.which : event.keyCode;
 
         if ((deciSeperator === "," & charCode == 44)) {
-          console.log(deciSeperator, charCode);
           return true;
         }
         if (((charCode != 46) &&
