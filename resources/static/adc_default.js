@@ -282,7 +282,7 @@
       }
     }
 
-    var respLabels = document.querySelectorAll('.askia-response-label');
+    var respLabels = document.querySelectorAll('.askia-response .askia-response-label');
     for (var i = 0; i < respLabels.length; i++) {
       respLabels[i].onclick = function(){
         document.getElementById(this.dataset.for).click();
