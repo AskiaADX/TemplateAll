@@ -282,6 +282,13 @@
       }
     }
 
+    var respLabels = document.querySelectorAll('.askia-response .askia-response-label');
+    for (var i = 0; i < respLabels.length; i++) {
+      respLabels[i].onclick = function(){
+        document.getElementById(this.dataset.for).click();
+      };
+    }
+
     /**
    * show otherText when checkboxes are checked
    */
@@ -691,7 +698,6 @@
         var charCode = (evt.which) ? evt.which : event.keyCode;
 
         if ((deciSeperator === "," & charCode == 44)) {
-          console.log(deciSeperator, charCode);
           return true;
         }
         if (((charCode != 46) &&

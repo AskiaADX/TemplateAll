@@ -29,8 +29,8 @@ If (inputType = "textarea") Then
     <input type="hidden" name="B{%= CurrentQuestion.InputCode %}">
     <input type="checkbox" id="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="dkbutton" name="M{%= CurrentQuestion.InputCode %} -1" {%:= attrChecked %}>
     <label for="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="askia-checkbox"><span hidden>Input</span></label>
-    <p for="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="askia-response-label">
+    <div data-for="askia-input-open_{%= CurrentQuestion.InputCode %}_-1" class="askia-response-label">
         <span class="caption">{%:= CurrentADC.PropValue("openDkCaption") %}</span>
-    </p>
+    </div>
 </label>
 {% EndIf %}

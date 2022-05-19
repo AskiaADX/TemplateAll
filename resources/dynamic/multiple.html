@@ -86,7 +86,7 @@ If (useList) Then
                   <span class="right-point"></span>
                   {% EndIf %}
               {% EndIf %}
-              {%:= caption %}</li>
+              {%= caption %}</li>
 
             {% Else %}
 
@@ -98,10 +98,10 @@ If (useList) Then
                 <input type="checkbox" name="{%= inputName %}" id="askia-input_{%= ar[i].InputValue() %}" {%:= attrChecked %} {%:= exclusive %} />
                 <label for="askia-input_{%= ar[i].InputValue() %}" class="askia-checkbox"><span hidden>Checkbox</span></label>
 
-                <p for="askia-input_{%= ar[i].InputValue() %}" class="askia-response-label">
+                <div data-for="askia-input_{%= ar[i].InputValue() %}" class="askia-response-label">
                     {% IF (resource <> "") Then %}
                     <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}" />
-                    {% EndIf %}{%:= caption %}
+                    {% EndIf %}{%= caption %}
 
                     {% IF (ar[i].IsOpen) Then %}
                             <div style="overflow:hidden"><input type="hidden" class="otherHidden"
@@ -112,7 +112,7 @@ If (useList) Then
                               name="other{%= ar[i].OpenQuestion.InputName() %}"
                               data-id="{%= i %}" value="{%= ar[i].OpenQuestion.inputValue() %}" autocomplete="off"></div>
                       {% EndIF %}
-                </p>
+                </div>
             </li>
             {% EndIf %}
             {% EndIf %}

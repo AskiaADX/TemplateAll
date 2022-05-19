@@ -35,8 +35,8 @@ Dim attrChecked = On(column.HasDK and column.HasAnswered, " checked=\"checked\""
     <input type="hidden" name="B{%= column.InputCode %}">
     <input type="checkbox" id="askia-input-date_{%= column.InputCode %}_-1" class="dkbutton" name="M{%= column.InputCode %} -1" {%:= attrChecked %}>
     <label for="askia-input-date_{%= column.InputCode %}_-1" class="askia-checkbox"><span hidden>Checkbox</span></label>
-    <p for="askia-input-date_{%= column.InputCode %}_-1" class="askia-response-label">
+    <div data-for="askia-input-date_{%= column.InputCode %}_-1" class="askia-response-label">
         <span class="caption">{%:= CurrentADC.PropValue("dateDkCaption") %}</span>
-    </p>
+    </div>
 </label>
 {% EndIf %}
