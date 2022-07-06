@@ -282,6 +282,9 @@
       }
     }
 
+     /**
+    * Manually check the input(radio/checkbox) on response-label click.
+    */
     var respLabels = document.querySelectorAll('.askia-response .askia-response-label');
     for (var i = 0; i < respLabels.length; i++) {
       respLabels[i].onclick = function(){
@@ -871,6 +874,14 @@
                     };
                 }(this)));
             }
+
+            document.addEventListener("keyup", function(event){
+                var el = event.target || event.srcElement;
+                if (el.className.indexOf("askia-response") >= 0 && event.keyCode == 32) {
+                  var resLabel = el.querySelector('.askia-response-label');
+                  document.getElementById(resLabel.dataset.for).click();
+                }
+            });
 
         }
 

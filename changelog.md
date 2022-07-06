@@ -43,3 +43,4 @@ v4.2.0 - WCAG Compliance issues
   v.4.2.1 -
   v4.2.2 - use data-for attribute for askia-response-label
   v4.2.3 - simple fix for DK
+  v4.2.4 - Fixed - Closed questions unselectable with Spacebar
