@@ -166,6 +166,17 @@
         }
     }
 
+    /**
+   * Keyup event will trigger the response.click() when space key is pressed
+   */
+    document.addEventListener("keyup", function(event){
+        var el = event.target || event.srcElement;
+        console.log(event.keyCode);
+        if (el.className.indexOf("askia-response") >= 0 && event.keyCode == 32) {
+          var resLabel = el.querySelector('.askia-response-label');
+          document.getElementById(resLabel.dataset.for).click();
+        }
+    });
 
 
     /**
@@ -282,6 +293,9 @@
       }
     }
 
+     /**
+    * Manually check the input(radio/checkbox) on response-label click.
+    */
     var respLabels = document.querySelectorAll('.askia-response .askia-response-label');
     for (var i = 0; i < respLabels.length; i++) {
       respLabels[i].onclick = function(){
