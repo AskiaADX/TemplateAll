@@ -167,17 +167,26 @@
     }
 
     /**
+   * check whether the browser is too much old
+   */
+    function isObseleteBrowser(){
+        var ua = window.navigator.appVersion;
+        var obs = ua.indexOf("Windows NT 6.2");
+        return obs;
+    }
+
+    /**
    * Keyup event will trigger the response.click() when space key is pressed
    */
-    document.addEventListener("keyup", function(event){
+    window.addEventListener("keyup", function(event){
         var el = event.target || event.srcElement;
-        console.log(event.keyCode);
         if (el.className.indexOf("askia-response") >= 0 && event.keyCode == 32) {
           var resLabel = el.querySelector('.askia-response-label');
-          document.getElementById(resLabel.dataset.for).click();
+          var inputElem = document.getElementById(resLabel.dataset.for);
+          inputElem.click();
+          if (isObseleteBrowser() > 0) el.blur();
         }
     });
-
 
     /**
    * Trigger the ajax request for live routings
