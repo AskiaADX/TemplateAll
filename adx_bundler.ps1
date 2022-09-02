@@ -29,9 +29,19 @@ if(!(Test-Path $bpath)){
     New-Item -Path "$($realpath)" -Name "bin" -ItemType "directory"
 }
 
+# check first paths are really exists 
+$patharr = @("$($realpath)\resources", "$($realpath)\config.xml", "$($realpath)\changelog.md", "$($realpath)\README.md")
+$pathtoexec = @()
+
+foreach ($p in $patharr) {
+    if(Test-Path $p){
+        $pathtoexec += $p
+    }
+}
+ 
 # compress files and folders to directoryname.zip
 $compress = @{
-  Path = "$($realpath)\resources", "$($realpath)\config.xml", "$($realpath)\changelog.md", "$($realpath)\README.md"
+  Path = $pathtoexec
   CompressionLevel = "Fastest"
   DestinationPath = $zpath
 }
