@@ -47,3 +47,4 @@ v4.2.0 - WCAG Compliance issues
   v4.2.5 - moment.js upgrade
   v4.2.6 - Fixed - multicoded questions unselectable with Spacebar/only happens for DOF test window
   v4.2.7 - jquery.min.js update
+  v4.2.8 - pikaday.js update
