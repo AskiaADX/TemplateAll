@@ -7,8 +7,8 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.2.8</version>
-    <date>2022-09-02</date>
+    <version>4.2.9</version>
+    <date>2022-09-13</date>
     <description><![CDATA[Default ADC with all kind of questions]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
@@ -40,7 +40,7 @@
       <content fileName="time_picker.js" type="javascript" mode="static" position="foot" />
       <content fileName="adc_default.js" type="javascript" mode="static" position="foot" />
       <content fileName="Initializer.js" type="javascript" mode="dynamic" position="foot" />
-      <content fileName="jquery-3.6.1.min.js" type="javascript" mode="static" position="head" />
+      <content fileName="jquery-3.6.0.min.js" type="javascript" mode="static" position="head" />
     </output>
   </outputs>
   <properties>
