@@ -7,8 +7,8 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.2.9</version>
-    <date>2022-09-13</date>
+    <version>4.2.10</version>
+    <date>2022-11-30</date>
     <description><![CDATA[Default ADC with all kind of questions]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
@@ -100,6 +100,14 @@
       <property xsi:type="standardProperty" id="columnsWidth" name="Columns min width" type="string" mode="dynamic" require="false" visible="false">
         <description><![CDATA[The minimum width of the columns]]></description>
         <value><![CDATA[200px]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="buttonsPosition" name="Buttons position" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Position of the radio buttons and checkboxes.]]></description>
+        <value><![CDATA[left]]></value>
+        <options>
+          <option value="left" text="Left" />
+          <option value="right" text="Right" />
+        </options>
       </property>
       <property xsi:type="standardProperty" id="useList" name="Use a selection list" type="string" mode="dynamic" require="true" visible="true">
         <description><![CDATA[Use a select list to enumerate all available responses.]]></description>

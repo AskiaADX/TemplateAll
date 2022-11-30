@@ -76,6 +76,17 @@ EndIf
     {% EndIf %}
 }
 {% EndIf %}
+{% If (CurrentQuestion.Type = "single" or CurrentQuestion.Type = "multiple" or CurrentQuestion.Type = "single-loop" or CurrentQuestion.Type = "multiple-loop" ) and CurrentADC.PropValue("buttonsPosition") = "right"Then %}
+#adc_{%= CurrentADC.InstanceId %} label.askia-checkbox,
+#adc_{%= CurrentADC.InstanceId %} label.askia-radio {
+    float: right;
+}
+#adc_{%= CurrentADC.InstanceId %} .askia-radio + .askia-response-label,
+#adc_{%= CurrentADC.InstanceId %} .askia-checkbox + .askia-response-label {
+    margin-left: 0rem !important;
+    padding-left: 0px;
+}
+{% EndIf %}
 {% If (CurrentQuestion.Type = "datetime" ) Then %}
 #adc_{%= CurrentADC.InstanceId %} .RLDatePicker,
 #adc_{%= CurrentADC.InstanceId %} .RLTimePicker {
