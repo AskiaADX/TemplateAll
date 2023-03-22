@@ -97,21 +97,17 @@ If (useList) Then
               {% EndIf %}
                 <input type="radio" name="{%= inputName %}" id="askia-input_{%= ar[i].InputValue() %}" value="{%= inputValue %}" {%:= attrChecked %} />
                 <label for="askia-input_{%= ar[i].InputValue() %}" class="askia-radio"><span hidden>Radio</span></label>
-
                 <div data-for="askia-input_{%= ar[i].InputValue() %}" class="askia-response-label">
                     {% IF (resource <> "") Then %}
                       <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}"/>
                     {% EndIf %}{%= caption %}
 
-                    {% IF (ar[i].IsOpen) Then %}
-                            <div style="overflow:hidden"><input type="hidden" class="otherHidden"
-                                id="{%= ar[i].OpenQuestion.InputName() %}"
-                                name="{%= ar[i].OpenQuestion.InputName() %}"
-                                value="{%= ar[i].OpenQuestion.inputValue() %}" autocomplete="off"><input type="text" aria-label="Other" class="otherText"
-                              id="other{%= ar[i].OpenQuestion.InputName() %}"
-                              name="other{%= ar[i].OpenQuestion.InputName() %}"
+                    {% IF (ar[i].IsOpen = true) Then %}
+                            <div style="overflow:hidden"><input type="text" aria-label="Other" class="otherText"
+                              id="{%= ar[i].OpenQuestion.InputName() %}"
+                              name="{%= ar[i].OpenQuestion.InputName() %}"
                               data-id="{%= i %}" value="{%= ar[i].OpenQuestion.inputValue() %}" autocomplete="off"></div>
-                      {% EndIF %}
+                    {% EndIF %}
                 </div>
               </li>
             {% EndIF %}

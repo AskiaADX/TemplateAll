@@ -50,3 +50,4 @@ v4.2.0 - WCAG Compliance issues
   v4.2.8 - pikaday.js update
   v4.2.9 - jQuery migrate
   v4.2.10 - Added Buttons position parameter for the closed question
+  v4.2.11 - Semi-open bugfix

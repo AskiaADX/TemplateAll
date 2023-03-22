@@ -103,14 +103,13 @@ If (useList) Then
                     <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}" />
                     {% EndIf %}{%= caption %}
 
-                    {% IF (ar[i].IsOpen) Then %}
-                            <div style="overflow:hidden"><input type="hidden" class="otherHidden"
+                    {% IF (ar[i].IsOpen = true) Then %}
+                            <div style="overflow:hidden">
+                              <input type="text" aria-label="Other" class="otherText"
                                 id="{%= ar[i].OpenQuestion.InputName() %}"
                                 name="{%= ar[i].OpenQuestion.InputName() %}"
-                                value="{%= ar[i].OpenQuestion.inputValue() %}" autocomplete="off"><input type="text" aria-label="Other" class="otherText"
-                              id="other{%= ar[i].OpenQuestion.InputName() %}"
-                              name="other{%= ar[i].OpenQuestion.InputName() %}"
-                              data-id="{%= i %}" value="{%= ar[i].OpenQuestion.inputValue() %}" autocomplete="off"></div>
+                                data-id="{%= i %}" value="{%= ar[i].OpenQuestion.inputValue() %}" autocomplete="off">
+                            </div>
                       {% EndIF %}
                 </div>
             </li>
