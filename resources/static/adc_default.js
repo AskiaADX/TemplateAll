@@ -288,16 +288,25 @@
         return result;
     }
 
+
     /**
    * show otherText when radio button is checked
    */
     var radioIns = document.querySelectorAll('input[type=radio]');
     for (var i = 0; i < radioIns.length; i++) {
-      if(radioIns[i].parentElement.querySelector('.otherText') != null){
+      var otherElem = radioIns[i].parentElement.querySelector('.otherText');
+      if(otherElem != null){
+        otherElem.addEventListener('focus', function(){
+          this.parentElement.parentElement.parentElement.classList.add('focused');
+        });
         if (radioIns[i].checked === true ) {
-            radioIns[i].parentElement.querySelector('.otherText').style.display = 'block';
+            otherElem.style.display = 'block';
         } else {
-            radioIns[i].parentElement.querySelector('.otherText').value = '';
+            otherElem.addEventListener('blur', function(){
+              this.parentElement.parentElement.parentElement.classList.remove('focused');
+            });
+            otherElem.parentElement.parentElement.parentElement.classList.remove('focused');
+            otherElem.value = '';
         }
       }
     }
@@ -317,11 +326,19 @@
    */
     var checkboxIns = document.querySelectorAll('input[type=checkbox]');
     for (var i = 0; i < checkboxIns.length; i++) {
-      if(checkboxIns[i].parentElement.querySelector('.otherText') != null){
+      var otherElem = checkboxIns[i].parentElement.querySelector('.otherText');
+      if(otherElem != null){
+        otherElem.addEventListener('focus', function(){
+          this.parentElement.parentElement.parentElement.classList.add('focused');
+        });
         if (checkboxIns[i].checked === true ) {
-            checkboxIns[i].parentElement.querySelector('.otherText').style.display = 'block';
+            otherElem.style.display = 'block';
         } else {
-            checkboxIns[i].parentElement.querySelector('.otherText').value = '';
+            otherElem.addEventListener('blur', function(){
+              this.parentElement.parentElement.parentElement.classList.remove('focused');
+            });
+            otherElem.parentElement.parentElement.parentElement.classList.remove('focused');
+            otherElem.value = '';
         }
       }
     }
@@ -371,6 +388,7 @@
       if (radioEl.parentElement.querySelector('.otherText') != null) {
         radioEl.parentElement.querySelector('.otherText').style.display = 'block';
         radioEl.parentElement.querySelector('.otherText').focus();
+        radioEl.click();
       }
     }
 
