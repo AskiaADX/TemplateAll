@@ -314,11 +314,14 @@
      /**
     * Manually check the input(radio/checkbox) on response-label click.
     */
-    var respLabels = document.querySelectorAll('.askia-response .askia-response-label');
-    for (var i = 0; i < respLabels.length; i++) {
-      respLabels[i].onclick = function(){
-        document.getElementById(this.dataset.for).click();
-      };
+    var askResponses = document.querySelectorAll('.askia-response');
+    for (var i = 0; i < askResponses.length; i++) {
+      askResponses[i].addEventListener('click', function(event) {
+        if (event.target.tagName !== "INPUT") {
+          var inputId = this.querySelector(".askia-response-label").dataset.for;
+          document.getElementById(inputId).click();
+        }
+      }, { capture: true });
     }
 
     /**
