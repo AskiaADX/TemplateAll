@@ -52,3 +52,4 @@ v4.2.0 - WCAG Compliance issues
   v4.2.10 - Added Buttons position parameter for the closed question
   v4.2.11 - Semi-open bugfix
   v4.2.12 - Fixed, Semi-open textbox focus out when typing
+  v4.2.13 - A simple fix when checkbox/semi-opens
