@@ -288,40 +288,43 @@
         return result;
     }
 
-    /**
-   * show otherText when radio button is checked
-   */
-    var radioIns = document.querySelectorAll('input[type=radio]');
-    for (var i = 0; i < radioIns.length; i++) {
-      if(radioIns[i].parentElement.querySelector('.otherText') != null){
-        if (radioIns[i].checked === true ) {
-            radioIns[i].parentElement.querySelector('.otherText').style.display = 'block';
-        } else {
-            radioIns[i].parentElement.querySelector('.otherText').value = '';
-        }
-      }
-    }
-
      /**
     * Manually check the input(radio/checkbox) on response-label click.
     */
-    var respLabels = document.querySelectorAll('.askia-response .askia-response-label');
-    for (var i = 0; i < respLabels.length; i++) {
-      respLabels[i].onclick = function(){
-        document.getElementById(this.dataset.for).click();
-      };
+    var askResponses = document.getElementsByClassName('askia-response');
+    for (var i = 0; i < askResponses.length; i++) {
+      var response = askResponses[i];
+      response.addEventListener('click', function(event) {
+        var clickedElement = event.target || event.srcElement;
+        if (clickedElement.tagName !== "INPUT") {
+          var inputId = this.querySelector(".askia-response-label").dataset.for;
+          var inputElement = document.getElementById(inputId);
+          inputElement.click();
+          if (inputElement.type== "checkbox") {
+            event.preventDefault();
+          }
+        }
+      }, { capture: true });
     }
 
     /**
    * show otherText when checkboxes are checked
    */
-    var checkboxIns = document.querySelectorAll('input[type=checkbox]');
-    for (var i = 0; i < checkboxIns.length; i++) {
-      if(checkboxIns[i].parentElement.querySelector('.otherText') != null){
-        if (checkboxIns[i].checked === true ) {
-            checkboxIns[i].parentElement.querySelector('.otherText').style.display = 'block';
+    var inputs = document.querySelectorAll('input[type=radio], input[type=checkbox]');
+    for (var i = 0; i < inputs.length; i++) {
+      var otherElem = inputs[i].parentElement.querySelector('.otherText');
+      if(otherElem != null){
+        otherElem.addEventListener('focus', function(){
+          this.parentElement.parentElement.parentElement.classList.add('focused');
+        });
+        if (inputs[i].checked === true ) {
+            otherElem.style.display = 'block';
         } else {
-            checkboxIns[i].parentElement.querySelector('.otherText').value = '';
+            otherElem.addEventListener('blur', function(){
+              this.parentElement.parentElement.parentElement.classList.remove('focused');
+            });
+            otherElem.parentElement.parentElement.parentElement.classList.remove('focused');
+            otherElem.value = '';
         }
       }
     }
@@ -368,9 +371,11 @@
         otherElems[i].style.display = 'none';
         if(emptyVal) otherElems[i].value = '';
       }
-      if (radioEl.parentElement.querySelector('.otherText') != null) {
-        radioEl.parentElement.querySelector('.otherText').style.display = 'block';
-        radioEl.parentElement.querySelector('.otherText').focus();
+      var otherElement = radioEl.parentElement.querySelector('.otherText');
+      if (otherElement != null) {
+        otherElement.style.display = 'block';
+        otherElement.focus();
+        radioEl.click();
       }
     }
 
@@ -380,12 +385,13 @@
    * @param {Input[type=checkbox]} checkboxEl checkbox element
    */
     function selectMultipleResponseWithOther(checkboxEl){
-      if (checkboxEl.parentElement.querySelector('.otherText') != null) {
+      var otherElement = checkboxEl.parentElement.querySelector('.otherText');
+      if (otherElement != null) {
         if (checkboxEl.checked === true) {
-            checkboxEl.parentElement.querySelector('.otherText').style.display = 'block';
-            checkboxEl.parentElement.querySelector('.otherText').focus();
+            otherElement.style.display = 'block';
+            otherElement.focus();
         } else {
-            checkboxEl.parentElement.querySelector('.otherText').style.display = 'none';
+            otherElement.style.display = 'none';
         }
       }
     }
@@ -403,7 +409,6 @@
                 manageExclusive(el);
                 selectMultipleResponseWithOther(el);
             }
-            triggerRouting(that.currentQuestion);
             if (el.type === "radio") {
                 var nextBtn = document.getElementsByName('Next')[0];
                 var mainDiv = document.getElementById("adc_" + that.instanceId);
@@ -411,6 +416,7 @@
                     nextBtn.click();
                 }
             }
+            triggerRouting(that.currentQuestion);
         }
     }
 
@@ -420,12 +426,12 @@
    * @param {Object} event Input event of the input semi open
    * @param {Object} that AdcDefault object, same as options
    */
-  function onInputSemiOpen (event, that) {
-    var el = event.target || event.srcElement;
-    if (el.nodeName === "INPUT" && (el.type === 'text') && el.className === 'otherText') {
-        el.previousElementSibling.value = myTrim(el.value);
+    function onInputSemiOpen (event, that) {
+      var el = event.target || event.srcElement;
+      if (el.nodeName === "INPUT" && (el.type === 'text') && el.className === 'otherText') {
+          el.previousElementSibling.value = myTrim(el.value);
+      }
     }
-}
 
     /**
    * Manage the input event on numeric variables

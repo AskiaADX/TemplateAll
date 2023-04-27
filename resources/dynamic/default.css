@@ -17,6 +17,10 @@ Else
 EndIf
 %}
 
+.focused {
+  background-color: rgba(40,59,73, .2) !important;
+  cursor: pointer;
+}
 .down-point::after {
 	content: '\2BC6';
   font-weight: bold;
@@ -35,7 +39,15 @@ EndIf
 
 #adc_{%= CurrentADC.InstanceId %} div.askia-response-label {
   margin: 0;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
+
+#adc_{%= CurrentADC.InstanceId %} .askia-response {
+  margin: 8px;
+  padding: 1px;
+}
+
 #adc_{%= CurrentADC.InstanceId %} .responses-container {
   justify-content: {%= justifyContent %};
 }
