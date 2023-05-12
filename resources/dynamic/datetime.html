@@ -22,11 +22,10 @@ Dim attrChecked = On(column.HasDK and column.HasAnswered, " checked=\"checked\""
 	<span class="timeSeparator_{%= column.InputCode %}"></span>
     <select id="minutes_{%= column.InputCode %}" aria-label="Minutes" name="minutes"{%:= attrDisabled %}></select>
 	<span id="secsContainer_{%= column.InputCode %}" class="secsContainer">
-	<span class="timeSeparator_{%= column.InputCode %}"></span>
-	<select id="seconds_{%= column.InputCode %}" aria-label="Seconds" name="seconds"{%:= attrDisabled %}></select>
+		<span class="timeSeparator_{%= column.InputCode %}"></span>
+		<select id="seconds_{%= column.InputCode %}" aria-label="Seconds" name="seconds"{%:= attrDisabled %}></select>
 	</span>
-	<!--<input type="text" id="time" name="time" readonly="readonly" hidden=true/> -->
-	<input id="askia-input-time{%= column.InputCode %}" aria-label="Time" class="inputdate askia-question-{%= inputCode %} time_{%= column.InputCode %}" hidden type="text" name="{%= inputNameTime %}" value="{%= column.InputValue("date") %}"{%:= attrReadOnly %} />
+	<input id="askia-input-time{%= column.InputCode %}" aria-label="Time" class="inputdate askia-question-{%= inputCode %} time_{%= column.InputCode %}" hidden type="text" name="{%= inputNameTime %}" value="{%= column.InputValue("time") %}"{%:= attrReadOnly %} />
 	<span class="imperial" {%If CurrentADC.PropValue("imperial") = "false" Then %} hidden {% EndIf %} id="ampm_{%= column.InputCode %}"></span>
 </div>
 {% EndIf %}
