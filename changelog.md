@@ -54,3 +54,4 @@ v4.2.0 - WCAG Compliance issues
   v4.2.12 - Fixed, Semi-open textbox focus out when typing
   v4.2.13 - A simple fix when checkbox/semi-opens
   v4.2.14 - Datetime fixed
+v4.3.0 - Feature added for ADP test-mode

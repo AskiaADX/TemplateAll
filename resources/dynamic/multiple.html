@@ -27,6 +27,8 @@ For i = 1 to ar.Count
     Endif
 Next i
 
+Dim isTestModeEnabled = CurrentADP.PropValue("test_mode_enabled")
+
 If (useList) Then
     inputName = CurrentQuestion.InputName("list") %}
     <select name="{%= inputName %}" multiple="multiple" class="multiSelect">
@@ -89,6 +91,10 @@ If (useList) Then
             IF (isHeader = True) Then
             %}
             <li class="responseHeader" data-id="{%= CurrentQuestion.id %}_{%= index %}">
+              {% If isTestModeEnabled = "yes" Then %}
+                <span class="r-tag">{%:= ar[i].EntryCodeStr %}</span>
+              {% EndIF %}
+
               {%
               If (expandableHeaders = True) Then
                   If (accordionInitialState = "expanded") Then %}
@@ -110,22 +116,39 @@ If (useList) Then
                 <label for="askia-input_{%= ar[i].InputValue() %}" class="askia-checkbox"><span hidden>Checkbox</span></label>
 
                 <div data-for="askia-input_{%= ar[i].InputValue() %}" class="askia-response-label" aria-label="{%= ariaLabel %}">
+                    {% If isTestModeEnabled = "yes" Then %}
+                      <span class="r-tag">{%:= ar[i].EntryCodeStr %}</span>
+                    {% EndIF %}
                     {% IF (resource <> "") Then %}
-                    <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}" />
-                    {% EndIf %}{%:= caption %}
-
-                    {% IF (ar[i].IsOpen = true) Then %}
-                            <div style="overflow:hidden">
-                              <input type="text" aria-label="Other" class="otherText"
-                                id="{%= ar[i].OpenQuestion.InputName() %}"
-                                name="{%= ar[i].OpenQuestion.InputName() %}"
-                                data-id="{%= i %}" value="{%= ar[i].OpenQuestion.inputValue() %}" autocomplete="off">
-                            </div>
-                      {% EndIF %}
+                      <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}" />
+                    {% EndIf %}{%= caption %}
+                    {% IF (ar[i].IsOpen) Then %}
+                      <div style="overflow:hidden">
+                        <input type="text" aria-label="Other" class="otherText"
+                        id="{%= ar[i].OpenQuestion.InputName() %}"
+                        name="{%= ar[i].OpenQuestion.InputName() %}"
+                        data-id="{%= i %}" value="{%= ar[i].OpenQuestion.inputValue() %}" autocomplete="off">
+                      </div>
+                    {% EndIF %}
+                    {% If isTestModeEnabled = "yes" Then %}
+                        {% If ar[i].Routings.Count > 0 Then %}
+                         <span onmouseover="writeRoutingInfo('{%:= ar[i].Routings %}', this)" onmouseout="removeRoutingInfo(this)"><span class="i-tag">ℹ️</span><span></span></span>
+                        {% EndIF %}
+                    {% EndIF %}
                 </div>
-            </li>
+              </li>
             {% EndIf %}
             {% EndIf %}
         {% Next %}
     </ul>
 {% EndIf %}
+<script>
+    function writeRoutingInfo(txt, infoElem) {
+      infoElem.children[1].innerHTML = txt;
+      infoElem.children[1].classList.add("routing-info");
+    }
+    function removeRoutingInfo(infoElem) {
+      infoElem.children[1].innerHTML = "";
+      infoElem.children[1].classList.remove("routing-info");
+    }
+</script>
