@@ -53,3 +53,4 @@ Version
     v4.2.13 - A simple fix when checkbox/semi-opens
     v4.2.14 - Datetime fixed
     v4.2.15 - JQuery removed.
+    v4.2.16 - Fixed exclusives.
