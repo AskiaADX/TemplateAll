@@ -68,7 +68,7 @@ dim maxScript
 	showMonthAfterYear = CurrentADC.PropValue("showMonthAfterYear")
 	numberOfMonths = CurrentADC.PropValue("numberOfMonths")
 	mainCalendar = "'"+CurrentADC.PropValue("mainCalendar")+"'"
-	useScript =  = CurrentADC.PropValue("useScript").ToNumber()
+	useScript = CurrentADC.PropValue("useScript").ToNumber()
 	minDate = column.MinDate.Format("yyyy-MM-dd")
 	maxDate = column.MaxDate.Format("yyyy-MM-dd")
 	minBound = column.MinDate.Format("yyyy").ToNumber()
