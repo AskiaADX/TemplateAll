@@ -54,3 +54,4 @@ Version
     v4.2.14 - Datetime fixed
     v4.2.15 - JQuery removed.
     v4.2.16 - Fixed exclusives.
+    v4.2.17 - included askiascript variables for min/max date 
