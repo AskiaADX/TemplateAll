@@ -286,6 +286,22 @@ Format: MM/DD/YYYY]]></description>
         <value><![CDATA[Don't know]]></value>
       </property>
     </category>
+    <property xsi:type="standardProperty" id="useScript" name="Askiascript for Min/Max" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Use Askiascript to set the Min  Max dates in the control.]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="minScript" name="Min Date" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[0]]></description>
+        <value></value>
+      </property>
+      <property xsi:type="standardProperty" id="maxScript" name="Max Date" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[0]]></description>
+        <value></value>
+      </property>
     <category id="timePicker" name="Time question">
       <property xsi:type="standardProperty" id="imperial" name="Time format" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[Option to choose 24 hour clock or 12 hour clock]]></description>
