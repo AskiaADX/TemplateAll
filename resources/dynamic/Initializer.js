@@ -82,14 +82,8 @@ dim maxScript
 		maxBound = 2100
 	EndIf
 	
-	if (useScript) = 1 Then
-    minDate = minScript.ToString()
-    maxDate = maxScript.ToString()
-    else
-        minDate = column.MinDate.Format("yyyy-MM-dd")
-        maxDate = column.MaxDate.Format("yyyy-MM-dd")
-	EndIf
-	
+
+
 	inputName = column.InputName()
 	inputId     = (inputName + "_" + 1).Replace("D", "askia-input-dateO") %}
 
