@@ -18,8 +18,11 @@ dim numberOfMonths
 dim mainCalendar
 dim minDate
 dim maxDate
+dim useScript
 dim minBound
 dim maxBound
+dim minScript
+dim maxScript
 %}
 (function () {
     var adcdefault = new AdcDefault({
@@ -65,6 +68,7 @@ dim maxBound
 	showMonthAfterYear = CurrentADC.PropValue("showMonthAfterYear")
 	numberOfMonths = CurrentADC.PropValue("numberOfMonths")
 	mainCalendar = "'"+CurrentADC.PropValue("mainCalendar")+"'"
+	useScript =  = CurrentADC.PropValue("useScript").ToNumber()
 	minDate = column.MinDate.Format("yyyy-MM-dd")
 	maxDate = column.MaxDate.Format("yyyy-MM-dd")
 	minBound = column.MinDate.Format("yyyy").ToNumber()
@@ -77,7 +81,15 @@ dim maxBound
 	if CvDkNa(maxBound) < 1 Then
 		maxBound = 2100
 	EndIf
-
+	
+	if (useScript) = 1 Then
+    minDate = minScript.ToString()
+    maxDate = maxScript.ToString()
+    else
+        minDate = column.MinDate.Format("yyyy-MM-dd")
+        maxDate = column.MaxDate.Format("yyyy-MM-dd")
+	EndIf
+	
 	inputName = column.InputName()
 	inputId     = (inputName + "_" + 1).Replace("D", "askia-input-dateO") %}
 
