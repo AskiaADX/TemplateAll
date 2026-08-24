@@ -7,8 +7,8 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.2.16</version>
-    <date>2023-12-19</date>
+    <version>4.3.0</version>
+    <date>2026-08-20</date>
     <description><![CDATA[Default ADC with all kind of questions]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
@@ -39,6 +39,7 @@
       <content fileName="date_picker.js" type="javascript" mode="static" position="foot" />
       <content fileName="time_picker.js" type="javascript" mode="static" position="foot" />
       <content fileName="adc_default.js" type="javascript" mode="static" position="foot" />
+      <content fileName="select2_loader.js" type="javascript" mode="static" position="foot" />
       <content fileName="Initializer.js" type="javascript" mode="dynamic" position="foot" />
     </output>
   </outputs>
@@ -285,7 +286,24 @@ Format: MM/DD/YYYY]]></description>
         <description><![CDATA[The caption of the don't know button]]></description>
         <value><![CDATA[Don't know]]></value>
       </property>
+      <property xsi:type="standardProperty" id="useScript" name="Askiascript for Min/Max" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Use Askiascript to set the Min  Max dates in the control.]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="minScript" name="Min Date" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[0]]></description>
+        <value></value>
+      </property>
+      <property xsi:type="standardProperty" id="maxScript" name="Max Date" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[0]]></description>
+        <value></value>
+      </property>
     </category>
+
     <category id="timePicker" name="Time question">
       <property xsi:type="standardProperty" id="imperial" name="Time format" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[Option to choose 24 hour clock or 12 hour clock]]></description>

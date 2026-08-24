@@ -54,3 +54,6 @@ Version
     v4.2.14 - Datetime fixed
     v4.2.15 - JQuery removed.
     v4.2.16 - Fixed exclusives.
+    v4.2.17 - included askiascript variables for min/max date 
+    v4.2.18 - fixed onclock event listener firing multiple times per askia-response element on the screen
+    v4.3.0 - Added Select2 4.1.0 enhancement for single and multiple list controls

@@ -288,23 +288,52 @@
         return result;
     }
 
-     /**
-    * Manually check the input(radio/checkbox) on response-label click.
-    */
-    var askResponses = document.getElementsByClassName('askia-response');
-    for (var i = 0; i < askResponses.length; i++) {
-      var response = askResponses[i];
-      response.addEventListener('click', function(event) {
+    /**
+     * Manually check the input(radio/checkbox) on response-label click.
+     * 
+     * This version is guarded so it only installs once, even if adc_default.js
+     * is loaded or initialized multiple times.
+     */
+    if (!window.__askiaResponseClickHandlerInstalled) {
+    window.__askiaResponseClickHandlerInstalled = true;
+
+    document.addEventListener('click', function(event) {
         var clickedElement = event.target || event.srcElement;
-        if (clickedElement.tagName !== "INPUT") {
-          var inputId = this.querySelector(".askia-response-label").dataset.for;
-          var inputElement = document.getElementById(inputId);
-          inputElement.click();
-          if (inputElement.type== "checkbox") {
-            event.preventDefault();
-          }
+
+        // Let real input clicks behave normally.
+        if (!clickedElement || clickedElement.tagName === "INPUT") {
+        return;
         }
-      }, { capture: true });
+
+        // Find the response row that was clicked.
+        var response = clickedElement.closest
+        ? clickedElement.closest('.askia-response')
+        : null;
+
+        if (!response) {
+        return;
+        }
+
+        var label = response.querySelector('.askia-response-label');
+
+        if (!label || !label.dataset || !label.dataset.for) {
+        return;
+        }
+
+        var inputElement = document.getElementById(label.dataset.for);
+
+        if (!inputElement || inputElement.disabled) {
+        return;
+        }
+
+        // Stop the original row/label click from also toggling the input.
+        event.preventDefault();
+        event.stopPropagation();
+
+        // Fire one intentional input click.
+        inputElement.click();
+
+    }, true);
     }
 
     /**

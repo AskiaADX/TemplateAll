@@ -30,7 +30,7 @@ Next i
 
 If (useList) Then
     attrSelected = On(CurrentQuestion.HasDK or CurrentQuestion.HasNA, " selected=\"selected\"", "") %}
-<select name="{%= inputName %}" aria-label="Select">
+<select name="{%= inputName %}" aria-label="Select" class="askia-select2">
         <option value="" disabled="disabled"{%:= attrSelected %}>{%:= CurrentADC.PropValue("firstOptionText") %}</option>
     {%
     For i = 1 To ar.Count
