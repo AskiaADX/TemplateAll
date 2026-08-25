@@ -79,9 +79,9 @@
           <option value="0" text="No" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="hideOrDisable" name="hide/disable when ignoring responses" type="string" mode="dynamic" require="true" visible="true">
+      <property xsi:type="standardProperty" id="hideOrDisable" name="Hide/Disable when filtering responses" type="string" mode="dynamic" require="true" visible="true">
         <description><![CDATA[Hide or Disable responses when ignore_responses live-routing happens.]]></description>
-        <value><![CDATA[disable]]></value>
+        <value><![CDATA[hide]]></value>
         <options>
           <option value="hide" text="Hide" />
           <option value="disable" text="Disable" />
@@ -303,7 +303,6 @@ Format: MM/DD/YYYY]]></description>
         <value></value>
       </property>
     </category>
-
     <category id="timePicker" name="Time question">
       <property xsi:type="standardProperty" id="imperial" name="Time format" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[Option to choose 24 hour clock or 12 hour clock]]></description>

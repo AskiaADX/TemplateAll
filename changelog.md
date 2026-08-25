@@ -60,4 +60,3 @@ Version
             - Fixed live routing for single/multiple selection lists on merged screens
             - Bridged Select2 jQuery change events into the ADC native change-event lifecycle
     v4.3.2 - Added an initial live-response filtering refresh when a live-routed ADC instance initializes
-            - Reuses TemplateAll's existing executeShowHideResponses handler; no other routing/filtering behavior changed

@@ -155,6 +155,26 @@
         });
     }
 
+    // Returning null from templateResult prevents an item from being rendered in
+    // the Select2 result list. The underlying <option> remains in the form so Askia
+    // still owns the response model and can make the response available again later.
+    function renderResult(data) {
+        if (data && data.element && data.element.getAttribute("data-askia-live-hidden") === "true") {
+            return null;
+        }
+
+        return data.text;
+    }
+
+    function initialiseSelect(select) {
+        select.select2({
+            width: "90%",
+            dropdownParent: select.closest(".adc-default"),
+            templateResult: renderResult
+        });
+        bridgeSelect2Change(select);
+    }
+
     state.init = function (selector) {
         ensureCss();
         ensureJquery(function (jqueryLoaded) {
@@ -175,14 +195,28 @@
                         return;
                     }
 
-                    select.select2({
-                        width: "90%",
-                        dropdownParent: select.closest(".adc-default")
-                    });
-                    bridgeSelect2Change(select);
+                    initialiseSelect(select);
                 });
             });
         });
+    };
+
+    // Rebuild an already-enhanced control after Askia live routing changes its
+    // option visibility/disabled state. If the initial routing refresh happens
+    // before Select2 is initialized, there is nothing to rebuild; state.init()
+    // will read the already-filtered native options moments later.
+    state.refresh = function (selectElement) {
+        if (!window.jQuery || !window.jQuery.fn || !window.jQuery.fn.select2 || !selectElement) {
+            return;
+        }
+
+        var select = window.jQuery(selectElement);
+        if (!select.hasClass("select2-hidden-accessible")) {
+            return;
+        }
+
+        select.select2("destroy");
+        initialiseSelect(select);
     };
 
     window.AskiaSelect2Loader = state;
