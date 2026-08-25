@@ -9,9 +9,9 @@
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
     <version>4.3.2</version>
     <date>2026-08-25</date>
-    <description><![CDATA[Default ADC with all kind of questions]]></description>
+    <description><![CDATA[An ADC applicable to all question types]]></description>
     <company>Askia SAS</company>
-    <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
+    <author><![CDATA[Jordan Grindle <jordan@askia.com>]]></author>
     <site>http://www.askia.com</site>
     <helpURL></helpURL>
     <categories>
