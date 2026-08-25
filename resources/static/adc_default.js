@@ -659,10 +659,17 @@
    * @param {Object} that AdcDefault object, same as options
    */
     function onSelects (event, that) {
-        var nextBtn = document.getElementsByName('Next')[0];
-        var mainDiv = document.getElementById("adc_" + that.instanceId);
-        if (checkAnswersSelect(mainDiv) && that.autoSubmit) {
-            nextBtn.click();
+        triggerRouting(that.currentQuestion);
+
+        // Auto-submit remains a single-response behaviour. Multiple list
+        // questions still trigger live routing, but must allow the respondent
+        // to continue adding/removing selections.
+        if (that.type === "single" || that.type === "single-loop") {
+            var nextBtn = document.getElementsByName('Next')[0];
+            var mainDiv = document.getElementById("adc_" + that.instanceId);
+            if (checkAnswersSelect(mainDiv) && that.autoSubmit) {
+                nextBtn.click();
+            }
         }
     }
 
@@ -873,6 +880,16 @@
             };
         }(this)));
 
+        // Initial live-response refresh. This mirrors the ResponseLiveRouting fork's
+        // constructor-time refresh, but uses TemplateAll's current combined handler.
+        if (window.askia
+            && window.arrLiveRoutingShortcut
+            && window.arrLiveRoutingShortcut.length > 0
+            && window.arrLiveRoutingShortcut.indexOf(this.currentQuestion) >= 0) {
+              askia.defaultEventActions.askiaShowResponses = executeShowHideResponses;
+              askia.triggerAnswer();
+        }
+
 
         if (this.type === "single" || this.type === "multiple" || this.type === "single-loop" || this.type === "multiple-loop") {
 
@@ -932,7 +949,9 @@
 
         }
 
-        if ((this.type === "single" && this.useList) || (this.type === "single-loop" && this.useList)) {
+        if (this.useList && inputSelect &&
+            (this.type === "single" || this.type === "single-loop" ||
+             this.type === "multiple" || this.type === "multiple-loop")) {
             addEvent(inputSelect, "change",
                      (function(passedInElement) {
                 return function(e) {onSelects(e, passedInElement); };

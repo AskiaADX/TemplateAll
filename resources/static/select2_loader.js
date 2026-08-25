@@ -123,6 +123,38 @@
         }
     }
 
+    // Select2 changes the underlying <select> through jQuery and triggers a
+    // jQuery change event. TemplateAll listens with addEventListener, so bridge
+    // the synthetic jQuery event to one native bubbling change event. This keeps
+    // Askia live routing, auto-submit and any host-level native listeners in the
+    // same lifecycle as an ordinary HTML select.
+    function dispatchNativeChange(selectElement) {
+        var evt;
+
+        if (typeof window.Event === "function") {
+            evt = new window.Event("change", { bubbles: true });
+        } else {
+            evt = document.createEvent("HTMLEvents");
+            evt.initEvent("change", true, false);
+        }
+
+        selectElement.dispatchEvent(evt);
+    }
+
+    function bridgeSelect2Change(select) {
+        select.off("change.askiaSelect2Bridge");
+        select.on("change.askiaSelect2Bridge", function (event) {
+            // Native changes are surfaced to jQuery with originalEvent set.
+            // Only bridge Select2/jQuery-synthetic changes, otherwise the native
+            // event we dispatch below would recursively dispatch itself.
+            if (event && event.originalEvent) {
+                return;
+            }
+
+            dispatchNativeChange(this);
+        });
+    }
+
     state.init = function (selector) {
         ensureCss();
         ensureJquery(function (jqueryLoaded) {
@@ -147,6 +179,7 @@
                         width: "90%",
                         dropdownParent: select.closest(".adc-default")
                     });
+                    bridgeSelect2Change(select);
                 });
             });
         });

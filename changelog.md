@@ -56,4 +56,8 @@ Version
     v4.2.16 - Fixed exclusives.
     v4.2.17 - included askiascript variables for min/max date 
     v4.2.18 - fixed onclock event listener firing multiple times per askia-response element on the screen
-    v4.3.0 - Added Select2 4.1.0 enhancement for single and multiple list controls
+    v4.3.1 - Added Select2 4.1.0 enhancement for single and multiple selection-list controls
+            - Fixed live routing for single/multiple selection lists on merged screens
+            - Bridged Select2 jQuery change events into the ADC native change-event lifecycle
+    v4.3.2 - Added an initial live-response filtering refresh when a live-routed ADC instance initializes
+            - Reuses TemplateAll's existing executeShowHideResponses handler; no other routing/filtering behavior changed
