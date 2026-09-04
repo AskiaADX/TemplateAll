@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
     var hideOrDisable = true;
 
     // This will globally handle any TypeError is occured.
@@ -226,28 +226,94 @@
       }
 
       for (var i = 0; i < responses.length; i++) {
+        var resetInput = responses[i].querySelector('input[type="radio"], input[type="checkbox"]');
         responses[i].style.display = "";
         responses[i].classList.remove("disabled");
-        responses[i].children[0].disabled = false;
+        if (resetInput) {
+          resetInput.disabled = false;
+        }
       }
 
       for (var k = 0; k < orderLength; k++) {
-        showResponseInputCodes.push(parseInt(data.order[k].inputCode));
+        showResponseInputCodes.push(parseInt(data.order[k].inputCode, 10));
       }
 
       for (var j = 0; j < responses.length; j++) {
-        var str = (responses[j].children[0].id).split('_');
-        if (showResponseInputCodes.indexOf(parseInt(str[1])) < 0){
-            if(document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(str[1])) != null){
-              if (hideOrDisable) {
-                document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(str[1])).disabled = true;
-                document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(str[1])).checked = false;
-                document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(str[1])).parentElement.classList.add("disabled");
-              } else {
-                document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(str[1])).checked = false;
-                document.getElementById('askia-input'+data.question.inputCode+'_'+parseInt(str[1])).parentElement.style.display = "none";
-              }
+        var responseInput = responses[j].querySelector('input[type="radio"], input[type="checkbox"]');
+        if (!responseInput) {
+          continue;
+        }
+
+        // Older TemplateAll/ResponseLiveRouting builds used IDs such as
+        // askia-input2_4, while current TemplateAll single responses use
+        // askia-input_4.  The final underscore-delimited value is the
+        // response input code in both formats, so use the actual DOM input
+        // rather than reconstructing an obsolete ID from the question code.
+        var idParts = responseInput.id.split('_');
+        var responseInputCode = parseInt(idParts[idParts.length - 1], 10);
+
+        if (showResponseInputCodes.indexOf(responseInputCode) < 0) {
+          responseInput.checked = false;
+          if (hideOrDisable) {
+            responseInput.disabled = true;
+            responseInput.parentElement.classList.add("disabled");
+          } else {
+            responseInput.parentElement.style.display = "none";
+          }
+        }
+      }
+
+      // Selection-list questions use <option> elements instead of response <li>s.
+      // Apply the same Askia live-response set to the native select first; Select2
+      // is only the visual layer on top of this control and is refreshed below.
+      var selectionLists = document.querySelectorAll(questionClassName + ' select.askia-select2');
+      for (var s = 0; s < selectionLists.length; s++) {
+        var selectionList = selectionLists[s];
+        var selectionWasCleared = false;
+        var listOptions = selectionList.querySelectorAll('option[data-askia-response-code]');
+
+        // Restore the complete response set before applying the newest routing state.
+        for (var o = 0; o < listOptions.length; o++) {
+          listOptions[o].hidden = false;
+          listOptions[o].style.display = '';
+          listOptions[o].removeAttribute('data-askia-live-hidden');
+          listOptions[o].disabled = false;
+        }
+
+        for (var q = 0; q < listOptions.length; q++) {
+          var optionInputCode = parseInt(listOptions[q].getAttribute('data-askia-response-code'), 10);
+
+          if (showResponseInputCodes.indexOf(optionInputCode) < 0) {
+            if (listOptions[q].selected) {
+              listOptions[q].selected = false;
+              selectionWasCleared = true;
             }
+
+            if (hideOrDisable) {
+              listOptions[q].disabled = true;
+            } else {
+              // Native selects honour hidden/display:none in modern browsers, while
+              // Select2's templateResult uses this marker to omit the result entirely.
+              listOptions[q].hidden = true;
+              listOptions[q].style.display = 'none';
+              listOptions[q].setAttribute('data-askia-live-hidden', 'true');
+            }
+          }
+        }
+
+        // A single select must return to its blank placeholder rather than silently
+        // moving to another response when its previously selected response is ignored.
+        if (selectionWasCleared && !selectionList.multiple) {
+          var blankOption = selectionList.querySelector('option[value=""]');
+          if (blankOption) {
+            blankOption.selected = true;
+          } else {
+            selectionList.selectedIndex = -1;
+          }
+        }
+
+        if (window.AskiaSelect2Loader && typeof window.AskiaSelect2Loader.refresh === 'function') {
+          window.AskiaSelect2Loader.refresh(selectionList);
         }
       }
     }
@@ -288,23 +354,52 @@
         return result;
     }
 
-     /**
-    * Manually check the input(radio/checkbox) on response-label click.
-    */
-    var askResponses = document.getElementsByClassName('askia-response');
-    for (var i = 0; i < askResponses.length; i++) {
-      var response = askResponses[i];
-      response.addEventListener('click', function(event) {
+    /**
+     * Manually check the input(radio/checkbox) on response-label click.
+     * 
+     * This version is guarded so it only installs once, even if adc_default.js
+     * is loaded or initialized multiple times.
+     */
+    if (!window.__askiaResponseClickHandlerInstalled) {
+    window.__askiaResponseClickHandlerInstalled = true;
+
+    document.addEventListener('click', function(event) {
         var clickedElement = event.target || event.srcElement;
-        if (clickedElement.tagName !== "INPUT") {
-          var inputId = this.querySelector(".askia-response-label").dataset.for;
-          var inputElement = document.getElementById(inputId);
-          inputElement.click();
-          if (inputElement.type== "checkbox") {
-            event.preventDefault();
-          }
+
+        // Let real input clicks behave normally.
+        if (!clickedElement || clickedElement.tagName === "INPUT") {
+        return;
         }
-      }, { capture: true });
+
+        // Find the response row that was clicked.
+        var response = clickedElement.closest
+        ? clickedElement.closest('.askia-response')
+        : null;
+
+        if (!response) {
+        return;
+        }
+
+        var label = response.querySelector('.askia-response-label');
+
+        if (!label || !label.dataset || !label.dataset.for) {
+        return;
+        }
+
+        var inputElement = document.getElementById(label.dataset.for);
+
+        if (!inputElement || inputElement.disabled) {
+        return;
+        }
+
+        // Stop the original row/label click from also toggling the input.
+        event.preventDefault();
+        event.stopPropagation();
+
+        // Fire one intentional input click.
+        inputElement.click();
+
+    }, true);
     }
 
     /**
@@ -630,10 +725,17 @@
    * @param {Object} that AdcDefault object, same as options
    */
     function onSelects (event, that) {
-        var nextBtn = document.getElementsByName('Next')[0];
-        var mainDiv = document.getElementById("adc_" + that.instanceId);
-        if (checkAnswersSelect(mainDiv) && that.autoSubmit) {
-            nextBtn.click();
+        triggerRouting(that.currentQuestion);
+
+        // Auto-submit remains a single-response behaviour. Multiple list
+        // questions still trigger live routing, but must allow the respondent
+        // to continue adding/removing selections.
+        if (that.type === "single" || that.type === "single-loop") {
+            var nextBtn = document.getElementsByName('Next')[0];
+            var mainDiv = document.getElementById("adc_" + that.instanceId);
+            if (checkAnswersSelect(mainDiv) && that.autoSubmit) {
+                nextBtn.click();
+            }
         }
     }
 
@@ -844,6 +946,16 @@
             };
         }(this)));
 
+        // Initial live-response refresh. This mirrors the ResponseLiveRouting fork's
+        // constructor-time refresh, but uses TemplateAll's current combined handler.
+        if (window.askia
+            && window.arrLiveRoutingShortcut
+            && window.arrLiveRoutingShortcut.length > 0
+            && window.arrLiveRoutingShortcut.indexOf(this.currentQuestion) >= 0) {
+              askia.defaultEventActions.askiaShowResponses = executeShowHideResponses;
+              askia.triggerAnswer();
+        }
+
 
         if (this.type === "single" || this.type === "multiple" || this.type === "single-loop" || this.type === "multiple-loop") {
 
@@ -903,7 +1015,9 @@
 
         }
 
-        if ((this.type === "single" && this.useList) || (this.type === "single-loop" && this.useList)) {
+        if (this.useList && inputSelect &&
+            (this.type === "single" || this.type === "single-loop" ||
+             this.type === "multiple" || this.type === "multiple-loop")) {
             addEvent(inputSelect, "change",
                      (function(passedInElement) {
                 return function(e) {onSelects(e, passedInElement); };

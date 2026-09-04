@@ -7,11 +7,11 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.2.16</version>
-    <date>2023-12-19</date>
-    <description><![CDATA[Default ADC with all kind of questions]]></description>
+    <version>4.3.2</version>
+    <date>2026-08-25</date>
+    <description><![CDATA[An ADC applicable to all question types]]></description>
     <company>Askia SAS</company>
-    <author><![CDATA[Mamadou Sy <mamadou@askia.com>Jerome Duparc <jeromed@askia.com>]]></author>
+    <author><![CDATA[Jordan Grindle <jordan@askia.com>]]></author>
     <site>http://www.askia.com</site>
     <helpURL></helpURL>
     <categories>
@@ -39,6 +39,7 @@
       <content fileName="date_picker.js" type="javascript" mode="static" position="foot" />
       <content fileName="time_picker.js" type="javascript" mode="static" position="foot" />
       <content fileName="adc_default.js" type="javascript" mode="static" position="foot" />
+      <content fileName="select2_loader.js" type="javascript" mode="static" position="foot" />
       <content fileName="Initializer.js" type="javascript" mode="dynamic" position="foot" />
     </output>
   </outputs>
@@ -78,9 +79,9 @@
           <option value="0" text="No" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="hideOrDisable" name="hide/disable when ignoring responses" type="string" mode="dynamic" require="true" visible="true">
+      <property xsi:type="standardProperty" id="hideOrDisable" name="Hide/Disable when filtering responses" type="string" mode="dynamic" require="true" visible="true">
         <description><![CDATA[Hide or Disable responses when ignore_responses live-routing happens.]]></description>
-        <value><![CDATA[disable]]></value>
+        <value><![CDATA[hide]]></value>
         <options>
           <option value="hide" text="Hide" />
           <option value="disable" text="Disable" />
@@ -284,6 +285,22 @@ Format: MM/DD/YYYY]]></description>
       <property xsi:type="standardProperty" id="dateDkCaption" name="DK caption" type="string" mode="dynamic" require="false" visible="true">
         <description><![CDATA[The caption of the don't know button]]></description>
         <value><![CDATA[Don't know]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="useScript" name="Askiascript for Min/Max" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Use Askiascript to set the Min  Max dates in the control.]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="minScript" name="Min Date" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[0]]></description>
+        <value></value>
+      </property>
+      <property xsi:type="standardProperty" id="maxScript" name="Max Date" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[0]]></description>
+        <value></value>
       </property>
     </category>
     <category id="timePicker" name="Time question">

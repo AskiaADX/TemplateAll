@@ -339,3 +339,32 @@ EndIf
 {
   height: auto !important;
 }
+
+{% If (CurrentQuestion.Type = "single" or CurrentQuestion.Type = "multiple" or CurrentQuestion.Type = "single-loop" or CurrentQuestion.Type = "multiple-loop") and CurrentADC.PropValue("useList") = "1" Then %}
+#adc_{%= CurrentADC.InstanceId %} .select2-container {
+    max-width: 90%;
+    text-align: left;
+}
+#adc_{%= CurrentADC.InstanceId %} .select2-container--default .select2-selection--single,
+#adc_{%= CurrentADC.InstanceId %} .select2-container--default .select2-selection--multiple {
+    color: rgba({%= Theme.BlackColor %}) !important;
+    background-color: rgba({%= Theme.WhiteColor %}) !important;
+    border: 0.0625em solid rgba(221,221,221,1);
+    border-radius: .125em;
+}
+#adc_{%= CurrentADC.InstanceId %} .select2-container--default .select2-selection--single {
+    height: 2em;
+}
+#adc_{%= CurrentADC.InstanceId %} .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: rgba({%= Theme.BlackColor %}) !important;
+    line-height: 2em;
+}
+#adc_{%= CurrentADC.InstanceId %} .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 2em;
+}
+#adc_{%= CurrentADC.InstanceId %} .select2-dropdown {
+    color: rgba({%= Theme.BlackColor %}) !important;
+    background-color: rgba({%= Theme.WhiteColor %}) !important;
+    text-align: left;
+}
+{% EndIf %}

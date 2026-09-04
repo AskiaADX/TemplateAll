@@ -29,7 +29,7 @@ Next i
 
 If (useList) Then
     inputName = CurrentQuestion.InputName("list") %}
-    <select name="{%= inputName %}" multiple="multiple" class="multiSelect">
+    <select name="{%= inputName %}" multiple="multiple" class="multiSelect askia-select2">
         {%
         Dim attrSelected
         For i = 1 To ar.Count
@@ -47,11 +47,11 @@ If (useList) Then
                 For j = 1 To cr.Count
                 attrSelected = On(cr[j].IsSelected, "selected=\"selected\"", "")
               %}
-              <option value="{%= cr[j].InputValue() %}" {%:= attrSelected %}>{%= cr[j].Caption %}</option>
+              <option value="{%= cr[j].InputValue() %}" data-askia-response-code="{%= cr[j].InputValue() %}" {%:= attrSelected %}>{%= cr[j].Caption %}</option>
               {% Next j %}
               </optgroup>
             {% ElseIf (ar[i].Parent.isHeader <> True) Then %}
-              <option value="{%= inputValue %}" {%:= attrSelected %}>{%= caption %}</option>
+              <option value="{%= inputValue %}" data-askia-response-code="{%= inputValue %}" {%:= attrSelected %}>{%= caption %}</option>
             {% EndIF %}
             {% EndIF %}
         {% Next %}
