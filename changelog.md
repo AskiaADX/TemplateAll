@@ -60,3 +60,5 @@ Version
             - Fixed live routing for single/multiple selection lists on merged screens
             - Bridged Select2 jQuery change events into the ADC native change-event lifecycle
     v4.3.2 - Added an initial live-response filtering refresh when a live-routed ADC instance initializes
+    v4.3.3 - Kept Enter selection inside an open Select2 dropdown from reaching page keyboard submission handlers
+            - Preserved live routing and the explicit Auto submit setting

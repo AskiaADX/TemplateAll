@@ -13,6 +13,77 @@
     state.loadingJquery = state.loadingJquery || false;
     state.loadingSelect2 = state.loadingSelect2 || false;
 
+    // Capture Enter before page-level keyboard shortcuts see it. Let Select2's
+    // own key handler choose the highlighted result, then swallow the rest of
+    // that physical key press even if selecting the result closes the dropdown.
+    function openSelect2ForTarget(target) {
+        if (!window.jQuery || !target) {
+            return null;
+        }
+
+        var selects = document.querySelectorAll(".adc-default select.askia-select2");
+        for (var i = 0; i < selects.length; i++) {
+            var instance = window.jQuery(selects[i]).data("select2");
+            if (instance && instance.isOpen() &&
+                ((instance.$container && instance.$container[0].contains(target)) ||
+                 (instance.$dropdown && instance.$dropdown[0].contains(target)))) {
+                return instance;
+            }
+        }
+
+        return null;
+    }
+
+    function installEnterGuard() {
+        if (state.enterGuardInstalled) {
+            return;
+        }
+        state.enterGuardInstalled = true;
+
+        var consumingEnter = false;
+
+        function guardEnter(event) {
+            if (event.key !== "Enter" && event.keyCode !== 13 && event.which !== 13) {
+                return;
+            }
+            // Enter may confirm an IME composition rather than an answer.
+            if (event.isComposing || event.keyCode === 229) {
+                return;
+            }
+
+            var instance = event.type === "keydown" && !consumingEnter
+                ? openSelect2ForTarget(event.target || event.srcElement) : null;
+            if (!instance && !consumingEnter) {
+                return;
+            }
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            if (instance) {
+                consumingEnter = true;
+                // Select2 4.1 uses this internal event for its normal keyboard
+                // selection. Forward modifiers and the original event as well.
+                var select2Event = window.jQuery.Event(event);
+                select2Event.which = 13;
+                instance.trigger("keypress", select2Event);
+            }
+
+            if (event.type === "keyup") {
+                consumingEnter = false;
+            }
+        }
+
+        window.addEventListener("keydown", guardEnter, true);
+        window.addEventListener("keypress", guardEnter, true);
+        window.addEventListener("keyup", guardEnter, true);
+        window.addEventListener("blur", function () {
+            consumingEnter = false;
+        });
+    }
+
+    installEnterGuard();
+
     function ensureCss() {
         if (document.getElementById("askia-select2-css")) {
             return;
