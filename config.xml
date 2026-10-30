@@ -7,8 +7,8 @@
   <info>
     <name>TemplateAll</name>
     <guid>feba6dd4-1a09-4470-a854-e89c59821d8e</guid>
-    <version>4.3.3</version>
-    <date>2026-10-08</date>
+    <version>4.3.4</version>
+    <date>2026-10-30</date>
     <description><![CDATA[An ADC applicable to all question types]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Jordan Grindle <jordan@askia.com>]]></author>
@@ -26,6 +26,7 @@
   <outputs defaultOutput="default">
     <output id="default" manageLoopDepth="0">
       <description><![CDATA[Default output]]></description>
+      <content fileName="select2-4.1.0.min.css" type="css" mode="static" position="head" />
       <content fileName="adc_default.css" type="css" mode="static" position="head" />
       <content fileName="default.css" type="css" mode="dynamic" position="head" />
       <content fileName="moment.min.js" type="javascript" mode="static" position="head" />
@@ -39,6 +40,8 @@
       <content fileName="date_picker.js" type="javascript" mode="static" position="foot" />
       <content fileName="time_picker.js" type="javascript" mode="static" position="foot" />
       <content fileName="adc_default.js" type="javascript" mode="static" position="foot" />
+      <content fileName="jquery-3.7.1.min.js" type="javascript" mode="static" position="foot" />
+      <content fileName="select2-4.1.0.min.js" type="javascript" mode="static" position="foot" />
       <content fileName="select2_loader.js" type="javascript" mode="static" position="foot" />
       <content fileName="Initializer.js" type="javascript" mode="dynamic" position="foot" />
     </output>
