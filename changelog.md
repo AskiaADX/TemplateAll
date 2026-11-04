@@ -62,3 +62,6 @@ Version
     v4.3.2 - Added an initial live-response filtering refresh when a live-routed ADC instance initializes
     v4.3.3 - Kept Enter selection inside an open Select2 dropdown from reaching page keyboard submission handlers
             - Preserved live routing and the explicit Auto submit setting
+
+    v4.3.4 - Bundle jQuery 3.7.1 and Select2 4.1.0 locally; remove CDN loading
+            - Preserve host libraries, Enter handling and live-routing refresh
